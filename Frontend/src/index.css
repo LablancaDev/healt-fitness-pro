@@ -1,0 +1,118 @@
+/* generic styles */
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+li{list-style: none;}
+/* nav */
+.logo{
+  width: 2.2em;
+}
+.navbar{
+  /* background: linear-gradient(to right ,rgb(98, 0, 128),rgb(174, 46, 212), rgb(98, 0, 128)) */
+  background: linear-gradient(to right ,rgb(0, 0, 0),rgb(88, 88, 88), rgb(7, 7, 7))
+
+}
+.title{
+  color: rgb(255, 187, 0)
+}
+.title:hover{
+  color: rgb(255, 187, 0)
+}
+.navMenu{
+  color: rgb(255, 187, 0)
+}
+.navMenu:hover{
+  color: orangered;
+}
+.profileImage{
+  width: 2.5em;
+}
+.profileImage2{
+  width: 5em;
+}
+.bodyHuman{
+  width: 5em;
+}
+.dropdown-menu{
+  background: linear-gradient(to right ,rgb(0, 0, 0),rgb(88, 88, 88), rgb(7, 7, 7))
+}
+.dropdown-item{
+  color: orange;
+}
+.dropdown-item:hover{
+  background-color: rgb(255, 187, 0);
+
+}
+/* login */
+.card-login{
+background-color: rgba(255, 255, 255, 0.45);
+border-radius: 15px;                        
+box-sizing: 0 4px 15px rgba(0, 0, 0, 0.2); 
+backdrop-filter: blur(2px); 
+}
+
+/* footer */
+.footer{
+  background: linear-gradient(to right ,rgb(0, 0, 0),rgb(88, 88, 88), rgb(7, 7, 7))
+}
+
+/* Home */
+
+.fade-out {
+  opacity: 0; /* Desvanecer a 0 */
+  transition: opacity 2s ease; /* Controlar la duración y el estilo de la transición */
+}
+
+/* dashboard */ 
+.animated-title {
+  animation: fadeInDown 1s ease forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.card-dashboard {
+  background-color: rgba(0, 0, 0, 0.13);
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  
+}
+
+.card-dashboard:hover {
+  background-color: rgba(255, 208, 0, 0.295); /* Un fondo más oscuro con opacidad */
+}
+
+.cover{
+  opacity: 90%;
+}
+
+
+/* LoseWeight Maintenance GainMuscle*/
+.LoseWeight, .Maintenance, .GainMuscle, .dashboard-container{
+  min-height: 100vh;
+}
+/* myProfile */
+.card-dataUser{
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #dee2e6;
+  background-color: rgba(139, 139, 139, 0.459);
+  transition:  background-color 0.9s ease, box-shadow 0.5s ease;
+}
+.card-dataUser:hover { 
+  /* transform: scale(1.05); */
+  box-shadow: 0 4px 20px rgba(190, 190, 190, 0.973);
+  background-color: rgba(255, 234, 177, 0.089);
+}
+/* LoseWeight */
+.carousel{
+  background-color: rgba(0, 0, 0, 0.6);
+}
