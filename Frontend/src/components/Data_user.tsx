@@ -10,8 +10,6 @@ function Data_user() {
     // Se recuperan los datos del usuario desde el estado global
     const { userName, userAge, userHeight, userWeight, userEmail, userGender, userProfileImage } = useSelector((state: RootState) => state.auth)
 
-    // Se recupera la meta u objetivo del usuario desde el estado global
-    const { goalInitial } = useSelector((state: RootState) => state.goals);
 
     return (
         <div>
@@ -29,11 +27,6 @@ function Data_user() {
                 <div className=''>
                     <table className="table table-striped table-hover border-warning">
                         <tbody>
-                            <p className='text-danger'>Si gender es mujer mostrar cuerpo de mujer y viceversa..</p> {/*ELIMINAR*/}
-                            <tr>
-                                <th className="bg-transparent text-light">User goal:</th>
-                                <th className="bg-transparent text-warning">{goalInitial}</th>
-                            </tr>
                             <tr>
                                 <th className="bg-transparent text-light">User name:</th>
                                 <td className="bg-transparent text-light">{userName}</td>

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActivity } from '../../redux/goalsSlice';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
 function ActivityForm() {
     const dispatch = useDispatch();
-    const { userId, goalId } = useSelector((state: RootState) => state.goals)
+    const { user_id: userId } = useSelector((state: RootState) => state.auth); // Obtener userId desde el estado de autenticación
+    const [goalId, setGoalId] = useState<string>(''); // Estado para goalId
 
     // Estados para los campos del formulario
     const [activityDate, setActivityDate] = useState<string>(''); // Cambiado a string para coincidir con el valor de entrada
@@ -15,15 +15,33 @@ function ActivityForm() {
     const [duration, setDuration] = useState<number>(0);
     const [caloriesBurned, setCaloriesBurned] = useState<number>(0);
     const [caloriesIngested, setCaloriesIngested] = useState<number>(0);
-    const [todayWeight, setTodayWeight] = useState<number>(0)
+    const [todayWeight, setTodayWeight] = useState<number>(0);
     const [errorMessage, setErrorMessage] = useState<string>(''); // Para mostrar mensajes de error
+
+    // Obtener goalId al cargar el componente
+    useEffect(() => {
+        const fetchGoalId = async () => {
+            if (userId) {
+                try {
+                    const response = await axios.get(`http://localhost:4000/api/users/goal/${userId}`);
+                    setGoalId(response.data.goalId);
+                } catch (error) {
+                    console.error('Error fetching goalId:', error);
+                    setErrorMessage('Failed to fetch goalId.');
+                }
+            }
+        };
+
+        fetchGoalId();
+    }, [userId]);
+
+
+    console.log('id del usuario y objetivo','user:', userId,'goal:', goalId )    
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log('data of users: ', userId, goalId)
-
-        // Verificar que haya un usuario registrado
+        // Verificar que haya un usuario registrado y el goalId esté disponible
         if (!userId || !goalId) {
             setErrorMessage('You must be logged in and have a goal set to register an activity.');
             return;
@@ -34,6 +52,7 @@ function ActivityForm() {
             setErrorMessage('Please enter valid values for duration, calories burned, and calories ingested.');
             return;
         }
+
         try {
             await axios.post("http://localhost:4000/api/users/activityRegister", {
                 userId,
@@ -44,13 +63,10 @@ function ActivityForm() {
                 caloriesBurned,
                 caloriesIngested,
                 todayWeight
-            })
+            });
 
             // Limpiar mensaje de error
             setErrorMessage('');
-
-            // Despachar la acción con los datos de la actividad
-            dispatch(setActivity({ activityDate, activityType, duration, caloriesBurned, caloriesIngested }));
 
             // Resetear campos del formulario
             setActivityDate('');
@@ -58,7 +74,7 @@ function ActivityForm() {
             setDuration(0);
             setCaloriesBurned(0);
             setCaloriesIngested(0);
-            setTodayWeight(0)
+            setTodayWeight(0);
 
             alert('Activity registered successfully!');
 

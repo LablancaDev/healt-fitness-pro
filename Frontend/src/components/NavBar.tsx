@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState, persistor } from '../redux/store'
 import { logout } from '../redux/authSlice'
-import { clearGoalsData } from '../redux/goalsSlice'
 // import { resetUserId } from '../redux/goalsSlice'
 // import { resetGoalId } from '../redux/goalsSlice'
 
@@ -24,10 +23,6 @@ const NavBar = () => {
         // dispatch(resetUserId()) 
 
         persistor.purge(); // Limpia el almacenamiento persistido
-
-        // Limpiar los datos del estado global de Redux
-    dispatch(clearGoalsData());
-
 
     }
 

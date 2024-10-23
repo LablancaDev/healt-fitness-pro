@@ -111,83 +111,33 @@ export const activityRegister = async (req: Request, res: Response): Promise<voi
 
 
 
-export const registerProgress = async (req: Request, res: Response): Promise<void> => {
 
-    const { userId, goalId, weight } = req.body;
-
-    console.log("Datos del progreso:", userId, weight)
-
-    try {
-
-        // Verificar que se haya enviado el userId y goalId
-        if (!userId || !goalId) {
-            res.status(400).json({ message: 'User ID and Goal ID are required.' });
-            return;
-        }
-
-        // Buscar el objetivo por su ID y asegurarse de que pertenece al usuario autenticado
-        const goal = await Goal.findOne({ _id: goalId, user_id: userId });
-
-        if (!goal) {
-            res.status(404).json({ message: 'Goal not found or does not belong to the user' });
-            return;
-        }
-
-        // Actualizar los datos
-        goal.daily_weight = weight;
-
-        // Guardar los cambios en la base de datos
-        await goal.save();
-
-        res.status(200).json({
-            message: 'weight updated successfully',
-            goal,
-        });
-
-    } catch (error) {
-        console.error('Error updating weight:', error);
-        res.status(500).json({ message: 'Failed to update weight' });
-    }
-}
 
 
 
 export const getDataUser = async (req: Request, res: Response): Promise<void> => {
-    const { userId, goalId } = req.query; // Recuperar los parámetros desde la query
+    const { userId } = req.query; // Obtener solo el userId
 
     try {
         // Verificar que se haya enviado el userId
         if (!userId) {
-            res.status(400).json({ message: 'User ID is required.' });  
+            res.status(400).json({ message: 'User ID is required.' });
             return;
         }
 
-        let result;
-        if (goalId) { 
-            // Buscar un objetivo específico si se proporciona goalId
-            const goal = await Goal.findOne({ _id: goalId, user_id: userId }).exec();
-            if (!goal) {
-                res.status(404).json({ message: 'Goal not found or does not belong to the user.' });
-                return;
-            }
-            result = goal; // Almacena el único objetivo encontrado
-        } else {
-            // Buscar todos los objetivos si no se proporciona goalId
-            const goals = await Goal.find({ user_id: userId }).exec();
-            if (!goals || goals.length === 0) {
-                res.status(404).json({ message: 'No goals found for this user.' });
-                return;
-            }
-            result = goals; // Almacena el array de objetivos
-        }
-         // Añadir un console.log para verificar los datos que se están enviando al frontend
-         console.log('Datos recuperados:', result);
+        // Buscar el objetivo asociado al usuario
+        const goals = await Goal.find({ user_id: userId }).exec();
 
-        // Retornar los datos del objetivo o todos los objetivos si no se proporciona goalId
+        // Verificar si no se encontraron objetivos
+        if (!goals || goals.length === 0) {
+            res.status(404).json({ message: 'No goals found for this user.' });
+            return;
+        }
+
+        // Enviar los objetivos encontrados
         res.status(200).json({
             message: 'User data retrieved successfully.',
-            goals: result, // Cambié la propiedad 'data' a 'goals' para ser más semántico
-           
+            goals,  // Enviar todos los objetivos del usuario
         });
 
     } catch (error) {
@@ -199,6 +149,25 @@ export const getDataUser = async (req: Request, res: Response): Promise<void> =>
 
 
 
+export const getGoalByUserId = async (req: Request, res: Response): Promise<void> => {
+    const { userId } = req.params;
+
+    try {
+        // Buscar el objetivo según el userId
+        const goal = await Goal.findOne({ user_id: userId });
+
+        if (!goal) {
+            res.status(404).json({ message: 'Goal not found for the user' });
+            return;
+        }
+
+        // Retornar el goalId
+        res.status(200).json({ goalId: goal._id });
+    } catch (error) {
+        console.error('Error retrieving goal:', error);
+        res.status(500).json({ message: 'Failed to retrieve goal' });
+    }
+};
 
 
 

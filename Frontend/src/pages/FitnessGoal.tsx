@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useDispatch } from 'react-redux';
-import { setGoalId } from '../redux/goalsSlice';
+import { setUser } from '../redux/authSlice';
 
 function FitnessGoal() {
 
@@ -38,7 +38,8 @@ function FitnessGoal() {
 
                 const userIdString = String(user_id); // Convertimos el user_id a string
 
-                dispatch(setGoalId({goalId, userId:userIdString}))
+                // // Prueba
+                // dispatch(setUser(goalId))  
 
                 console.log(response)
             }

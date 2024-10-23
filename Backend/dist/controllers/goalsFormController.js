@@ -89,72 +89,46 @@ export const activityRegister = (req, res) => __awaiter(void 0, void 0, void 0, 
         res.status(500).json({ message: 'Failed to update activity' });
     }
 });
-export const registerProgress = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId, goalId, weight } = req.body;
-    console.log("Datos del progreso:", userId, weight);
-    try {
-        // Verificar que se haya enviado el userId y goalId
-        if (!userId || !goalId) {
-            res.status(400).json({ message: 'User ID and Goal ID are required.' });
-            return;
-        }
-        // Buscar el objetivo por su ID y asegurarse de que pertenece al usuario autenticado
-        const goal = yield Goal.findOne({ _id: goalId, user_id: userId });
-        if (!goal) {
-            res.status(404).json({ message: 'Goal not found or does not belong to the user' });
-            return;
-        }
-        // Actualizar los datos
-        goal.daily_weight = weight;
-        // Guardar los cambios en la base de datos
-        yield goal.save();
-        res.status(200).json({
-            message: 'weight updated successfully',
-            goal,
-        });
-    }
-    catch (error) {
-        console.error('Error updating weight:', error);
-        res.status(500).json({ message: 'Failed to update weight' });
-    }
-});
 export const getDataUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId, goalId } = req.query; // Recuperar los parámetros desde la query
+    const { userId } = req.query; // Obtener solo el userId
     try {
         // Verificar que se haya enviado el userId
         if (!userId) {
             res.status(400).json({ message: 'User ID is required.' });
             return;
         }
-        let result;
-        if (goalId) {
-            // Buscar un objetivo específico si se proporciona goalId
-            const goal = yield Goal.findOne({ _id: goalId, user_id: userId }).exec();
-            if (!goal) {
-                res.status(404).json({ message: 'Goal not found or does not belong to the user.' });
-                return;
-            }
-            result = goal; // Almacena el único objetivo encontrado
+        // Buscar el objetivo asociado al usuario
+        const goals = yield Goal.find({ user_id: userId }).exec();
+        // Verificar si no se encontraron objetivos
+        if (!goals || goals.length === 0) {
+            res.status(404).json({ message: 'No goals found for this user.' });
+            return;
         }
-        else {
-            // Buscar todos los objetivos si no se proporciona goalId
-            const goals = yield Goal.find({ user_id: userId }).exec();
-            if (!goals || goals.length === 0) {
-                res.status(404).json({ message: 'No goals found for this user.' });
-                return;
-            }
-            result = goals; // Almacena el array de objetivos
-        }
-        // Añadir un console.log para verificar los datos que se están enviando al frontend
-        console.log('Datos recuperados:', result);
-        // Retornar los datos del objetivo o todos los objetivos si no se proporciona goalId
+        // Enviar los objetivos encontrados
         res.status(200).json({
             message: 'User data retrieved successfully.',
-            goals: result, // Cambié la propiedad 'data' a 'goals' para ser más semántico
+            goals, // Enviar todos los objetivos del usuario
         });
     }
     catch (error) {
         console.error('Error fetching user data:', error);
         res.status(500).json({ message: 'Failed to retrieve user data.' });
+    }
+});
+export const getGoalByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    try {
+        // Buscar el objetivo según el userId
+        const goal = yield Goal.findOne({ user_id: userId });
+        if (!goal) {
+            res.status(404).json({ message: 'Goal not found for the user' });
+            return;
+        }
+        // Retornar el goalId
+        res.status(200).json({ goalId: goal._id });
+    }
+    catch (error) {
+        console.error('Error retrieving goal:', error);
+        res.status(500).json({ message: 'Failed to retrieve goal' });
     }
 });

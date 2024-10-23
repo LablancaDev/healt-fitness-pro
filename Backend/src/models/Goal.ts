@@ -72,10 +72,7 @@ const GoalSchema: Schema = new Schema({
       }
     }
   ],
-  daily_weight: {    // UTILIZAR MÁS ADELANTE PARA EL PESO FINAL DESPUÉS DEL TIEMPO FINALIZADO DEL OBJETIVO 
-    type: Number,
-    default: null,
-  },
+  
 }, {
   timestamps: true,  // Esto añade automáticamente los campos `createdAt` y `updatedAt`
 });

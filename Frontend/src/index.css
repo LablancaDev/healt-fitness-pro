@@ -116,3 +116,23 @@ backdrop-filter: blur(2px);
 .carousel{
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+/* Results */
+.goals-container{
+  background-color: rgba(0, 0, 0, 0.438);
+}
+.goals{
+  background-color: rgba(114, 114, 114, 0.438);
+}
+.achievements-container{
+  background-color: rgba(0, 0, 0, 0.438);
+}
+.achievements{
+  background-color: rgba(114, 114, 114, 0.438);
+}
+.date{
+  background-color: rgba(71, 106, 180, 0.438);
+}
+.results{
+  background-color: rgba(84, 180, 71, 0.438);
+}

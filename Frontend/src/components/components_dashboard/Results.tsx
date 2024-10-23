@@ -2,19 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store'; // Importamos el estado global de Redux
 import axios from 'axios';
+import { tip_off_the_day } from '../../data/tip_off_the_day';
 
 function Results() {
     // Accedemos a los datos de Redux (userId y goalId) para identificar al usuario y su objetivo
-    const { userId, goalId } = useSelector((state: RootState) => state.goals);
-    const { user_id  } = useSelector((state: RootState) => state.auth);
-    const { goalInitial } = useSelector((state: RootState) => state.goals);
+    // const { userId, goalId } = useSelector((state: RootState) => state.goals);
+    const { user_id } = useSelector((state: RootState) => state.auth);
 
-    console.log('objetivo inicial: ', goalInitial);  
-    console.log('datos de inicio de sesión:', userId, goalId);
-    console.log('datos de login:', user_id); 
-
-    // NOTA EL PROBLEMA ES EL ID TENGO QUE UTILIZAR EL ID DE LA SESIÓN Y ELIMINAR EL OTRO, REESTRUCTURAR EL REGISTRO CON EL OBJETIVO GOALID...
-
+    console.log('datos de login:', user_id);
 
     // Estados locales para manejar la información del usuario, errores, carga y si el objetivo se ha cumplido
     const [userData, setUserData] = useState<any>(null);
@@ -26,33 +21,42 @@ function Results() {
     useEffect(() => {
         const getDataUser = async () => {
             try {
-                setLoading(true); // Indicamos que los datos están en proceso de carga
+                if (!user_id) {
+                    setError('User ID is missing.');
+                    return;
+                }
+                setLoading(true); // Mostrar indicador de carga
+                // Realizamos la petición pasando solo el userId
                 const result = await axios.get('http://localhost:4000/api/users/getDataUser', {
-                    params: { userId, goalId } 
+                    params: { userId: user_id }  // Ahora solo usamos userId
                 });
-                // Guardamos los datos del usuario (objetivos y actividades) en el estado
-                setUserData(result.data.goals);
-                console.log('Datos del usuario(objetivos):', result.data.goals);
-                setLoading(false); // Una vez cargados los datos, deshabilitamos el estado de carga
+
+                // Verificar que se obtuvieron datos
+                if (result.data.goals.length > 0) {
+                    const userGoal = result.data.goals[0]; // Obtener el primer objetivo (puedes ajustarlo según lógica)
+                    setUserData(userGoal);  // Guardamos los datos del objetivo en el estado
+                } else {
+                    setUserData(null); // Si no hay objetivos, limpiar los datos
+                }
+                setLoading(false);
             } catch (error) {
                 setError('Error al cargar los datos del usuario.');
                 console.error('Error fetching user data:', error);
-                setLoading(false);  
+                setLoading(false);
             }
         };
 
-        // Solo hacemos la petición si userId y goalId están definidos (disponibles)
-        if (userId && goalId) {
+        // Solo hacemos la petición si el userId está disponible
+        if (user_id) {
             getDataUser();
         } else {
-            // Si no hay userId (el usuario ha cerrado sesión), limpiamos los datos
-            setUserData(null);
+            setUserData(null); // Limpiar los datos si no hay userId
         }
 
-        // Reseteamos el estado de objetivo cumplido al montar el componente
+        // Resetear estado de objetivo cumplido
         setGoalAchieved(false);
+    }, [user_id]);  // Ahora solo depende de userId
 
-    }, [userId, goalId]); // El efecto depende de userId y goalId. Se ejecuta de nuevo si cambian.
 
     // useEffect para evaluar si el objetivo del usuario se ha cumplido
     useEffect(() => {
@@ -101,10 +105,15 @@ function Results() {
         ? Math.abs(userData.desired_weight - currentWeight)
         : null;
 
+
+    // Recorrer array de objetos tips de forma aleatoria
+    const randomTip = tip_off_the_day[Math.floor(Math.random() * tip_off_the_day.length)].tip;
+
+
     return (
         <div className='card bg-transparent border py-4'>
             <div className="text-light p-4 rounded shadow">
-                <h2 className='text-center'>Your goal is to <span className='text-warning'>{goalInitial}</span>, let's go for it 🚀</h2>
+                <h2 className='text-center'>Your goal is to <span className='text-warning'>{userData.goal}</span>, let's go for it 🚀</h2>
                 <h3 className="text-center">Daily Tips</h3>
                 {/* Mostrar la diferencia de peso si está disponible */}
                 {weightDifference !== null ? (
@@ -114,42 +123,46 @@ function Results() {
                 ) : (
                     <h4 className="text-center text-warning">No weight data available.</h4>
                 )}
-                <p className="text-center">Tip of the day: Drink plenty of water during your workouts.</p>
+                <p className="text-center">Tip of the day: {randomTip}.</p>
 
                 {/* Sección de información sobre los objetivos del usuario */}
-                <div className="mt-4 bg-warning p-3 rounded">
+                <div className="mt-4  p-3 rounded border goals-container">
                     <h4 className="text-center">Your Goals:</h4>
-                    <ul className="list-unstyled text-center">
+                    <ul className="list-unstyled text-center rounded w-50 m-auto goals p-3">
                         {/* Mostrar el peso deseado del usuario con tres decimales */}
-                        <li>🏆 Desired Weight: <span className='text-dark'>{userData.desired_weight?.toFixed(3)} kg</span></li>
+                        <li>⚖️ Desired Weight: <span className='text-warning'>{userData.desired_weight?.toFixed(3)} kg</span></li>
                         {/* Mostrar el porcentaje de grasa deseado */}
-                        <li>🏆 Desired fat percentage: <span className='text-dark'>{userData.desired_fat_percentage} %</span></li>
+                        <li>🎯 Desired fat percentage: <span className='text-warning'>{userData.desired_fat_percentage} %</span></li>
                         {/* Mostrar el tiempo estimado para alcanzar el objetivo */}
-                        <li>🏅 Duration time: <span className='text-dark'>{userData.estimated_time} days</span></li>
+                        <li>⏱️ Duration time: <span className='text-warning'>{userData.estimated_time} days</span></li>
                     </ul>
                     {/* Si el objetivo se ha cumplido, mostrar un mensaje de felicitación */}
-                    {goalAchieved && <h3 className="text-success text-center">🎉 Objetivo conseguido, ¡felicidades!</h3>}
+                    {goalAchieved && <h3 className="text-success text-center my-3">🎉 Objetivo conseguido, ¡felicidades!</h3>}
                 </div>
 
                 {/* Sección para mostrar las actividades diarias del usuario */}
-                <div className="mt-4 bg-warning p-3 rounded">
+                <div className="mt-4 p-3 rounded achievements-container">
                     <h4 className="text-center">Your Achievements (Daily Activities):</h4>
                     <div className="row">
                         {/* Si hay actividades, se listan aquí */}
                         {userData.activities && userData.activities.length > 0 ? (
                             userData.activities.map((activity: any) => (
                                 <div className="col-12 col-md-6 col-lg-4 mb-3" key={activity._id}>
-                                    <div className='card p-2 bg-secondary h-100'>
+                                    <div className='card p-2 h-100 achievements'>
                                         <li className="text-start">
                                             {/* Mostrar detalles de cada actividad (fecha, tipo de actividad, duración, calorías, peso) */}
-                                            <div className='bg-primary text-light'>
+                                            <div className='text-light rounded p-1 date'>
                                                 Date: <span className='text-warning'>{new Date(activity.activity_date).toLocaleDateString()}</span>
                                             </div>
-                                            <div className='text-light'>🏆 Activity Type: <span className='text-warning'>{activity.activity_type}</span></div>
-                                            <div className='text-light'>🏅 Duration: <span className='text-warning'>{activity.duration} minutes</span></div>
-                                            <div className='text-light'>🔥 Calories Burned: <span className='text-warning'>{activity.calories_burned}</span></div>
-                                            <div className='text-light'>🍴 Calories Ingested: <span className='text-warning'>{activity.calories_ingested}</span></div>
-                                            <div className='text-light'>🍴 Weight today: <span className='text-warning'>{activity.weight?.toFixed(3)} kg</span></div>
+                                            <div className='text-light my-1'>🏋️ Activity Type: <span className='text-warning'>{activity.activity_type}</span></div>
+                                            <div className='text-light mb-1'>⏱️ Duration: <span className='text-warning'>{activity.duration} minutes</span></div>
+                                            <div className='text-light mb-1'>🔥 Calories Burned: <span className='text-warning'>{activity.calories_burned} kcal</span></div>
+                                            <div className='text-light mb-1'>🍴 Calories Ingested: <span className='text-warning'>{activity.calories_ingested} kcal</span></div>
+                                            <div className='rounded results p-1'> 
+                                                <h5 className='text-center'>Results:</h5>
+                                                <div className='text-dark'>📊 Caloric Result: <span className='text-warning'>{(activity.calories_ingested) - (activity.calories_burned)} kcal</span></div>
+                                                <div className='text-dark rounded'>⚖️ Weight today: <span className='text-warning'>{activity.weight?.toFixed(3)} kg</span></div>
+                                            </div>
                                         </li>
                                     </div>
                                 </div>

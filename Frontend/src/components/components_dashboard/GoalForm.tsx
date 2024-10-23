@@ -1,24 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
 const GoalForm = () => {
 
-    const { userId, goalId } = useSelector((state: RootState) => state.goals)
+    const { user_id: userId } = useSelector((state: RootState) => state.auth)
+
 
     const [desiredWeight, setDesiredWeight] = useState<number>(0);
     const [desiredFatPercentage, setDesiredFatPercentage] = useState<number>(0);
     const [estimatedTargetTime, setEstimatedTargetTime] = useState<number>(0);
 
+    const [goalId, setGoalId] = useState<string>(''); // Estado para goalId
+
+    // Obtener goalId al cargar el componente
+    useEffect(() => {
+        const fetchGoalId = async () => {
+            if (userId) {
+                try {
+                    const response = await axios.get(`http://localhost:4000/api/users/goal/${userId}`);
+                    setGoalId(response.data.goalId);
+                } catch (error) {
+                    console.error('Error fetching goalId:', error);
+
+                }
+            }
+        };
+
+        fetchGoalId();
+    }, [userId]);
+
+    console.log('objetivo recuperado:', goalId)
+
+    // Function que controla el envío del formulario insertando los datos de la meta física, además cada vez que se inicia una meta física resetea todas las actividades de la anterior meta
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-         // Validar si el usuario está registrado
-         if (!userId) {
-            alert('You must be logged in to set goals.'); 
+       
+        // Validar si el usuario está registrado
+        if (!userId) {
+            alert('You must be logged in to set goals.');
             return;
         }
+
+         // Al volver a iniciar un objetivo físico automáticamente se borran todas las actividades del anterior objetivo físico, manteniendo el objetivo Principal ejem(losWeight)
+         
 
         // Validaciones adicionales (evitar valores negativos)
         if (desiredWeight <= 0 || desiredFatPercentage <= 0 || estimatedTargetTime <= 0) {
@@ -46,7 +73,7 @@ const GoalForm = () => {
             alert('Failed to register goal, first you have to log in!');
         }
     };
-    console.log('datos del formulario:', userId, goalId, desiredWeight, desiredFatPercentage, estimatedTargetTime)
+    console.log('datos del formulario:', userId, desiredWeight, desiredFatPercentage, estimatedTargetTime)
 
     return (
         <form onSubmit={handleSubmit}>

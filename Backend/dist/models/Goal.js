@@ -50,10 +50,6 @@ const GoalSchema = new Schema({
             }
         }
     ],
-    daily_weight: {
-        type: Number,
-        default: null,
-    },
 }, {
     timestamps: true, // Esto añade automáticamente los campos `createdAt` y `updatedAt`
 });
