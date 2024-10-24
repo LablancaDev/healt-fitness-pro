@@ -85,16 +85,16 @@ function ActivityForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className='card p-3 bg-warning w-75 m-auto'>
-                <h3 className='text-center py-4'>2. Activity Register</h3>
-                <p className='text-justify text-center'>To have exhaustive control you will have to record a full day of diet and training</p>
+        <form onSubmit={handleSubmit} >
+            <div className='card p-3 w-75 m-auto activityForm border'>
+                <h3 className='text-warning text-center py-4'>2. Activity Register 📅</h3>
+                <h4 className='text-warning text-justify text-center'>To have exhaustive control you will have to record a full day of diet and training</h4>
 
                 {/* Mensaje de error */}
                 {errorMessage && <p className='text-danger text-center'>{errorMessage}</p>}
 
                 <div className='w-75 m-auto'>
-                    <label className='form-label' htmlFor="activity-date">Activity Date</label>
+                    <label className='text-warning form-label' htmlFor="activity-date">Activity Date</label>
                     <input
                         id='activity-date'
                         className='form-control'
@@ -105,7 +105,7 @@ function ActivityForm() {
                     />
                 </div>
                 <div className='w-75 m-auto'>
-                    <label className='form-label' htmlFor="activity">Activity Type: </label>
+                    <label className='text-warning form-label' htmlFor="activity">Activity Type: </label>
                     <input
                         id='activity'
                         className='form-control'
@@ -116,7 +116,7 @@ function ActivityForm() {
                     />
                 </div>
                 <div className='w-75 m-auto'>
-                    <label className='form-label' htmlFor="duration">Duration (minutes): </label>
+                    <label className='text-warning form-label' htmlFor="duration">Duration (minutes): </label>
                     <input
                         id='duration'
                         className='form-control'
@@ -127,7 +127,7 @@ function ActivityForm() {
                     />
                 </div>
                 <div className='w-75 m-auto'>
-                    <label className='form-label' htmlFor="caloriesburned">Calories Burned</label>
+                    <label className='text-warning form-label' htmlFor="caloriesburned">Calories Burned</label>
                     <input
                         id='caloriesburned'
                         className='form-control'
@@ -138,7 +138,7 @@ function ActivityForm() {
                     />
                 </div>
                 <div className='w-75 m-auto'>
-                    <label className='form-label' htmlFor="caloriesingested">Calories Ingested</label>
+                    <label className='text-warning form-label' htmlFor="caloriesingested">Calories Ingested</label>
                     <input
                         id='caloriesingested'
                         className='form-control'
@@ -149,7 +149,7 @@ function ActivityForm() {
                     />
                 </div>
                 <div className='w-75 m-auto'>
-                    <label className='form-label' htmlFor="todayWeight">Today`s Weight </label>
+                    <label className='text-warning form-label' htmlFor="todayWeight">Today`s Weight </label>
                     <input
                         id='todayWeight'
                         className='form-control'
@@ -159,7 +159,7 @@ function ActivityForm() {
                         value={todayWeight}
                     />
                 </div>
-                <button className='btn btn-success w-50 m-auto my-3' type='submit'>Register Activity</button>
+                <button className='btn btn-lg btn-success m-auto my-3' type='submit'>Register Activity</button>
             </div>
         </form>
     );

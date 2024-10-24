@@ -197,15 +197,12 @@ function MaintainWeight() {
                   ))}
                 </div>
                 <div className="carousel-inner">
-                  {workouts[difficulty].map((workout, index) => (
-                    <div
-                      key={index}
-                      className={`carousel-item ${index === 0 ? 'active' : ''}`}
-                    >
-                      <img src={workout.src} className="d-block w-100" alt={workout.label} />
-                      <div className="carousel-caption d-none d-md-block bg-dark opacity-75 p-3 rounded">
-                        <h5 className="text-warning">{workout.label}</h5>
-                        <p>{workout.description}</p>
+                  {workouts[difficulty].map((exercise, index) => (
+                    <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                      <img src={exercise.src} className="d-block w-25 m-auto" alt={exercise.label} />
+                      <div className="text-center mt-3">
+                        <h5>{exercise.label}</h5>
+                        <p>{exercise.description}</p>
                       </div>
                     </div>
                   ))}
@@ -229,6 +226,23 @@ function MaintainWeight() {
                   <span className="visually-hidden">Next</span>
                 </button>
               </div>
+              {/*fin carousel */}
+              <div className="mt-4">
+                <h5 className="text-light">Watch a sample workout:</h5>
+                <div
+                  className="p-3"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    borderRadius: '10px',
+                  }}
+                >
+                  <video className="w-100" controls>
+                    <source src={workoutVideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+
             </div>
           </div>
         )}
@@ -265,6 +279,34 @@ function MaintainWeight() {
             </div>
           </div>
         )}
+
+        {/* Additional Resources */}
+        <div className="row justify-content-center mt-5 pb-5">
+          <div
+            className="col-md-8 p-4"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', // Fondo semitransparente
+              borderRadius: '10px',
+            }}
+          >
+            <h5 className="text-dark">Additional Tips for Success</h5>
+            <ul className="list-group">
+              <li className="list-group-item bg-transparent text-light">
+                <strong className='text-warning'>Tip 1:</strong> Stay consistent with your workout routine. Progress is made over time!
+              </li>
+              <li className="list-group-item bg-transparent text-light">
+                <strong className='text-warning'>Tip 2:</strong> Make sure to get enough sleep (7-9 hours per night).
+              </li>
+              <li className="list-group-item bg-transparent text-light">
+                <strong className='text-warning'>Tip 3:</strong> Avoid sugary drinks and processed foods.
+              </li>
+            </ul>
+          </div>
+          <h6 className='py-4 text-warning'>You can go to your control panel to store and keep a daily record of your activities and see your progress graphically</h6>
+          <Link to={"/dashboard"}>
+            <button className='btn btn-lg btn-warning w-25'>My Dashboard <i className="bi bi-menu-button-wide"></i></button>
+          </Link>
+        </div>
       </div>
     </div>
   );

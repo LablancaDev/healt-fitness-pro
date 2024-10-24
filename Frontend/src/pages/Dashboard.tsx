@@ -8,6 +8,7 @@ import { RootState } from '../redux/store';
 import axios from 'axios'; // Para realizar la llamada API
 import Results from '../components/components_dashboard/Results';
 import WeightChart from '../components/components_dashboard/WeightChart';
+import { Link } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
     const { user_id } = useSelector((state: RootState) => state.auth);
@@ -55,6 +56,7 @@ const Dashboard: React.FC = () => {
         return <div className="text-danger text-center">{error}</div>;
     }
 
+
     return (
         <div className='container-fluid dashboard-container position-relative' style={{
             backgroundImage: `url(${backDashboard})`,
@@ -82,18 +84,28 @@ const Dashboard: React.FC = () => {
                     <div className="col-md-8">
                         <div className=''>
                             {/* Componente de la gráfica */}
-                            <div className="mt-4">
+                            <div className="mt-4 border rounded p-4 graph">
                                 {/* Aseguramos que userData esté disponible antes de renderizar WeightChart */}
                                 {userData && userData.activities && (
                                     <WeightChart activities={userData.activities} />
                                 )}
+                            </div>
+                            <div className='my-4 border rounded p-3 text-center card-dataUser'>
+                                <Link to={`/${userData.goal}`}>
+                                    <button className='btn btn-lg btn-success'>Review routine and diet <i className="bi bi-person-vcard"></i></button>
+                                </Link>
+                                <Link to={'/calculatorcalories'}>
+                                    <button className='btn btn-lg btn-primary m-3 '>Calorie calculator <i className="bi bi-calculator"></i></button>
+                                </Link>
+                                <Link to={'/home'}>
+                                    <button className='btn btn-lg btn-danger'>Start a new goal <i className="bi bi-flag"></i></button>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className='card px-3 bg-transparent border my-5 pb-4'>
-                    <h2 className='text-light text-center p-3'>Goal Physical (indicar el seleccionado...)</h2>
                     <div className="row my-4">
                         <div className="col">
                             {/* Mostrar una gráfica con la evolución del peso durante 1 mes, la gráfica obtiene los datos de la base de datos get*/}
@@ -102,9 +114,13 @@ const Dashboard: React.FC = () => {
                     </div>
                     <div className="row my-4">
                         <div className="col">
-                            <div className='d-flex align-items-center'>
-                                <GoalForm />
-                                <ActivityForm />
+                            <div className='border rounded py-4 '>
+                                <div className='mb-4'>
+                                    <GoalForm />
+                                </div>
+                                <div className=''>
+                                    <ActivityForm />
+                                </div>
                             </div>
                         </div>
                     </div>

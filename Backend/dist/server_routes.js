@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { loginUser, registerNewUser } from './controllers/authControllers.js'; // Siempre añadir .js muy importante para la importación con node
 import { initialGoal } from './controllers/InitialGoalController.js';
-import { activityRegister, getDataUser, getGoalByUserId, phisicalGoals } from './controllers/goalsFormController.js';
+import { activityRegister, deleteActivities, getDataUser, getGoalByUserId, phisicalGoals } from './controllers/goalsFormController.js';
 // Simulación de __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,8 +29,10 @@ router.post('/initialGoalUser', initialGoal);
 router.post('/physicalgoals', phisicalGoals);
 // * Ruta para almacenar las actividades físicas(fecha,tipo de actividad, duración, calorias quemadas e ingeridas)
 router.post('/activityRegister', activityRegister);
-// Ruta para obtener el goalId según el userId
+//* Ruta para obtener el goalId según el userId
 router.get('/goal/:userId', getGoalByUserId);
 // * Ruta para obtener los datos(resultados) de los usuarios y mostrarlos en una vista
 router.get('/getDataUser', getDataUser);
+// * Ruta para eliminar las actividades del usuario logeado
+router.delete('/deleteActivities/:userId', deleteActivities);
 export default router;

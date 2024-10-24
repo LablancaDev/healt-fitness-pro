@@ -37,15 +37,23 @@ const GoalForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-       
+
         // Validar si el usuario está registrado
         if (!userId) {
             alert('You must be logged in to set goals.');
             return;
         }
 
-         // Al volver a iniciar un objetivo físico automáticamente se borran todas las actividades del anterior objetivo físico, manteniendo el objetivo Principal ejem(losWeight)
-         
+        // Al volver a iniciar un objetivo físico automáticamente se borran todas las actividades del anterior objetivo físico, manteniendo el objetivo Principal ejem(losWeight)
+        try {
+            await axios.delete(`http://localhost:4000/api/users/deleteActivities/${userId}`)
+
+            console.log('Activities delete successfully')
+            alert('Activities delete successfully!');
+        } catch (error) {
+            console.error('Error delete activities:', error);
+            alert('Failed to delete activities');
+        }
 
         // Validaciones adicionales (evitar valores negativos)
         if (desiredWeight <= 0 || desiredFatPercentage <= 0 || estimatedTargetTime <= 0) {
@@ -53,6 +61,7 @@ const GoalForm = () => {
             return;
         }
 
+        //  Usar Promise.all para ejecutar múltiples solicitudes al mismo tiempo
         try {
             await axios.post('http://localhost:4000/api/users/physicalgoals', {
                 userId, //usuario Logeado
@@ -77,22 +86,23 @@ const GoalForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className='card p-3 bg-warning w-75 m-auto'>
-                <h3 className='text-center py-4'>1. Physical goals</h3>
-                <p className='text-center'>Congratulations! your goal is (imprimir objetivo seleccionado) enter what your goals are to achieve</p>
+            <div className='card p-3 w-75 m-auto goalForm border'>
+                <h3 className='text-warning text-center py-4'>1. Physical goals 🎯</h3>
+                <h4 className='text-warning text-center'>Congratulations! enter what your goals are to achieve</h4>
                 <div className='w-75 m-auto'>
-                    <label className='form-label'>Desired weight:</label>
+                    <label className='text-warning form-label'>Desired weight:</label>
                     <input className='form-control' type="number" value={desiredWeight} onChange={(e) => setDesiredWeight(Number(e.target.value))} required />
                 </div>
                 <div className='w-75 m-auto'>
-                    <label className='form-label'>Desired fat percentage:</label>
+                    <label className='text-warning form-label'>Desired fat percentage:</label>
                     <input className='form-control' type="number" value={desiredFatPercentage} onChange={(e) => setDesiredFatPercentage(Number(e.target.value))} required />
                 </div>
                 <div className='w-75 m-auto'>
-                    <label className='form-label'>Estimated target time (days):</label>
+                    <label className='text-warning form-label'>Estimated target time (days):</label>
                     <input className='form-control' type="number" value={estimatedTargetTime} onChange={(e) => setEstimatedTargetTime(Number(e.target.value))} required />
                 </div>
-                <button className='btn btn-danger w-50 m-auto my-3' type="submit">Set Goal</button>
+                <button className='btn btn-lg btn-danger m-auto my-3' type="submit">Set Goal</button>
+                <p className='text-warning text-center'>Note: every time you start a new objective, the activities associated with the previous objective will be deleted</p>
             </div>
         </form>
     );

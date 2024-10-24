@@ -8,7 +8,7 @@ import benchPress from '../assets/videos/Stability-Ball-Decline-Push-Up-unscreen
 import deadlift from '../assets/videos/squadBeginners.gif';
 import pullUp from '../assets/videos/squadFixed.gif';
 
-import workoutVideo from '../assets/videos/muscleGainWorkout.mp4';
+import workoutVideo from '../assets/videos/workoutVideo.mp4';
 
 // Definición de tipos para los datos
 interface Workout {
@@ -184,32 +184,27 @@ function GainMuscle() {
               </ul>
 
               {/* carousel */}
-              <div id="carouselExampleIndicators" className="carousel slide mt-5" data-bs-ride="carousel">
+              <div id="carouselExampleCaptions" className="carousel slide py-5 my-2 border rounded">
                 <div className="carousel-indicators">
-                  {workouts[difficulty].map((workout, index) => (
+                  {workouts[difficulty].map((_, index) => (
                     <button
                       key={index}
                       type="button"
-                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-target="#carouselExampleCaptions"
                       data-bs-slide-to={index}
                       className={index === 0 ? 'active' : ''}
-                      aria-current={index === 0 ? 'true' : undefined}
+                      aria-current={index === 0 ? 'true' : 'false'}
                       aria-label={`Slide ${index + 1}`}
                     ></button>
                   ))}
                 </div>
                 <div className="carousel-inner">
-                  {workouts[difficulty].map((workout, index) => (
+                  {workouts[difficulty].map((exercise, index) => (
                     <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                      <img
-                        src={workout.src}
-                        className="d-block w-100"
-                        alt={workout.label}
-                        style={{ maxHeight: '300px', objectFit: 'cover' }}
-                      />
-                      <div className="carousel-caption d-none d-md-block">
-                        <h5>{workout.label}</h5>
-                        <p>{workout.description}</p>
+                      <img src={exercise.src} className="d-block w-25 m-auto" alt={exercise.label} />
+                      <div className="text-center mt-3">
+                        <h5>{exercise.label}</h5>
+                        <p>{exercise.description}</p>
                       </div>
                     </div>
                   ))}
@@ -217,7 +212,7 @@ function GainMuscle() {
                 <button
                   className="carousel-control-prev"
                   type="button"
-                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="prev"
                 >
                   <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -226,12 +221,29 @@ function GainMuscle() {
                 <button
                   className="carousel-control-next"
                   type="button"
-                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-target="#carouselExampleCaptions"
                   data-bs-slide="next"
                 >
                   <span className="carousel-control-next-icon" aria-hidden="true"></span>
                   <span className="visually-hidden">Next</span>
                 </button>
+              </div>
+              {/*fin carousel */}
+
+              <div className="mt-4">
+                <h5 className="text-light">Watch a sample workout:</h5>
+                <div
+                  className="p-3"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    borderRadius: '10px',
+                  }}
+                >
+                  <video className="w-100" controls>
+                    <source src={workoutVideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
               </div>
             </div>
           </div>
@@ -271,8 +283,34 @@ function GainMuscle() {
             </div>
           </div>
         )}
-
-        <Link to="/" className="btn btn-warning btn-lg mt-5">Back to Home</Link>
+        {/* Additional Resources */}
+        <div className="row justify-content-center mt-5 pb-5">
+          <div
+            className="col-md-8 p-4"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', // Fondo semitransparente
+              borderRadius: '10px',
+            }}
+          >
+            <h5 className="text-dark">Additional Tips for Success</h5>
+            <ul className="list-group">
+              <li className="list-group-item bg-transparent text-light">
+                <strong className='text-warning'>Tip 1:</strong> Stay consistent with your workout routine. Progress is made over time!
+              </li>
+              <li className="list-group-item bg-transparent text-light">
+                <strong className='text-warning'>Tip 2:</strong> Make sure to get enough sleep (7-9 hours per night).
+              </li>
+              <li className="list-group-item bg-transparent text-light">
+                <strong className='text-warning'>Tip 3:</strong> Avoid sugary drinks and processed foods.
+              </li>
+            </ul>
+          </div>
+          <h6 className='py-4 text-warning'>You can go to your control panel to store and keep a daily record of your activities and see your progress graphically</h6>
+          <Link to={"/dashboard"}>
+            <button className='btn btn-lg btn-warning w-25'>My Dashboard <i className="bi bi-menu-button-wide"></i></button>
+          </Link>
+        </div>
+        {/* <Link to="/" className="btn btn-warning btn-lg mt-5">Back to Home</Link> */}
       </div>
     </div>
   );
