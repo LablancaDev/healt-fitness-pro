@@ -91,9 +91,16 @@ const Dashboard: React.FC = () => {
                                 )}
                             </div>
                             <div className='my-4 border rounded p-3 text-center card-dataUser'>
-                                <Link to={`/${userData.goal}`}>
-                                    <button className='btn btn-lg btn-success'>Review routine and diet <i className="bi bi-person-vcard"></i></button>
-                                </Link>
+                                {/* El link se mostrará si existe userData y el objetivo del user */}
+                                {userData && userData.goal ? ( 
+                                    <Link to={`/${userData.goal}`}>
+                                        <button className='btn btn-lg btn-success'>
+                                            Review routine and diet <i className="bi bi-person-vcard"></i>
+                                        </button>
+                                    </Link>
+                                ) : (
+                                    <p>No goal defined yet.</p>
+                                )}
                                 <Link to={'/calculatorcalories'}>
                                     <button className='btn btn-lg btn-primary m-3 '>Calorie calculator <i className="bi bi-calculator"></i></button>
                                 </Link>

@@ -125,7 +125,7 @@ li {
 
 
 /* LoseWeight Maintenance GainMuscle*/
-.LoseWeight, .Maintenance, .GainMuscle, .dashboard-container {
+.LoseWeight, .Maintenance, .GainMuscle, .dashboard-container{
   min-height: 100vh;
 }
 
