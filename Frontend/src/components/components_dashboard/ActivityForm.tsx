@@ -3,9 +3,13 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
+import { setActivity } from '../../redux/goalsSlice';
 
 function ActivityForm() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+
     const { user_id: userId } = useSelector((state: RootState) => state.auth); // Obtener userId desde el estado de autenticación
     const [goalId, setGoalId] = useState<string>(''); // Estado para goalId
 
@@ -36,7 +40,7 @@ function ActivityForm() {
     }, [userId]);
 
 
-    console.log('id del usuario y objetivo','user:', userId,'goal:', goalId )    
+    console.log('id del usuario y objetivo', 'user:', userId, 'goal:', goalId)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -65,6 +69,16 @@ function ActivityForm() {
                 todayWeight
             });
 
+            // Almacenar los datos de actividad en el estado global de Redux
+            dispatch(setActivity({
+                activityDate,
+                activityType,
+                duration,
+                caloriesBurned,
+                caloriesIngested,
+                weight: todayWeight, // Asegúrate de que el peso se guarde también
+            }));
+
             // Limpiar mensaje de error
             setErrorMessage('');
 
@@ -77,6 +91,8 @@ function ActivityForm() {
             setTodayWeight(0);
 
             alert('Activity registered successfully!');
+
+
 
         } catch (error) {
             console.error('Error activity goal:', error);

@@ -15,7 +15,7 @@ li {
 
 .navbar {
   /* background: linear-gradient(to right ,rgb(98, 0, 128),rgb(174, 46, 212), rgb(98, 0, 128)) */
-  background: linear-gradient(to right, rgb(0, 0, 0), rgb(88, 88, 88), rgb(7, 7, 7))
+  background: linear-gradient(to right, rgb(0, 0, 0), rgb(88, 88, 88), rgb(7, 7, 7)) 
 }
 
 .title {

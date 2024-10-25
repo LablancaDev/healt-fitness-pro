@@ -22,7 +22,7 @@ const NavBar = () => {
 
         // dispatch(resetUserId()) 
 
-        persistor.purge(); // Limpia el almacenamiento persistido
+        persistor.purge(); // Limpia el almacenamiento persistido  
 
     }
 
@@ -68,11 +68,13 @@ const NavBar = () => {
                                 <Link to={"/login"}>
                                     <li><a className="dropdown-item" href="#">Log In</a></li>
                                 </Link>
-                                <Link to={"myprofile"}>
+                                <Link to={"/myprofile"}>
                                     <li><a className="dropdown-item" href="#">My Profile</a></li>
                                 </Link>
                                 <li><hr className="dropdown-divider" /></li>
-                                <li><a onClick={log_out} className="dropdown-item" href="#">Close session</a></li>
+                                <Link to={"/login"}>
+                                    <li><a onClick={log_out} className="dropdown-item" href="#">Close session</a></li>
+                                </Link>
                             </ul>
                         </div>
                     </div>

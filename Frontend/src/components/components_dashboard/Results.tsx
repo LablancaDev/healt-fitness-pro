@@ -5,11 +5,17 @@ import axios from 'axios';
 import { tip_off_the_day } from '../../data/tip_off_the_day';
 import Confetti from 'react-confetti'; // Importamos la librería de confeti
 import { useWindowSize } from 'react-use'; // Importamos hook para obtener el tamaño de la ventana
+import { useDispatch } from 'react-redux';
+import { deleteActivity } from '../../redux/goalsSlice';
 
 function Results() {
-    const { user_id } = useSelector((state: RootState) => state.auth);
 
-    console.log('datos de login:', user_id);
+    const dispatch = useDispatch()
+
+    const { user_id } = useSelector((state: RootState) => state.auth);
+    const { activity } = useSelector((state: RootState) => state.goals); // Obtener la actividad del estado global
+
+    console.log('datos de login:', user_id);  
 
     const [userData, setUserData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
@@ -51,7 +57,7 @@ function Results() {
         }
 
         setGoalAchieved(false);
-    }, [user_id]);
+    }, [user_id, activity]); // importante utilizo activity como dependencia, escuchando los cambios en el estado de redux para que se actualicen los datos mostrados cada vez que se registre una nueva actividad 
 
     useEffect(() => {
         if (userData && userData.activities && userData.activities.length > 0) {
@@ -103,8 +109,16 @@ function Results() {
         if (confirmed) {
             try {
                 await axios.delete(`http://localhost:4000/api/users/deleteActivities/${user_id}`)
+
+                // limpiar el estado global
+                dispatch(deleteActivity())
+
                 console.log('Activities delete successfully')
                 alert('Activities delete successfully!');
+
+                // Forzamos una recarga para actualizar completamente el estado visual de la página
+                window.location.reload();
+
             } catch (error) {
                 console.error('Error delete activities:', error);
                 alert('Failed to delete activities');
@@ -117,7 +131,7 @@ function Results() {
     return (
         <div className='card bg-transparent border py-4'>
             {showConfetti && <Confetti width={width} height={height} />} {/* Renderizamos el confeti */}
-            
+
             <div className="text-light p-4 rounded shadow">
                 <h2 className='text-center'>Your goal is to <span className='text-warning'>{userData.goal}</span>, let's go for it 🚀</h2>
                 <h3 className="text-center">Daily Tips</h3>
@@ -138,7 +152,7 @@ function Results() {
                         <li className='fs-4'>🎯 Desired fat percentage: <span className='text-warning'>{userData.desired_fat_percentage} %</span></li>
                         <li className='fs-4'>⏱️ Duration time: <span className='text-warning'>{userData.estimated_time} days</span></li>
                     </ul>
-                    {goalAchieved && <h3 className="text-success text-center my-3">🎉 Objetivo conseguido, ¡felicidades!</h3>} 
+                    {goalAchieved && <h3 className="text-success text-center my-3">🎉 Objetivo conseguido, ¡felicidades!</h3>}
                 </div>
 
                 <div className="mt-4 p-3 rounded achievements-container">

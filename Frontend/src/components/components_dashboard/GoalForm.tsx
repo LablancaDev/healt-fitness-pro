@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useDispatch } from 'react-redux';
+import { setPhysicalGoals } from '../../redux/goalsSlice';
 
 const GoalForm = () => {
-
+    const dispatch = useDispatch();
+   
     const { user_id: userId } = useSelector((state: RootState) => state.auth)
 
 
@@ -70,6 +73,15 @@ const GoalForm = () => {
                 desiredFatPercentage,
                 estimatedTargetTime,
             });
+
+            dispatch(setPhysicalGoals({
+    
+                    desiredWeight, 
+                    desiredFatPercentage,
+                    estimatedTargetTime
+                
+            }))
+            
 
             // Reset form after submission
             setDesiredWeight(0);
