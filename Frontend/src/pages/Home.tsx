@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Confetti from "react-confetti"; // Importa el componente de confeti
 import imgBackHome from "../assets/imgs/gymBackHome.png";
 
-const Home = () => {
+const Home: React.FC = () => {
     const navigate = useNavigate();
     const [fadeOut, setFadeOut] = useState(false);
+    const [confetti, setConfetti] = useState(false); // Estado para controlar el confeti
 
     const handleGetStarted = () => {
-        setFadeOut(true); // Inicia la animación de desvanecimiento
+        setConfetti(true); // Inicia el confeti
         setTimeout(() => {
-            navigate("/fitnessgoal"); // Navegar después de 2 segundos
+            setFadeOut(true);
+            navigate("/fitnessgoal");
         }, 2000);
     };
+
+    useEffect(() => {
+        // Detener el confeti después de 2 segundos
+        if (confetti) {
+            const timer = setTimeout(() => {
+                setConfetti(false);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [confetti]);
 
     return (
         <div
@@ -25,8 +38,7 @@ const Home = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                transition: "opacity 2s ease", 
-                // backgroundAttachment: 'fixed'
+                transition: "opacity 2s ease",
             }}
         >
             <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
@@ -39,6 +51,7 @@ const Home = () => {
                     Get Started Now!
                 </button>
             </div>
+            {confetti && <Confetti width={window.innerWidth} height={window.innerHeight} />} {/* Renderiza el confeti */}
         </div>
     );
 };

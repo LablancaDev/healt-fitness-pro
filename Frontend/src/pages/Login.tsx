@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../redux/authSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";  
+import Swal from "sweetalert2";
+
 
 const Login = () => {
 
@@ -22,7 +24,7 @@ const Login = () => {
     const [gender, setGender] = useState('');
     const [image, setImage] = useState<File | null>(null);
 
-    const [messageLogin, setMessageLogin] = useState(false)
+    // const [messageLogin, setMessageLogin] = useState(false)
 
     // Functions that recovery the values of inputs entered by the user
     const handleInputName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +85,18 @@ const Login = () => {
                     'Content-Type': 'multipart/form-data',  // para enviar imágenes en la cabecera
                 },
             })
-            alert('registo correcto!')
+            // alert('registo correcto!')
+            Swal.fire({
+                title: 'Perfecto!',
+                text: 'Registro correcto!',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                background: '#333', // Fondo oscuro
+                color: '#fff', // Texto blanco
+                padding: '2em', // Espaciado interno
+                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                confirmButtonColor: '#FFA500',
+            });
 
             // Limpiar los campos del formulario después de un registro exitoso
             setUserName('');
@@ -98,10 +111,30 @@ const Login = () => {
         } catch (error: any) {
             if (error.response) {
                 console.error('Error durante el registro:', error.response.data.message);
-                alert(`Error: ${error.response.data.message}`);
+                // alert(`Error: ${error.response.data.message}`);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Falló en el registro. Asegúrate de estar conectado.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    background: '#333', // Fondo oscuro
+                    color: '#fff', // Texto blanco
+                    padding: '2em', // Espaciado interno
+                    backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                });
             } else {
                 console.error('Error durante el registro:', error);
-                alert('Error inesperado. Intenta nuevamente.');
+                // alert('Error inesperado. Intenta nuevamente.');
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error inesperado. Intenta nuevamente..',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    background: '#333', // Fondo oscuro
+                    color: '#fff', // Texto blanco
+                    padding: '2em', // Espaciado interno
+                    backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                });
             }
 
         }
@@ -111,13 +144,24 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        setMessageLogin(true)
+        // setMessageLogin(true)
 
         const userDataLogin = { email, password }
         try {
             const response = await axios.post('http://localhost:4000/api/users/login', userDataLogin)
 
-            alert(response.data.message)
+            // alert(response.data.message)
+            Swal.fire({
+                title: 'Perfecto!',
+                text: 'Login exitoso!',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                background: '#333', // Fondo oscuro
+                color: '#fff', // Texto blanco
+                padding: '2em', // Espaciado interno
+                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                confirmButtonColor: '#FFA500',
+            });
 
             // Se extraen los datos de la respuesta del objeto de la respuesta con destructuración
             const { id, userName, age, weight, height, email, gender, profile_image } = response.data;
@@ -135,15 +179,27 @@ const Login = () => {
                 userProfileImage: profile_image
             }));
 
-            setTimeout(() => {
-                setMessageLogin(false)
-                navigate("/home");
-            }, 3000);
+            // setTimeout(() => {
+            //     setMessageLogin(false)
+            //     navigate("/home");
+            // }, 3000);
+
+            navigate("/home");
 
 
         } catch (error) {
             console.log('Error durante el login:', error);
-            alert('Email o contraseña incorrectos');
+            // alert('Email o contraseña incorrectos');
+            Swal.fire({
+                title: 'Error',
+                text: 'Email o contraseña incorrectos.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                background: '#333',
+                color: '#fff',
+                padding: '2em',
+                backdrop: 'rgba(0, 0, 0, 0.7)',
+            });
         }
     }
 
@@ -216,8 +272,6 @@ const Login = () => {
                                 <a onClick={() => setChangeLoginRegister(true)} className="text-center"> Create Acount! </a>
                             </div>
                         )}
-                        {/* message Login */}
-                        {messageLogin && <p className="text-danger text-center my-2">Iniciando la sesión, espere por favor...</p>} 
                     </form>
                 </div>
             </div>

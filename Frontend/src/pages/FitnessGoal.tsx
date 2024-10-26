@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/authSlice';
+import Swal from 'sweetalert2';
 
 function FitnessGoal() {
 
@@ -27,7 +28,18 @@ function FitnessGoal() {
                 goal: goal  
             })
 
-            alert(response.data.message)
+            // alert(response.data.message) sustituimos mensaje del server por popup
+            Swal.fire({
+                title: 'Perfecto!',
+                text: 'Objetivo principal registrado exitosamente!',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                background: '#333', // Fondo oscuro
+                color: '#fff', // Texto blanco
+                padding: '2em', // Espaciado interno
+                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                confirmButtonColor: '#FFA500',
+            });
 
             if (response.status === 200) {
                 // Aquí puedes obtener el goalId de la respuesta
@@ -38,14 +50,22 @@ function FitnessGoal() {
 
                 const userIdString = String(user_id); // Convertimos el user_id a string
 
-                // // Prueba
-                // dispatch(setUser(goalId))  
-
+               
                 console.log(response)
             }
         } catch (error) {
             console.error("Error al guardar el objetivo de fitness:", error);
-            alert('Error durante la selección del objetivo');
+            // alert('Error durante la selección del objetivo');
+            Swal.fire({
+                title: 'Error',
+                text: 'Falló al registrar el objetivo principal. Asegúrate de estar conectado.',  
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                background: '#333', // Fondo oscuro
+                color: '#fff', // Texto blanco
+                padding: '2em', // Espaciado interno
+                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+            });
         }
     }
 

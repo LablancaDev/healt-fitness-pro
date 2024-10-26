@@ -7,8 +7,9 @@ import Confetti from 'react-confetti'; // Importamos la librería de confeti
 import { useWindowSize } from 'react-use'; // Importamos hook para obtener el tamaño de la ventana
 import { useDispatch } from 'react-redux';
 import { deleteActivity } from '../../redux/goalsSlice';
+import Swal from 'sweetalert2';
 
-function Results() {
+function Results() { 
 
     const dispatch = useDispatch()
 
@@ -105,28 +106,63 @@ function Results() {
     const randomTip = tip_off_the_day[Math.floor(Math.random() * tip_off_the_day.length)].tip;
 
     const deleteActivities = async () => {
-        const confirmed = confirm("You're sure of delete all activities")
-        if (confirmed) {
+        // Usar SweetAlert para la confirmación
+        const { isConfirmed } = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esto eliminará todas las actividades!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            background: '#333', 
+            color: '#fff', 
+            padding: '2em', 
+            backdrop: 'rgba(0, 0, 0, 0.7)', 
+            confirmButtonColor: '#FFA500', 
+            cancelButtonColor: '#d33', 
+        });
+    
+        if (isConfirmed) {
             try {
-                await axios.delete(`http://localhost:4000/api/users/deleteActivities/${user_id}`)
-
-                // limpiar el estado global
-                dispatch(deleteActivity())
-
-                console.log('Activities delete successfully')
-                alert('Activities delete successfully!');
-
-                // Forzamos una recarga para actualizar completamente el estado visual de la página
+                await axios.delete(`http://localhost:4000/api/users/deleteActivities/${user_id}`);
+    
+                // Limpiar el estado global
+                dispatch(deleteActivity());
+    
+                console.log('Actividades eliminadas exitosamente');
+                Swal.fire({
+                    title: 'Perfecto!',
+                    text: '¡Actividades eliminadas exitosamente!',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                    background: '#333', 
+                    color: '#fff', 
+                    padding: '2em', 
+                    backdrop: 'rgba(0, 0, 0, 0.7)', 
+                    confirmButtonColor: '#FFA500',
+                });
+    
+                // Forzar una recarga para actualizar completamente el estado visual de la página
                 window.location.reload();
-
+    
             } catch (error) {
-                console.error('Error delete activities:', error);
-                alert('Failed to delete activities');
+                console.error('Error al eliminar actividades:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Falló al eliminar las actividades. Asegúrate de estar conectado.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    background: '#333', // Fondo oscuro
+                    color: '#fff', // Texto blanco
+                    padding: '2em', // Espaciado interno
+                    backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                });
             }
         } else {
             console.log('Eliminación de actividades cancelada');
         }
     }
+    
 
     return (
         <div className='card bg-transparent border py-4'>

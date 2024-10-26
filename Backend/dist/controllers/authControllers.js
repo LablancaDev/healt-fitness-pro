@@ -92,3 +92,41 @@ export const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(500).json({ message: 'Error durante el login' });
     }
 });
+export const updateDataUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { user_id } = req.params; // Obtener el ID del usuario desde los parámetros de la ruta
+    const { userName, userAge, userHeight, userWeight, userEmail, userGender } = req.body; // Obtener los datos del cuerpo de la solicitud
+    // Si usas multer o algún middleware para manejar archivos, asegúrate de que esté configurado
+    const profileImage = req.file ? req.file.filename : null; // Obtener el nombre del archivo de la imagen si se subió
+    try {
+        // Buscar el usuario por ID
+        const user = yield User.findById(user_id);
+        if (!user) {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+            return;
+        }
+        // Actualizar los datos del usuario
+        if (userName !== undefined)
+            user.userName = userName;
+        if (userAge !== undefined)
+            user.age = userAge;
+        if (userHeight !== undefined)
+            user.height = userHeight;
+        if (userWeight !== undefined)
+            user.weight = userWeight;
+        if (userEmail !== undefined)
+            user.email = userEmail;
+        if (userGender !== undefined)
+            user.gender = userGender;
+        if (profileImage)
+            user.profile_image = profileImage; // Actualizar imagen de perfil si se subió una nueva
+        // Guardar los cambios en la base de datos
+        yield user.save();
+        console.log('llego al controller');
+        // Devolver el usuario actualizado
+        res.status(200).json(user);
+    }
+    catch (error) {
+        console.error('Error al actualizar los datos del usuario:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
+});

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useDispatch } from 'react-redux';
 import { setPhysicalGoals } from '../../redux/goalsSlice';
+import Swal from 'sweetalert2';
 
 const GoalForm = () => {
     const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const GoalForm = () => {
             await axios.delete(`http://localhost:4000/api/users/deleteActivities/${userId}`)
 
             console.log('Activities delete successfully')
-            alert('Activities delete successfully!');
+            // alert('Activities delete successfully!');
         } catch (error) {
             console.error('Error delete activities:', error);
             alert('Failed to delete activities');
@@ -88,10 +89,33 @@ const GoalForm = () => {
             setDesiredFatPercentage(0);
             setEstimatedTargetTime(0);
 
-            alert('Goal registered successfully!');
+            // alert('Goal registered successfully!');
+
+            Swal.fire({
+                title: 'Perfecto!',
+                text: 'Meta registrada exitosamente!',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                background: '#333', 
+                color: '#fff', 
+                padding: '2em', 
+                backdrop: 'rgba(0, 0, 0, 0.7)',
+                confirmButtonColor: '#FFA500',
+            });
         } catch (error) {
             console.error('Error registering goal:', error);
-            alert('Failed to register goal, first you have to log in!');
+            // alert('Failed to register goal, first you have to log in!');
+
+            Swal.fire({
+                title: 'Error',
+                text: 'Falló al registrar la meta. Asegúrate de estar conectado.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                background: '#333', 
+                color: '#fff', 
+                padding: '2em', 
+                backdrop: 'rgba(0, 0, 0, 0.7)',
+            });
         }
     };
     console.log('datos del formulario:', userId, desiredWeight, desiredFatPercentage, estimatedTargetTime)
