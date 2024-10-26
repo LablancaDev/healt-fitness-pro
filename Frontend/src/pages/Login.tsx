@@ -3,7 +3,7 @@ import backImageLogin from "../assets/imgs/gym.jpg"
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/authSlice";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";  
 
 const Login = () => {
 
