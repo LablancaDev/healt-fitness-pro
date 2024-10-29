@@ -137,4 +137,67 @@
    
    4. Backend: Define un archivo .env con las credenciales de MongoDB y la URL de frontend en producción. Utiliza un entorno seguro como MongoDB Atlas para bases de datos en la nube.
 
-   
+   5. REALIZAR DESPLIEGUE CON VERCEL CLI DESDE LA TERMINAL (HAY VARIAS FORMAS DE REALIZAR EL DEPLOY)
+
+      1- Instalar vercel CLI: npm install -g vercel
+            Esto instalará Vercel CLI de manera global en tu sistema, lo cual permite que puedas usar el comando vercel desde cualquier directorio.
+      2- Ejecuta el siguiente comando para iniciar sesión en tu cuenta de Vercel desde la terminal:
+            vercel login
+
+            -Sigue las instrucciones, ingresando el correo electrónico asociado a tu cuenta de Vercel. Esto vinculará tu terminal con tu cuenta de Vercel.
+
+            -Se abrirá página con el siguiente mensaje:
+
+                     Éxito de inicio de sesión de Vercel CLI
+                     Vercel CLI se autenticó con éxito como: valenciano_david@hotmail.com
+                     Ahora puede cerrar esta pestaña y volver a la CLI.
+      3- Ubicarte en la Rama y Directorio Correcto
+
+            Confirma que estás en la rama main de tu proyecto y en el directorio raíz del proyecto en la terminal:
+
+            git checkout main
+            cd /ruta/de/tu/proyecto               
+
+      4- Iniciar el Proceso de Despliegue
+
+      Una vez en el directorio correcto, puedes iniciar el despliegue directamente con el siguiente comando:
+
+         vercel
+
+      Este comando despliega en el entorno de previsualización. Sin embargo, si quieres desplegar en producción directamente, usa:
+
+         vercel --prod
+
+         *Ejemplo:
+
+         PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro> vercel
+         Vercel CLI 37.12.1
+         ? Set up and deploy “~\Desktop\Proyectos personales con React\healtFitnessPro”? (Y/n)
+
+         ? Set up and deploy “~\Desktop\Proyectos personales con React\healtFitnessPro”? yes (empieza la configuración y despliegue del proyecto al final)
+         ? Which scope do you want to deploy to? David's projects
+         ? Link to existing project? no                                                       (si no he añadido el proyecto desde vercel en add new proyect, pulsar no)
+         ? What’s your project’s name? healt-fitness-pro                                      (elegir nombre del proyecto)
+         ? In which directory is your code located? ./                                        (elegir carpeta del proyecto)
+         Local settings detected in vercel.json:
+         No framework detected. Default Project Settings:
+         - Build Command: `npm run vercel-build` or `npm run build`
+         - Development Command: None
+         - Install Command: `yarn install`, `pnpm install`, `npm install`, or `bun install`
+         - Output Directory: `public` if it exists, or `.`
+         ? Want to modify these settings? no
+         🔗  Linked to davids-projects-5a52dd2e/healt-fitness-pro (created .vercel and added it to .gitignore)
+         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/4RXjCZtmBfxEdvVVGPeBqNrcYoo1 [4s]
+         ✅  Production: https://healt-fitness-nedm53tih-davids-projects-5a52dd2e.vercel.app [4s]
+         📝  Deployed to production. Run `vercel --prod` to overwrite later (https://vercel.link/2F).
+         💡  To change the domain or build command, go to https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/settings
+         PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro> 
+
+
+      5- Configurar las variables de entorno en Vercel
+
+         -modificar las variables de entorno en la página de vercel para el acceso a la base de datos y al servidor API en produccion, además de key si hay conexiones a api's externas...
+         -modificar la variable de entorno de produccion en el archivo .env poner la url proporcionada por vercel al realizar el deploy, eje: VITE_APP_API_URL_PRODUCTION=https://healt-fitness-pro.vercel.app
+
+
+

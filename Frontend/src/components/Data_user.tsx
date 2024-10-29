@@ -22,7 +22,7 @@ function Data_user() {
 
     // Almacena los datos editables del usuario mientras el formulario está en modo edición
     const [editableData, setEditableData] = useState({
-        userName: userName || '',
+        userName: userName || '',  
         userAge: userAge || 0,
         userHeight: userHeight || 0,
         userWeight: userWeight || 0,
