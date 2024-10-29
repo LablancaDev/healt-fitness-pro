@@ -122,6 +122,50 @@
 
 ## PASOS PARA EL DESPLIEGUE A PRODUCCION DEL PORYECTO ##
 
+   Antes de nada hay que definir los scripts en el archivo package.json del Frontend para construir el proyecto para poder desplegar la aplicación en vercel :
+
+          "scripts": {
+         "dev": "vite",
+         "build": "tsc -b && vite build",   //importante para poder realizar el deploy
+         "lint": "eslint .",
+         "preview": "vite preview"
+      },
+
+      -Ejecutar: npm run build dentro del frontend, para revisar si hay archivos con errores, corregirlos y después realizar el despliegue (normalmente son errores de variables declaradas pero no usadas etc...)
+
+      *Cuando finalice se creará automáticamente la carpeta dist dentro del Frontend que contiene todos los archivos de producción 
+
+
+      -Ejecuta el comando de despliegue:
+
+         vercel --prod
+
+         PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro\Frontend> vercel --prod
+         Vercel CLI 37.12.1
+         ? Set up and deploy “~\Desktop\Proyectos personales con React\healtFitnessPro\Frontend”? yes
+         ? Which scope do you want to deploy to? David's projects
+         ? Link to existing project? yes                                                                                -->SELECCIONO SI POR QUE POR ERROR YA LO CREE ANTES ...
+         ? What’s the name of your existing project? healt-fitness-pro                                                  -->SELECCIONO EL NOMBRE DADO ANTERIORMENTE SI NO PONER UNO DE CERO O NOMBRE RECOMENDADO
+         🔗  Linked to davids-projects-5a52dd2e/healt-fitness-pro (created .vercel and added it to .gitignore)
+         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/5DtGFHjTkanzyd3twti5cwF6NTJv [6s]
+         ✅  Production: https://healt-fitness-kjt6azcr4-davids-projects-5a52dd2e.vercel.app [6s]
+         PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro\Frontend> 
+
+         *Cuando termine el proceso se creará la carpeta .vercel esta debe crearse dentro del frontend no dentro de la raiz principal del proyecto
+            La carpeta .vercel contiene información sobre el proyecto y su configuración específica en Vercel
+
+         ##--IMPORTANTE--##   
+         *Si en el futuro realizas cambios y necesitas desplegar de nuevo, simplemente ejecuta npm run build seguido de vercel --prod para enviar tus actualizaciones a producción.
+
+
+         -IMPORTANTE LA CONFIGURACIÓN DE  
+
+
+
+
+
+
+
    1. Frontend: Modificación de los endpoints de la API en el front (React) para que apunten a las URL finales, utilizar switch para modo desarrollo y modo production
       y evitar que apunten a las rutas locales de forma permanente
 

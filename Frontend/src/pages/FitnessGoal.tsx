@@ -53,7 +53,7 @@ function FitnessGoal() {
 
                 // Añadir al estado global el golaId 
 
-                const userIdString = String(user_id); // Convertimos el user_id a string
+                // const userIdString = String(user_id); // Convertimos el user_id a string
 
 
                 console.log(response)
