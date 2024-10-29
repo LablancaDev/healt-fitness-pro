@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import backImageDash from '../assets/imgs/rutinas.jpg';
 import maintenance from '../assets/imgs/silueta.png'
 import gainMuscle from '../assets/imgs/silueta1.png'
@@ -6,14 +6,14 @@ import loseWeight from '../assets/imgs/silueta2.png'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/authSlice';
+// import { useDispatch } from 'react-redux';
+// import { setUser } from '../redux/authSlice';
 import Swal from 'sweetalert2';
 
 function FitnessGoal() {
 
-    const dispatch = useDispatch() 
-    const navigate = useNavigate();
+    // const dispatch = useDispatch() 
+    // const navigate = useNavigate();
     // user_id del state auth del login
     const { user_id } = useSelector((state: RootState) => state.auth);
     // userId del state goals de el objetivo (en realidad es el mismo user_id del usuario logeado en el momento)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import bike from '../assets/imgs/bike.jpg';
 import diet from '../assets/imgs/diet.jpg';
@@ -94,6 +94,7 @@ function LoseWeight() {
     ],
   };
 
+ 
   return (
     <div
       className="container-fluid position-relative"

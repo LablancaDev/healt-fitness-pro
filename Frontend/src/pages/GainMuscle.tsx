@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import gym from '../assets/imgs/gym.jpg';
 import protein from '../assets/imgs/desayunoFitness.jpg';
@@ -9,6 +9,7 @@ import deadlift from '../assets/videos/squadBeginners.gif';
 import pullUp from '../assets/videos/squadFixed.gif';
 
 import workoutVideo from '../assets/videos/workoutVideo.mp4';
+import axios from 'axios';
 
 // Definición de tipos para los datos
 interface Workout {
@@ -22,7 +23,18 @@ interface Routine {
   routine: string;
 }
 
+interface Exercise {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  image: string;
+}
+
+
 function GainMuscle() {
+
+  const [exercises, setExercises] = useState<Exercise[]>([]);
 
   // Estado para mostrar el plan de la dieta
   const [showMealPlan, setShowMealPlan] = useState<boolean>(false);
@@ -95,6 +107,24 @@ function GainMuscle() {
     ],
   };
 
+  // Enpoint para obtener los datos de la api desde el servidor
+  const handleGetDataApi = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/users/getExercises')
+
+      console.log('datos obtenidos correctamente')
+
+
+      setExercises(response.data.results)
+
+      console.log(exercises);
+
+    } catch (error) {
+
+      console.log('error al obtener los datos de la api', error)
+    }
+  }
+
   return (
     <div
       className="container-fluid position-relative"
@@ -162,6 +192,22 @@ function GainMuscle() {
             </div>
           </div>
         )}
+
+          {/* Button PROVISIONAL */}
+          <button onClick={handleGetDataApi} className='btn btn-lg btn-warning my-2'>Obtener datos de  la api(ejercicios)</button>
+        <div className='row'>
+
+          {exercises.map((exercise) => (
+            <div key={exercise.id} className="col-md-3 my-4 p-3 rounded " style={{ backgroundColor: 'rgba(0,0,0,0.7)', color: '#fff' }}>
+              <h3 className="text-warning">{exercise.name}</h3>
+              <p><strong>Description:</strong> {exercise.description || 'No description available.'}</p>
+              <p><strong>Muscle Group:</strong> {exercise.category || 'General'}</p>
+              {exercise.image && (
+                <img src={exercise.image} alt={exercise.name} style={{ width: '100%', borderRadius: '10px' }} />
+              )}
+            </div>
+          ))}
+        </div>
 
         {/* Workout Plan */}
         {showWorkoutPlan && (

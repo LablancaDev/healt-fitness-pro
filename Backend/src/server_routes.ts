@@ -6,6 +6,7 @@ import { dirname } from 'path';
 import { loginUser, registerNewUser, updateDataUser } from './controllers/authControllers.js'; // Siempre añadir .js muy importante para la importación con node
 import { initialGoal } from './controllers/InitialGoalController.js';
 import { activityRegister, deleteActivities, getDataUser, getGoalByUserId, phisicalGoals } from './controllers/goalsFormController.js';
+import { getExercisesApi } from './controllers/exercisesController.js';
 
 
 // Simulación de __dirname
@@ -49,10 +50,12 @@ router.get('/goal/:userId', getGoalByUserId);
 router.get('/getDataUser', getDataUser)
 
 // * Ruta para eliminar las actividades del usuario logeado
-router.delete('/deleteActivities/:userId', deleteActivities)  
+router.delete('/deleteActivities/:userId', deleteActivities)
 
 // * Ruta para editar los datos del usuario
 router.put('/updateDataUser/:user_id', updateDataUser)
 
+// * Ruta para obtener los datos de ejercicios de la api (COnsumo Api WGER)
+router.get('/getExercises', getExercisesApi)
 
 export default router;

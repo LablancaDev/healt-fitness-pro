@@ -15,32 +15,33 @@ function Data_user() {
 
     // Almacena los datos editables del usuario mientras el formulario está en modo edición
     const [editableData, setEditableData] = useState({
-        userName,
-        userAge,
-        userHeight,
-        userWeight,
-        userEmail,
-        userGender
+        userName: userName || '',
+        userAge: userAge || 0,
+        userHeight: userHeight || 0,
+        userWeight: userWeight || 0,
+        userEmail: userEmail || '',
+        userGender: userGender || ''
     });
 
     // Manejador para cambios en los inputs, actualiza `editableData` con el nuevo valor del campo que cambió
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setEditableData({
-            ...editableData,
+            ...editableData, 
             [name]: value  
         });    
     };
 
     // Alterna el modo de edición y, si `isEditing` es `true`, envía los cambios al servidor   
     const toggleEditMode = async () => {
-        if (isEditing) {  
+        if (isEditing) {       
             try {
 
                 // Actualiza Redux primero con los datos de `editableData`
             dispatch(setUser({
-                ...editableData,
-                user_id // Asegura mantener `user_id` al despachar la acción
+                ...editableData,   
+                user_id, // Asegura mantener `user_id` al despachar la acción
+                userProfileImage: userProfileImage
             }));
 
                 // Realiza una solicitud PUT a la API del servidor para actualizar los datos del usuario

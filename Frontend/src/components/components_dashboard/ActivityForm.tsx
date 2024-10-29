@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { RootState } from '../../redux/store';
-import { useNavigate } from 'react-router-dom';
 import { setActivity } from '../../redux/goalsSlice';
 import Swal from 'sweetalert2';
 
 function ActivityForm() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const { user_id: userId } = useSelector((state: RootState) => state.auth);
     const [goalId, setGoalId] = useState<string>('');

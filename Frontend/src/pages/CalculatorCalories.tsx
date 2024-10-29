@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import CalorieCalculator from '../components/CalorieCalculator'
 import CalorieChart from '../components/CalorieChart'
 import bar from '../assets/imgs/bar.jpg'

@@ -9,6 +9,7 @@ import axios from 'axios'; // Para realizar la llamada API
 import Results from '../components/components_dashboard/Results';
 import WeightChart from '../components/components_dashboard/WeightChart';
 import { Link } from 'react-router-dom';
+import backMenu from '../../src/assets/imgs/fondo-mecanico-engranajes.jpg'
 
 const Dashboard: React.FC = () => {
     const { user_id } = useSelector((state: RootState) => state.auth);
@@ -48,11 +49,11 @@ const Dashboard: React.FC = () => {
             setUserData(null);
         }
     }, [user_id, activity, physicalGoals]); // Incluyo como dependencia activity desde el estado global para que cuando se ingrese una nueva actividad refleje los cambios en la gráfica de forma automática 
-                            // IMPORTANTE: con añadir la dependencia de activity en Dashboard ya refleja los cambios en toda la página aunque hayan diferentes componentes, no hay que incluir la dependencia en el resto de componentes, solo en este que es el padre. 
-                            // incluyo todas las dependencias donde cualquier cambio en cada una de ella actualizará el estado renderizando la interfaz
+    // IMPORTANTE: con añadir la dependencia de activity en Dashboard ya refleja los cambios en toda la página aunque hayan diferentes componentes, no hay que incluir la dependencia en el resto de componentes, solo en este que es el padre. 
+    // incluyo todas las dependencias donde cualquier cambio en cada una de ella actualizará el estado renderizando la interfaz
 
-   
-     if (loading) {
+
+    if (loading) {
         return <div className='text-center text-warning'>Cargando los datos...</div>;
     }
 
@@ -94,7 +95,11 @@ const Dashboard: React.FC = () => {
                                     <WeightChart activities={userData.activities} />
                                 )}
                             </div>
-                            <div className='my-4 border rounded p-3 text-center card-dataUser'>
+                            <div className='my-4 border rounded p-3 text-center card-dataUser' style={{
+                                backgroundImage: `url(${backMenu})`,
+                                backgroundPosition: "center",
+                                backgroundAttachment: 'fixed',
+                            }}>
                                 {/* El link se mostrará si existe userData y el objetivo del user */}
                                 {userData && userData.goal ? (
                                     <Link to={`/${userData.goal}`}>
