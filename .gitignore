@@ -14,5 +14,5 @@
 # Ignorar archivos .txt en cualquier carpeta
 *.txt
 
-# ignorar node modules ya que tiene múltiples archivos y carpetas
+# ignorar node modules ya que tiene múltiples archivos y carpetas IMPORTANTE
 node_modules/
