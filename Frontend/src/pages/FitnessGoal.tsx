@@ -12,6 +12,11 @@ import Swal from 'sweetalert2';
 
 function FitnessGoal() {
 
+    // Obtener la URL base de la API según el entorno
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
+
     // const dispatch = useDispatch() 
     // const navigate = useNavigate();
     // user_id del state auth del login
@@ -23,9 +28,9 @@ function FitnessGoal() {
 
         console.log('id del usuaro y objetivo:', user_id, goal)
         try {
-            const response = await axios.post("http://localhost:4000/api/users/initialGoalUser", {
+            const response = await axios.post(`${apiUrl}/api/users/initialGoalUser`, { //url local en desarrollo: "http://localhost:4000/api/users/initialGoalUser"
                 user_id: user_id,
-                goal: goal  
+                goal: goal
             })
 
             // alert(response.data.message) sustituimos mensaje del server por popup
@@ -44,13 +49,13 @@ function FitnessGoal() {
             if (response.status === 200) {
                 // Aquí puedes obtener el goalId de la respuesta
                 const goalId = response.data.goalId;
-                console.log('ID del objetivo guardado:', goalId);  
+                console.log('ID del objetivo guardado:', goalId);
 
                 // Añadir al estado global el golaId 
 
                 const userIdString = String(user_id); // Convertimos el user_id a string
 
-               
+
                 console.log(response)
             }
         } catch (error) {
@@ -58,7 +63,7 @@ function FitnessGoal() {
             // alert('Error durante la selección del objetivo');
             Swal.fire({
                 title: 'Error',
-                text: 'Falló al registrar el objetivo principal. Asegúrate de estar conectado.',  
+                text: 'Falló al registrar el objetivo principal. Asegúrate de estar conectado.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar',
                 background: '#333', // Fondo oscuro

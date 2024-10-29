@@ -14,3 +14,5 @@ export const getExercisesApi = async (req: Request, res: Response) => {
     }
 }
 
+
+

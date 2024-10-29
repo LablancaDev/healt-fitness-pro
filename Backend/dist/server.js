@@ -11,8 +11,13 @@ const __dirname = path.dirname(__filename);
 connectDB();
 const app = express();
 const PORT = process.env.PORT || 4000;
-// Middleware
-app.use(cors());
+// Configurar CORS para permitir solicitudes desde el cliente local
+const corsOptions = {
+    origin: ['http://localhost:4000', 'http://localhost:5173'], // El Backend aceptará solicitudes desde ambos puertos
+    credentials: true // Permitir el uso de cookies y encabezados de autorización
+};
+// Middleware  
+app.use(cors(corsOptions));
 app.use(express.json()); // Para que Express pueda interpretar JSON 
 // Rutas
 app.use('/api/users', server_routes);

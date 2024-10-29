@@ -12,11 +12,25 @@ import { Link } from 'react-router-dom';
 import backMenu from '../../src/assets/imgs/fondo-mecanico-engranajes.jpg'
 
 const Dashboard: React.FC = () => {
+
+    // Obtener la URL base de la API según el entorno
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
+
+    console.log(import.meta.env.MODE); // OK: imprime "development" en entorno local
+    console.log('API URL Local:', import.meta.env.VITE_APP_API_URL_LOCAL);
+    console.log('API URL Production:', import.meta.env.VITE_APP_API_URL_PRODUCTION);
+    console.log('API URL Final:', apiUrl);
+
+
+
+
     const { user_id } = useSelector((state: RootState) => state.auth);
     const { activity, physicalGoals } = useSelector((state: RootState) => state.goals);
     const [userData, setUserData] = useState<any>(null); // Agregamos el estado para almacenar los datos del usuario
     const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);   
 
     useEffect(() => {
         const getDataUser = async () => {
@@ -26,7 +40,7 @@ const Dashboard: React.FC = () => {
                     return;
                 }
                 setLoading(true);
-                const result = await axios.get('http://localhost:4000/api/users/getDataUser', {
+                const result = await axios.get(`${apiUrl}/api/users/getDataUser`, {  //url que apunta a servidor local en desarrollo: 'http://localhost:4000/api/users/getDataUser'
                     params: { userId: user_id }
                 });
 

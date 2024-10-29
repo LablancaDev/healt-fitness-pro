@@ -7,7 +7,14 @@ import { setUser } from '../redux/authSlice'; // Asegúrate de importar la acci�
 import axios from 'axios'; // Asegúrate de que axios esté instalado
 
 function Data_user() {
+
+    // Obtener la URL base de la API según el entorno que puede ser local o produccion
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
+
     const dispatch = useDispatch();
+
     const { user_id, userName, userAge, userHeight, userWeight, userEmail, userGender, userProfileImage } = useSelector((state: RootState) => state.auth);
 
     // Controla si el formulario está en modo edición o solo visualización
@@ -27,32 +34,34 @@ function Data_user() {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setEditableData({
-            ...editableData, 
-            [name]: value  
-        });    
+            ...editableData,
+            [name]: value
+        });
     };
 
     // Alterna el modo de edición y, si `isEditing` es `true`, envía los cambios al servidor   
     const toggleEditMode = async () => {
-        if (isEditing) {       
+        if (isEditing) {
             try {
 
                 // Actualiza Redux primero con los datos de `editableData`
-            dispatch(setUser({
-                ...editableData,   
-                user_id, // Asegura mantener `user_id` al despachar la acción
-                userProfileImage: userProfileImage
-            }));
+                dispatch(setUser({
+                    ...editableData,
+                    user_id, // Asegura mantener `user_id` al despachar la acción
+                    userProfileImage: userProfileImage
+                }));
 
                 // Realiza una solicitud PUT a la API del servidor para actualizar los datos del usuario
-                const response = await axios.put(`http://localhost:4000/api/users/updateDataUser/${user_id}`, editableData);
-                // Posible error persistencia de los datos de usuario...
+                const response = await axios.put(`${apiUrl}/api/users/updateDataUser/${user_id}`, editableData);  
+                // ruta a servidor local: `http://localhost:4000/api/users/updateDataUser/${user_id}`
 
+
+                // Posible error persistencia de los datos de usuario...
                 /* se cambian los datos correctamente el problema es que cuando recarga la página los datos que se muestran son undefined y se cierra la sesion 
                 automaticamente, cuando inicio sesion de nuevo los cambios se han actualizado y se muestran bien pero esta el problema de que muestra los datos 
                 undefined al instante del cambio cuando recarga la página y se cierra la sesión..*/
 
-           
+
                 console.log('Datos actualizados correctamente', response.data);
 
 

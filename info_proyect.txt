@@ -119,3 +119,22 @@
 - **Funcionalidad offline**: Utiliza almacenamiento local para que la app funcione incluso sin conexión.
 - **Inteligencia artificial**: Implementa sugerencias personalizadas de ejercicios o rutinas basadas en el historial de actividad.
 
+
+## PASOS PARA EL DESPLIEGUE A PRODUCCION DEL PORYECTO ##
+
+   1. Frontend: Modificación de los endpoints de la API en el front (React) para que apunten a las URL finales, utilizar switch para modo desarrollo y modo production
+      y evitar que apunten a las rutas locales de forma permanente
+
+      const apiUrl = import.meta.env.MODE === 'production'
+            ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+            : import.meta.env.VITE_APP_API_URL_LOCAL;
+
+   2. Backend: Revisar que las configuraciones de CORS en el backend (archivo Server.ts) permitan peticiones desde el dominio de Vercel para evitar problemas de acceso.
+               También configurar CORS para permitir las peticiones locales entre distintos puertos 
+
+   3. Frontend: Crea un archivo .env para definir variables de entorno, como la URL de la API del backend en Vercel. 
+      Luego, asegúrate de que tu código acceda a ellas usando process.env.REACT_APP_API_URL o similar.
+   
+   4. Backend: Define un archivo .env con las credenciales de MongoDB y la URL de frontend en producción. Utiliza un entorno seguro como MongoDB Atlas para bases de datos en la nube.
+
+   

@@ -3,11 +3,16 @@ import backImageLogin from "../assets/imgs/gym.jpg"
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/authSlice";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";  
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
 const Login = () => {
+
+    // Obtener la URL base de la API según el entorno
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -63,7 +68,7 @@ const Login = () => {
 
         // Para enviar los datos del usuario registrado al server hay que crear un objeto FormData que permita enviar archivos y datos en un solo POST request
         const dataUser = new FormData()
-        dataUser.append('userName', userName)
+        dataUser.append('userName', userName)  
         dataUser.append('age', age)
         dataUser.append('weight', weight)
         dataUser.append('height', height)
@@ -80,7 +85,7 @@ const Login = () => {
         }
 
         try {
-            await axios.post('http://localhost:4000/api/users/register', dataUser, {
+            await axios.post(`${apiUrl}/api/users/register`, dataUser, { // ruta local modo desarrollo: 'http://localhost:4000/api/users/register'
                 headers: {
                     'Content-Type': 'multipart/form-data',  // para enviar imágenes en la cabecera
                 },
@@ -148,11 +153,11 @@ const Login = () => {
 
         const userDataLogin = { email, password }
         try {
-            const response = await axios.post('http://localhost:4000/api/users/login', userDataLogin)
+            const response = await axios.post(`${apiUrl}/api/users/login`, userDataLogin) // ruta local modo desarrollo: 'http://localhost:4000/api/users/login'
 
             // alert(response.data.message)
             Swal.fire({
-                title: 'Perfecto!',
+                title: 'Perfecto!',  
                 text: 'Login exitoso!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
