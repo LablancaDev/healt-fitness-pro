@@ -154,11 +154,14 @@
          *Cuando termine el proceso se creará la carpeta .vercel esta debe crearse dentro del frontend no dentro de la raiz principal del proyecto
             La carpeta .vercel contiene información sobre el proyecto y su configuración específica en Vercel
 
+          importante revisar que esta carpeta no sea ignorada por git el el archivo .gitignore ya que Vercel tiene que tener
+           acceso a la configuración específica del proyecto al hacer el despliegue.
+
          ##--IMPORTANTE--##   
          *Si en el futuro realizas cambios y necesitas desplegar de nuevo, simplemente ejecuta npm run build seguido de vercel --prod para enviar tus actualizaciones a producción.
 
 
-         -IMPORTANTE LA CONFIGURACIÓN DE  
+         
 
 
 

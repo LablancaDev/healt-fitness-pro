@@ -33,4 +33,16 @@ yarn.lock
 # Coverage
 /coverage/
 
-.vercel
+# Frontend-specific settings
+dist
+dist-ssr
+*.local
+
+# Opcional según tus necesidades
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Permitir .vercel
