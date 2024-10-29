@@ -1,48 +1,18 @@
-# Node.js
+# Excluir la carpeta dist de ser ignorada (al incluirlo directamente añade de nuevo los archivos (de letra sombreada a normal))
+!client/dist/
+!client/dist/**
+
+# No ignorar la carpeta assets y su contenido
+!client/dist/
+!client/dist/**
+!client/dist/assets/
+!client/dist/assets/**
+
+# Ignorar archivos .env en cualquier carpeta
+*.env
+
+# Ignorar archivos .txt en cualquier carpeta
+*.txt
+
+# ignorar node modules ya que tiene múltiples archivos y carpetas
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-debug.log
-
-# Editor
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-
-# Sistema operativo  
-.DS_Store
-Thumbs.db
-
-# Entornos
-.env
-.env.*.local
-
-# Paquetes
-package-lock.json
-yarn.lock
-
-# Coverage
-/coverage/
-
-# Frontend-specific settings
-dist
-dist-ssr
-*.local
-
-# Opcional según tus necesidades
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Permitir .vercel
