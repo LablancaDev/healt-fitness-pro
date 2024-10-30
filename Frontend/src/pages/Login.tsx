@@ -83,7 +83,7 @@ const Login = () => {
             console.error("No se ha seleccionado ninguna imagen.");
             return; // Sal de la función si no hay imagen
         }
-
+    
         try {
             await axios.post(`${apiUrl}/api/users/register`, dataUser, { // ruta local modo desarrollo: 'http://localhost:4000/api/users/register'
                 headers: {

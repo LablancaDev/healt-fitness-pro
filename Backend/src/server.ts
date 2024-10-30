@@ -16,8 +16,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Configurar CORS para permitir solicitudes desde el cliente local y el frontend en Vercel
-const corsOptions = {
-    origin: [
+const allowedOrigins = [
         'http://localhost:4000', // Backend local
         'http://localhost:5173', // Frontend local (Vite)
         'https://healt-fitness-pro.vercel.app',
@@ -25,17 +24,26 @@ const corsOptions = {
         'https://healt-fitness-coffoqwpu-davids-projects-5a52dd2e.vercel.app',  
         'https://healt-fitness-as1ftlxzr-davids-projects-5a52dd2e.vercel.app',
         'https://healt-fitness-pmaysh74p-davids-projects-5a52dd2e.vercel.app',
-        'https://healt-fitness-8jrh7lyrl-davids-projects-5a52dd2e.vercel.app'                      
-    ],
-    credentials: true // Permitir el uso de cookies y encabezados de autorización
-};    
-// const corsOptions = {
-//     origin: '*', // Permitir temporalmente todos los orígenes
-//     credentials: true
-// };
+        'https://healt-fitness-eq7pc38wx-davids-projects-5a52dd2e.vercel.app/'                      
+    ];
 
-// Middleware  
-app.use(cors(corsOptions));
+   // Configuración de CORS
+app.use(cors({  
+    origin: function (origin, callback) {
+        // Permitir solicitudes sin origen (ej. Postman) o si está en la lista de orígenes permitidos
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.error(`CORS error: Origin not allowed: ${origin}`);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Asegúrate de incluir OPTIONS para preflight requests
+    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+    credentials: true // Si estás usando cookies o encabezados como Authorization
+}));
+
+
 app.use(express.json()); // Para que Express pueda interpretar JSON 
 
 // Rutas
