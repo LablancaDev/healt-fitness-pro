@@ -157,18 +157,24 @@
           importante revisar que esta carpeta no sea ignorada por git el el archivo .gitignore ya que Vercel tiene que tener
            acceso a la configuración específica del proyecto al hacer el despliegue.
 
+         otra cosa importante revisar el network acces de la base de datos y permitir conexiones a las ips deseadas, como es un proyecto
+         la dejo abierta poniendo en mongoDB dentro de network access -> Ip Adress: 0.0.0.0 (PRESS BUTTON: ALLOW ACCES FROM ANYWHERE)
+
          ##--IMPORTANTE--##   
          *Si en el futuro realizas cambios y necesitas desplegar de nuevo, simplemente ejecuta npm run build seguido de vercel --prod para enviar tus actualizaciones a producción.
 
          Vercel CLI 37.12.1
-         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/G7sbDMeFo4rcLguoJ1Ttq3ZNkYFU [3s]
-         ✅  Production: https://healt-fitness-as1ftlxzr-davids-projects-5a52dd2e.vercel.app [3s]
+         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/iquM9c1sY1xZ7K2UqkP3zA4914bD [2s]
+         ✅  Production: https://healt-fitness-o2z31wvop-davids-projects-5a52dd2e.vercel.app [2s]
+
+
+         
          
 
 
 
 
-
+      INICIO DE ESTA MANERA PERO CREO LA CARPETA .VERCEL EN LA RAIZ Y VUELVO A EMPEZAR CON ESTA PARTE DE ARRIBA  
 
 
    1. Frontend: Modificación de los endpoints de la API en el front (React) para que apunten a las URL finales, utilizar switch para modo desarrollo y modo production

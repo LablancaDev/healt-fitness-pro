@@ -11,6 +11,11 @@ import Swal from 'sweetalert2';
 
 function Results() { 
 
+     // Obtener la URL base de la API según el entorno que puede ser local o produccion
+     const apiUrl = import.meta.env.MODE === 'production'
+     ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+     : import.meta.env.VITE_APP_API_URL_LOCAL;
+
     const dispatch = useDispatch()
 
     const { user_id } = useSelector((state: RootState) => state.auth);
@@ -33,7 +38,7 @@ function Results() {
                     return;
                 }
                 setLoading(true);
-                const result = await axios.get('http://localhost:4000/api/users/getDataUser', {
+                const result = await axios.get(`${apiUrl}/api/users/getDataUser`, {  //'http://localhost:4000/api/users/getDataUser'
                     params: { userId: user_id }
                 });
 
@@ -124,7 +129,7 @@ function Results() {
     
         if (isConfirmed) {
             try {
-                await axios.delete(`http://localhost:4000/api/users/deleteActivities/${user_id}`);
+                await axios.delete(`${apiUrl}/api/users/deleteActivities/${user_id}`); // `http://localhost:4000/api/users/deleteActivities/${user_id}` 
     
                 // Limpiar el estado global
                 dispatch(deleteActivity());
