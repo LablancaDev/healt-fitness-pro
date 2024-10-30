@@ -17,11 +17,7 @@ const allowedOrigins = [
     'http://localhost:5173', // Frontend local (Vite)
     'http://localhost:4173', // npm run preview
     'https://healt-fitness-pro.vercel.app',
-    'https://healt-fitness-kjt6azcr4-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel
-    'https://healt-fitness-coffoqwpu-davids-projects-5a52dd2e.vercel.app',
-    'https://healt-fitness-as1ftlxzr-davids-projects-5a52dd2e.vercel.app',
-    'https://healt-fitness-pmaysh74p-davids-projects-5a52dd2e.vercel.app',
-    'https://healt-fitness-eq7pc38wx-davids-projects-5a52dd2e.vercel.app/'
+    'https://healt-fitness-ozcw4c2ng-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel 
 ];
 // Configuración de CORS
 app.use(cors({

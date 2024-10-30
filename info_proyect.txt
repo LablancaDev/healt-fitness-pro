@@ -146,9 +146,9 @@
          ? Which scope do you want to deploy to? David's projects
          ? Link to existing project? yes                                                                                -->SELECCIONO SI POR QUE POR ERROR YA LO CREE ANTES ...
          ? What’s the name of your existing project? healt-fitness-pro                                                  -->SELECCIONO EL NOMBRE DADO ANTERIORMENTE SI NO PONER UNO DE CERO O NOMBRE RECOMENDADO
-         🔗  Linked to davids-projects-5a52dd2e/healt-fitness-pro (created .vercel and added it to .gitignore)
-         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/5DtGFHjTkanzyd3twti5cwF6NTJv [6s]
-         ✅  Production: https://healt-fitness-kjt6azcr4-davids-projects-5a52dd2e.vercel.app [6s]
+        
+       🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/HCSHJZWkMperEVD7ePM4mgcFMWm2 [3s]
+         ✅  Production: https://healt-fitness-ozcw4c2ng-davids-projects-5a52dd2e.vercel.app [3s]
          PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro\Frontend> 
 
          *Cuando termine el proceso se creará la carpeta .vercel esta debe crearse dentro del frontend no dentro de la raiz principal del proyecto
@@ -163,9 +163,6 @@
          ##--IMPORTANTE--##   
          *Si en el futuro realizas cambios y necesitas desplegar de nuevo, simplemente ejecuta npm run build seguido de vercel --prod para enviar tus actualizaciones a producción.
 
-        🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/Fg8NaqrZ1zNfsxLiXbhgt34u4YSn [2s]
-            ✅  Production: https://healt-fitness-68e2dgqy3-davids-projects-5a52dd2e.vercel.app [2s]
-            PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro\Frontend> 
 
 
 
