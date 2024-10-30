@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 4000;
 const allowedOrigins = [
     'http://localhost:4000', // Backend local
     'http://localhost:5173', // Frontend local (Vite)
-    'http://localhost:4173',
+    'http://localhost:4173', // npm run preview
     'https://healt-fitness-pro.vercel.app',
     'https://healt-fitness-kjt6azcr4-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel
     'https://healt-fitness-coffoqwpu-davids-projects-5a52dd2e.vercel.app',
