@@ -163,12 +163,11 @@
          ##--IMPORTANTE--##   
          *Si en el futuro realizas cambios y necesitas desplegar de nuevo, simplemente ejecuta npm run build seguido de vercel --prod para enviar tus actualizaciones a producción.
 
-         Vercel CLI 37.12.1
-         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/iquM9c1sY1xZ7K2UqkP3zA4914bD [2s]
-         ✅  Production: https://healt-fitness-o2z31wvop-davids-projects-5a52dd2e.vercel.app [2s]
+         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/BVFEXXHAuAk8ua8mhDH21ZNKg4jZ [5s]
+         ✅  Production: https://healt-fitness-pmaysh74p-davids-projects-5a52dd2e.vercel.app [5s]
 
 
-         
+
          
 
 

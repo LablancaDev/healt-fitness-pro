@@ -23,7 +23,8 @@ const corsOptions = {
         'https://healt-fitness-pro.vercel.app',
         'https://healt-fitness-kjt6azcr4-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel
         'https://healt-fitness-coffoqwpu-davids-projects-5a52dd2e.vercel.app',
-        'https://healt-fitness-as1ftlxzr-davids-projects-5a52dd2e.vercel.app'                       
+        'https://healt-fitness-as1ftlxzr-davids-projects-5a52dd2e.vercel.app',
+        'https://healt-fitness-pmaysh74p-davids-projects-5a52dd2e.vercel.app'                      
     ],
     credentials: true // Permitir el uso de cookies y encabezados de autorización
 };    
