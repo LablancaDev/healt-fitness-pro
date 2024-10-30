@@ -12,18 +12,22 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 4000;
 // Configurar CORS para permitir solicitudes desde el cliente local y el frontend en Vercel
+// const corsOptions = {
+//     origin: [
+//         'http://localhost:4000', // Backend local
+//         'http://localhost:5173', // Frontend local (Vite)
+//         'https://healt-fitness-pro.vercel.app',
+//         'https://healt-fitness-kjt6azcr4-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel
+//         'https://healt-fitness-coffoqwpu-davids-projects-5a52dd2e.vercel.app',  
+//         'https://healt-fitness-as1ftlxzr-davids-projects-5a52dd2e.vercel.app',
+//         'https://healt-fitness-pmaysh74p-davids-projects-5a52dd2e.vercel.app',
+//         'https://healt-fitness-8jrh7lyrl-davids-projects-5a52dd2e.vercel.app'                      
+//     ],
+//     credentials: true // Permitir el uso de cookies y encabezados de autorización
+// };    
 const corsOptions = {
-    origin: [
-        'http://localhost:4000', // Backend local
-        'http://localhost:5173', // Frontend local (Vite)
-        'https://healt-fitness-pro.vercel.app',
-        'https://healt-fitness-kjt6azcr4-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel
-        'https://healt-fitness-coffoqwpu-davids-projects-5a52dd2e.vercel.app',
-        'https://healt-fitness-as1ftlxzr-davids-projects-5a52dd2e.vercel.app',
-        'https://healt-fitness-pmaysh74p-davids-projects-5a52dd2e.vercel.app',
-        'https://healt-fitness-8jrh7lyrl-davids-projects-5a52dd2e.vercel.app'
-    ],
-    credentials: true // Permitir el uso de cookies y encabezados de autorización
+    origin: '*', // Permitir temporalmente todos los orígenes
+    credentials: true
 };
 // Middleware  
 app.use(cors(corsOptions));
