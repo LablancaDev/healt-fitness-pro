@@ -163,8 +163,9 @@
          ##--IMPORTANTE--##   
          *Si en el futuro realizas cambios y necesitas desplegar de nuevo, simplemente ejecuta npm run build seguido de vercel --prod para enviar tus actualizaciones a producción.
 
-         🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/BVFEXXHAuAk8ua8mhDH21ZNKg4jZ [5s]
-         ✅  Production: https://healt-fitness-pmaysh74p-davids-projects-5a52dd2e.vercel.app [5s]
+        🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/Fg8NaqrZ1zNfsxLiXbhgt34u4YSn [2s]
+            ✅  Production: https://healt-fitness-68e2dgqy3-davids-projects-5a52dd2e.vercel.app [2s]
+            PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro\Frontend> 
 
 
 
