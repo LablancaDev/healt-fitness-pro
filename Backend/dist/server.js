@@ -11,13 +11,20 @@ const __dirname = path.dirname(__filename);
 connectDB();
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// Middleware para registrar las solicitudes
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
 // Configurar CORS para permitir solicitudes desde el cliente local y el frontend en Vercel
 const allowedOrigins = [
     'http://localhost:4000', // Backend local
     'http://localhost:5173', // Frontend local (Vite)
     'http://localhost:4173', // npm run preview
     'https://healt-fitness-pro.vercel.app',
-    'https://healt-fitness-ozcw4c2ng-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel 
+    'https://healt-fitness-7aynjezg0-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel 
 ];
 // Configuración de CORS
 app.use(cors({

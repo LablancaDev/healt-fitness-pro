@@ -32,7 +32,7 @@ app.use(cors({
             callback(null, true);
         } else {
             console.error(`CORS error: Origin not allowed: ${origin}`);
-            callback(new Error('Not allowed by CORS'));
+            callback(new Error('Not allowed by CORS'));  
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Asegúrate de incluir OPTIONS para preflight requests
