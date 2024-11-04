@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import bike from '../assets/imgs/bike.jpg';
 import diet from '../assets/imgs/diet.jpg';
+import axios from 'axios';
 
-import squadBeginner from '../assets/videos/squadBeginners.gif'
+
 import JumpSquats from '../assets/videos/How-To-Do-Jump-Squats-Benefits-unscreen.gif';
 import PushUpBall from '../assets/videos/Stability-Ball-Decline-Push-Up-unscreen.gif';
 import squadFixed from '../assets/videos/squadFixed.gif';
@@ -23,6 +24,8 @@ interface Routine {
 }
 
 function LoseWeight() {
+
+  // const [allExercises, setAllExercises] = useState([])
 
   // Estado para mostrar el plan de la dieta
   const [showMealPlan, setShowMealPlan] = useState<boolean>(false);
@@ -46,7 +49,7 @@ function LoseWeight() {
   // Ejercicios para cada nivel de dificultad
   const workouts: Record<'beginner' | 'intermediate' | 'advanced', Workout[]> = {
     beginner: [
-      { src: squadBeginner, label: 'squad Beginner', description: 'Beginner basic squats.' },
+      { src: JumpSquats, label: 'squad Beginner', description: 'Beginner basic squats.' },
       { src: JumpSquats, label: 'Jump Squats', description: 'Beginner jump squats.' },
       { src: squadFixed, label: 'Squats', description: 'Bodyweight squats for beginners.' },
       { src: PushUpBall, label: 'Push-Up', description: 'Modified push-ups for beginners.' },
@@ -94,7 +97,22 @@ function LoseWeight() {
     ],
   };
 
- 
+
+  const handleGetDataApi = async () => {
+    try {
+
+      const response = await axios.get('http://localhost:4000/api/users/getExercises_2')
+
+      // setAllExercises(response.data.data.exercises)
+
+      console.log(response.data.data.exercises)
+
+    } catch (error) {
+      console.log('error al obtener los datos de la api', error)
+    }
+  }
+
+
   return (
     <div
       className="container-fluid position-relative"
@@ -315,6 +333,30 @@ function LoseWeight() {
             <button className='btn btn-lg btn-warning w-25'>My Dashboard <i className="bi bi-menu-button-wide"></i></button>
           </Link>
         </div>
+
+        PETICIÓN API 2
+          <button onClick={handleGetDataApi} className='btn btn-lg btn-dark border-warning my-4 w-75 text-warning m-auto'>Show more exercises</button>
+        <div className='row'>  
+          <div className='col'>
+            {/* {allExercises.map((exercise) => (       
+              <div key={exercise.exerciseId} className='card my-3 p-3 bg-transparent text-light border-warning'>
+                <h3 className='text-warning'>{exercise.name}</h3>
+                <img src={exercise.gifUrl} alt={exercise.name} className='img-fluid w-50 m-auto' />
+                <p><strong>Instrucciones:</strong></p>
+                <ul>
+                  {exercise.instructions.map((step, index) => (
+                    <li key={index}>{step}</li>     
+                  ))}           
+                </ul>
+                <p><strong>Músculos objetivo:</strong> {exercise.targetMuscles.join(', ')}</p>
+                <p><strong>Parte del cuerpo:</strong> {exercise.bodyParts.join(', ')}</p>
+                <p><strong>Equipamiento:</strong> {exercise.equipments.join(', ')}</p>
+                <p><strong>Músculos secundarios:</strong> {exercise.secondaryMuscles.join(', ')}</p>
+              </div>   
+            ))} */}
+          </div>
+        </div>
+
       </div>
     </div>
   );

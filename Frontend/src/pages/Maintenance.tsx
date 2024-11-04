@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import bike from '../assets/imgs/bike.jpg';
 
-import squadBeginner from '../assets/videos/squadBeginners.gif'
 import JumpSquats from '../assets/videos/How-To-Do-Jump-Squats-Benefits-unscreen.gif';
 import PushUpBall from '../assets/videos/Stability-Ball-Decline-Push-Up-unscreen.gif';
 import squadFixed from '../assets/videos/squadFixed.gif';
@@ -44,7 +43,6 @@ function MaintainWeight() {
   // Ejercicios para cada nivel de dificultad
   const workouts: Record<'beginner' | 'intermediate' | 'advanced', Workout[]> = {
     beginner: [
-      { src: squadBeginner, label: 'Squat Beginner', description: 'Basic bodyweight squats.' },
       { src: JumpSquats, label: 'Jump Squats', description: 'Low-intensity jump squats.' },
       { src: squadFixed, label: 'Squats', description: 'Bodyweight squats for beginners.' },
       { src: PushUpBall, label: 'Push-Up', description: 'Modified push-ups for beginners.' },

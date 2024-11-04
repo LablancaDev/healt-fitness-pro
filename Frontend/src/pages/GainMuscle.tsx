@@ -1,15 +1,36 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import gym from '../assets/imgs/gym.jpg';
-import protein from '../assets/imgs/desayunoFitness.jpg';
+import protein from '../assets/imgs/desayunoFitness.jpg';  
 
-import squadIntermediate from '../assets/videos/How-To-Do-Jump-Squats-Benefits-unscreen.gif'
+// beginner
+import assistedpullups from '../assets/videos/assisted-pull-ups.gif'
+import pressBanca from '../assets/videos/pressBancManc.gif'
+import dumbbell_row from '../assets/videos/remo_mancuernas.gif'
+import bodyweight_squats from '../assets/videos/bodyweight_squats.gif'
+import push_ups from '../assets/videos/push-ups.gif'
+import lat_pulldowns from '../assets/videos/lat_pulldowns.gif'
+import bike from '../assets/videos/bike.gif'
+import squats from '../assets/videos/squats.gif'
+import Russian_Twists from '../assets/videos/Russian_Twists.gif'
+import Goblet_Squats from '../assets/videos/Goblet_Squats.gif'
+import Lunges from '../assets/videos/Lunges.gif'
+import Planks from '../assets/videos/Planks.gif'
+
+// intermediate
+import Barbell_Bench_Press_incline from '../assets/videos/Barbell_Bench_Press_incline.gif'
+import bumbbell_flyes_declined from '../assets/videos/bumbbell_flyes_declined.gif'
+import push_ups_incline from '../assets/videos/push_ups_incline.gif'
+import Deadlifts from '../assets/videos/Deadlifts.gif'
+import Weighted_Pull_Ups from '../assets/videos/Weighted_Pull_Ups.gif'
+import Barbell_Rows from '../assets/videos/Barbell_Rows.gif'
+
+
 import benchPress from '../assets/videos/Stability-Ball-Decline-Push-Up-unscreen.gif';
-import deadlift from '../assets/videos/squadBeginners.gif';
 import pullUp from '../assets/videos/squadFixed.gif';
 
-import workoutVideo from '../assets/videos/workoutVideo.mp4';
-import axios from 'axios';
+import workoutVideo from '../assets/videos/How To Machine Assisted Pull Up.mp4';
+import axios from 'axios'; 
 
 // Definición de tipos para los datos
 interface Workout {
@@ -57,53 +78,63 @@ function GainMuscle() {
   // Ejercicios para cada nivel de dificultad
   const workouts: Record<'beginner' | 'intermediate' | 'advanced', Workout[]> = {
     beginner: [
-      { src: squadIntermediate, label: 'Bodyweight Squats', description: 'Basic squats to activate leg muscles.' },
-      { src: benchPress, label: 'Bench Press', description: 'Focus on upper body strength with basic bench press.' },
-      { src: deadlift, label: 'Deadlift', description: 'Learn the fundamentals of the deadlift.' },
-      { src: pullUp, label: 'Pull-Ups', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: assistedpullups, label: 'assisted pullups', description: "Assisted pull-ups help build upper body strength by supporting part of your body weight, making pull-ups more achievable." },
+      { src: pressBanca, label: 'dumbbell bench press', description: 'The dumbbell bench press involves pressing dumbbells upward from a lying position on a bench, primarily targeting the chest, shoulders, and triceps' },
+      { src: dumbbell_row, label: 'dumbbell row', description: 'The dumbbell row involves pulling a dumbbell toward your torso while hinging forward, primarily targeting the upper back and lats.' },
+      { src: bodyweight_squats, label: 'Goblet Squats', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: Lunges, label: 'Lunges', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: Goblet_Squats, label: 'Dumbbell Deadlifts', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: bike, label: 'static bike', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: push_ups, label: 'Pull Ups', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: squats, label: 'Bodyweight Squats', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: lat_pulldowns, label: 'Lat Pulldowns', description: 'Basic pull-ups to build back and arm muscles.' },
+      { src: Planks, label: 'Planks', description: 'Basic pull-ups to build back and arm muscles.' }, 
+      { src: Russian_Twists, label: 'Russian Twists', description: 'Basic pull-ups to build back and arm muscles.' }, 
     ],
     intermediate: [
-      { src: benchPress, label: 'Incline Bench Press', description: 'Target the upper chest with incline press.' },
-      { src: deadlift, label: 'Deadlifts', description: 'Build lower back and hamstring strength with proper form.' },
-      { src: pullUp, label: 'Weighted Pull-Ups', description: 'Add weight to increase the difficulty of pull-ups.' },
-      { src: squadIntermediate, label: 'Barbell Squats', description: 'Add weights for increased leg and core strength.' },
+      { src: Barbell_Bench_Press_incline, label: 'Incline Bench Press', description: 'Target the upper chest with incline press.' },
+      { src: bumbbell_flyes_declined, label: 'Incline Bench Press', description: 'Target the upper chest with incline press.' },
+      { src: push_ups_incline, label: 'Deadlifts', description: 'Build lower back and hamstring strength with proper form.' },
+      { src: Deadlifts, label: 'Weighted Pull-Ups', description: 'Add weight to increase the difficulty of pull-ups.' },
+      { src: Weighted_Pull_Ups, label: 'Barbell Squats', description: 'Add weights for increased leg and core strength.' },
+      { src: Barbell_Rows, label: 'Barbell Squats', description: 'Add weights for increased leg and core strength.' },
     ],
     advanced: [
       { src: benchPress, label: 'Heavy Bench Press', description: 'Maximize chest growth with heavy bench presses.' },
-      { src: deadlift, label: 'Heavy Deadlifts', description: 'Increase overall strength with heavy deadlifts.' },
+      { src: pullUp, label: 'Heavy Deadlifts', description: 'Increase overall strength with heavy deadlifts.' },
       { src: pullUp, label: 'Muscle-Ups', description: 'Take your pull-ups to the next level with muscle-ups.' },
-      { src: squadIntermediate, label: 'Advanced Squats', description: 'Challenge your legs with heavy squats.' },
-    ],
+      { src: pressBanca, label: 'Advanced Squats', description: 'Challenge your legs with heavy squats.' },
+    ],  
   };
 
   // Rutinas semanales para cada nivel de dificultad
   const routines: Record<'beginner' | 'intermediate' | 'advanced', Routine[]> = {
     beginner: [
-      { day: 'Monday', routine: 'Full-Body Strength (Bodyweight Squats, Push-Ups, Deadlifts) - 3 sets of 10' },
-      { day: 'Tuesday', routine: 'Upper Body Strength (Bench Press, Pull-Ups) - 3 sets of 10' },
-      { day: 'Wednesday', routine: 'Rest or Active Recovery (Light Stretching)' },
-      { day: 'Thursday', routine: 'Lower Body Strength (Squats, Lunges) - 3 sets of 12' },
-      { day: 'Friday', routine: 'Core & Abs (Planks, Russian Twists)' },
-      { day: 'Saturday', routine: 'Full-Body Circuit (Low Intensity)' },
+      { day: 'Monday', routine: 'Upper Body (Assisted Pull-Ups, Dumbbell Bench Press, Dumbbell Rows) - 3 sets of 10-12' },
+      { day: 'Tuesday', routine: 'Lower Body (Goblet Squats, Lunges, Dumbbell Deadlifts) - 3 sets of 12-15' },
+      { day: 'Wednesday', routine: 'Rest or Active Recovery, bike static 25 min' },
+      { day: 'Thursday', routine: 'Full-Body (Push-Ups, Bodyweight Squats, Lat Pulldowns) - 3 sets of 10-12' },
+      { day: 'Friday', routine: 'Core & Stability (Planks, Russian Twists) - 3 sets of 15-20' },
+      { day: 'Saturday', routine: 'Full-Body Circuit (Low-Moderate Intensity)' },
       { day: 'Sunday', routine: 'Rest or Light Walking' },
     ],
     intermediate: [
-      { day: 'Monday', routine: 'Chest & Triceps (Bench Press, Incline Press) - 4 sets of 8' },
-      { day: 'Tuesday', routine: 'Back & Biceps (Deadlifts, Pull-Ups) - 4 sets of 8' },
-      { day: 'Wednesday', routine: 'Rest or Light Cardio' },
-      { day: 'Thursday', routine: 'Leg Day (Squats, Lunges) - 4 sets of 10' },
-      { day: 'Friday', routine: 'Core & Abs (Planks, Leg Raises)' },
-      { day: 'Saturday', routine: 'Upper Body Circuit (Shoulders, Arms)' },
+      { day: 'Monday', routine: 'Chest & Triceps (Barbell Bench Press, Dumbbell Flyes, push ups inlcine) - 4 sets of 8-10' },
+      { day: 'Tuesday', routine: 'Back & Biceps (Deadlifts, Weighted Pull-Ups, Barbell Rows) - 4 sets of 8-10' },
+      { day: 'Wednesday', routine: 'Leg Day (Barbell Squats, Leg Press, Hamstring Curls) - 4 sets of 10-12' },
+      { day: 'Thursday', routine: 'Rest or Light Cardio' },
+      { day: 'Friday', routine: 'Shoulders & Arms (Overhead Press, Lateral Raises, Bicep Curls) - 4 sets of 10-12' },
+      { day: 'Saturday', routine: 'Full-Body Circuit (Moderate Intensity)' },
       { day: 'Sunday', routine: 'Rest or Yoga' },
     ],
     advanced: [
-      { day: 'Monday', routine: 'Chest & Triceps (Heavy Bench Press, Dips) - 5 sets of 6' },
-      { day: 'Tuesday', routine: 'Back & Biceps (Heavy Deadlifts, Weighted Pull-Ups) - 5 sets of 6' },
-      { day: 'Wednesday', routine: 'Rest or Advanced Yoga' },
-      { day: 'Thursday', routine: 'Leg Day (Heavy Squats, Deadlifts) - 5 sets of 8' },
-      { day: 'Friday', routine: 'Core & Abs (Advanced Planks, Hanging Leg Raises)' },
+      { day: 'Monday', routine: 'Chest & Triceps (Heavy Bench Press, Weighted Dips, Cable Flyes) - 5 sets of 6-8' },
+      { day: 'Tuesday', routine: 'Back & Biceps (Heavy Deadlifts, Weighted Pull-Ups, Bent Over Rows) - 5 sets of 6-8' },
+      { day: 'Wednesday', routine: 'Leg Day (Heavy Squats, Deadlifts, Leg Press) - 5 sets of 8-10' },
+      { day: 'Thursday', routine: 'Rest or Mobility Work' },
+      { day: 'Friday', routine: 'Shoulders & Arms (Heavy Overhead Press, Arnold Press, Barbell Curls) - 5 sets of 8-10' },
       { day: 'Saturday', routine: 'Full-Body Circuit (High Intensity)' },
-      { day: 'Sunday', routine: 'Rest or Mobility Work' },
+      { day: 'Sunday', routine: 'Rest or Advanced Yoga' },
     ],
   };
 
@@ -193,22 +224,6 @@ function GainMuscle() {
           </div>
         )}
 
-          {/* Button PROVISIONAL */}
-          <button onClick={handleGetDataApi} className='btn btn-lg btn-warning my-2'>Obtener datos de  la api(ejercicios)</button>
-        <div className='row'>
-
-          {exercises.map((exercise) => (
-            <div key={exercise.id} className="col-md-3 my-4 p-3 rounded " style={{ backgroundColor: 'rgba(0,0,0,0.7)', color: '#fff' }}>
-              <h3 className="text-warning">{exercise.name}</h3>
-              <p><strong>Description:</strong> {exercise.description || 'No description available.'}</p>
-              <p><strong>Muscle Group:</strong> {exercise.category || 'General'}</p>
-              {exercise.image && (
-                <img src={exercise.image} alt={exercise.name} style={{ width: '100%', borderRadius: '10px' }} />
-              )}
-            </div>
-          ))}
-        </div>
-
         {/* Workout Plan */}
         {showWorkoutPlan && (
           <div className="row justify-content-center">
@@ -230,13 +245,13 @@ function GainMuscle() {
               </ul>
 
               {/* carousel */}
-              <div id="carouselExampleCaptions" className="carousel slide py-5 my-2 border rounded">
+              <div id="carouselExampleCaptions" className="carousel slide py-5 my-2 border rounded bg-white text-dark carousel-gifs">
                 <div className="carousel-indicators">
                   {workouts[difficulty].map((_, index) => (
                     <button
                       key={index}
                       type="button"
-                      data-bs-target="#carouselExampleCaptions"
+                      data-bs-target="#carouselExampleCaptions"    
                       data-bs-slide-to={index}
                       className={index === 0 ? 'active' : ''}
                       aria-current={index === 0 ? 'true' : 'false'}
@@ -244,7 +259,7 @@ function GainMuscle() {
                     ></button>
                   ))}
                 </div>
-                <div className="carousel-inner">
+                <div className="carousel-inner">           
                   {workouts[difficulty].map((exercise, index) => (
                     <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
                       <img src={exercise.src} className="d-block w-25 m-auto" alt={exercise.label} />
@@ -357,6 +372,24 @@ function GainMuscle() {
           </Link>
         </div>
         {/* <Link to="/" className="btn btn-warning btn-lg mt-5">Back to Home</Link> */}
+
+        <hr />
+
+            {/* PETICIÓN API 1 */}
+            <button onClick={handleGetDataApi} className='btn btn-lg btn-dark border-warning my-4 w-75 text-warning'>Show more exercises</button>
+        <div className='row'>
+
+          {exercises.map((exercise) => (
+            <div key={exercise.id} className="col-md-3 my-4 p-3 rounded card h-100" style={{ backgroundColor: 'rgba(0,0,0,0.1)', color: '#fff' }}>
+              <h3 className="text-warning">{exercise.name}</h3>
+              <p><strong>Description:</strong> {exercise.description || 'No description available.'}</p>
+              <p><strong>Muscle Group:</strong> {exercise.category || 'General'}</p>
+              {exercise.image && (
+                <img src={exercise.image} alt={exercise.name} style={{ width: '100%', borderRadius: '10px' }} />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

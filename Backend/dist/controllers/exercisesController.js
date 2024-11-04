@@ -8,10 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { fetchDataApi } from "../services/externalApi.js";
+import { fetchDataApi_2 } from "../services/externalApi2.js";
 // Function para obetenr los ejercicios de la API desde el servidor
 export const getExercisesApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const exercises = yield fetchDataApi();
+        res.json(exercises);
+        console.log(exercises);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error al obtener los ejercicios de la API' });
+    }
+});
+export const getExercisesApi2 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const exercises = yield fetchDataApi_2();
         res.json(exercises);
         console.log(exercises);
     }

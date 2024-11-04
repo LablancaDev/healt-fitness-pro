@@ -27,7 +27,7 @@ const NavBar = () => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg px-2">
+        <nav className="navbar navbar-expand-lg px-2 position-fixed w-100" style={{ zIndex: 1000, top: 0 }}>
             <div className="container-fluid">
                 <a className="navbar-brand title " href="#">Healt<img className='logo' src={logo} alt="logo" />FitnessPro</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -1,4 +1,7 @@
 /* generic styles */
+body{
+  margin-top: 4em;
+}
 a {
   text-decoration: none;
   cursor: pointer;
@@ -119,20 +122,25 @@ li {
 .graph{
   background-color: rgba(0, 0, 0, 0.418);
 }
-.graph{
-  
-}
-
 
 /* LoseWeight Maintenance GainMuscle*/
 .LoseWeight, .Maintenance, .GainMuscle, .dashboard-container{
   min-height: 100vh;
 }
 
+/* GainMuscle */
+.carousel-gifs .carousel-indicators button{
+  background-color: rgb(29, 29, 29);
+}
+.carousel-gifs .carousel-control-prev-icon,
+.carousel-gifs .carousel-control-next-icon {
+  filter: invert(1); /* Cambia el color de los iconos de control a negro */
+}
+
 /* myProfile */
 .card-dataUser {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 1px solid #dee2e6;
+  border: 1px solid #dee2e6; 
   background-color: rgba(139, 139, 139, 0.459);
   transition: background-color 0.9s ease, box-shadow 0.5s ease;
 }

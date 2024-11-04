@@ -6,7 +6,7 @@ import { dirname } from 'path';
 import { loginUser, registerNewUser, updateDataUser } from './controllers/authControllers.js'; // Siempre añadir .js muy importante para la importación con node
 import { initialGoal } from './controllers/InitialGoalController.js';
 import { activityRegister, deleteActivities, getDataUser, getGoalByUserId, phisicalGoals } from './controllers/goalsFormController.js';
-import { getExercisesApi } from './controllers/exercisesController.js';
+import { getExercisesApi, getExercisesApi2 } from './controllers/exercisesController.js';
 // Simulación de __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,4 +40,6 @@ router.delete('/deleteActivities/:userId', deleteActivities);
 router.put('/updateDataUser/:user_id', updateDataUser);
 // * Ruta para obtener los datos de ejercicios de la api (COnsumo Api WGER)
 router.get('/getExercises', getExercisesApi);
+// * Ruta para obtener los datos de ejercicios de la api 2 (ExerciseDB API)
+router.get('/getExercises_2', getExercisesApi2);
 export default router;
