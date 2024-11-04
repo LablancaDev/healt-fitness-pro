@@ -11,13 +11,6 @@ const __dirname = path.dirname(__filename);
 connectDB();
 const app = express();
 const PORT = process.env.PORT || 4000;
-
-// Middleware para registrar las solicitudes
-app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-    next();
-});
-
 // Configurar CORS para permitir solicitudes desde el cliente local y el frontend en Vercel
 const allowedOrigins = [
     'http://localhost:4000', // Backend local
