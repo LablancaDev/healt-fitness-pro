@@ -6,6 +6,12 @@ import { setActivity } from '../../redux/goalsSlice';
 import Swal from 'sweetalert2';
 
 function ActivityForm() {
+
+    // Obtener la URL base de la API según el entorno
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
+
     const dispatch = useDispatch();
 
     const { user_id: userId } = useSelector((state: RootState) => state.auth);
@@ -22,7 +28,7 @@ function ActivityForm() {
         const fetchGoalId = async () => {
             if (userId) {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/users/goal/${userId}`);
+                    const response = await axios.get(`${apiUrl}/api/users/goal/${userId}`);   //ruta local mode development `http://localhost:4000/api/users/goal/${userId}`
                     setGoalId(response.data.goalId);
                 } catch (error) {
                     console.error('Error fetching goalId:', error);
@@ -48,9 +54,9 @@ function ActivityForm() {
         }
 
         try {
-            await axios.post("http://localhost:4000/api/users/activityRegister", {
-                userId,
-                goalId,
+            await axios.post(`${apiUrl}/api/users/activityRegister`, {    //ruta local mode development "http://localhost:4000/api/users/activityRegister"  
+                userId, 
+                goalId,        
                 activityDate,
                 activityType,
                 duration,
@@ -84,9 +90,9 @@ function ActivityForm() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
                 background: '#333',
-                color: '#fff', 
-                padding: '2em', 
-                backdrop: 'rgba(0, 0, 0, 0.7)', 
+                color: '#fff',
+                padding: '2em',
+                backdrop: 'rgba(0, 0, 0, 0.7)',
                 confirmButtonColor: '#FFA500',
             });
 
@@ -97,10 +103,10 @@ function ActivityForm() {
                 text: 'Falló al registrar la actividad. Asegúrate de estar conectado.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar',
-                background: '#333', 
-                color: '#fff', 
-                padding: '2em', 
-                backdrop: 'rgba(0, 0, 0, 0.7)', 
+                background: '#333',
+                color: '#fff',
+                padding: '2em',
+                backdrop: 'rgba(0, 0, 0, 0.7)',
             });
         }
     };

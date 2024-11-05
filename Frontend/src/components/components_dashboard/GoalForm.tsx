@@ -7,10 +7,15 @@ import { setPhysicalGoals } from '../../redux/goalsSlice';
 import Swal from 'sweetalert2';
 
 const GoalForm = () => {
-    const dispatch = useDispatch();
-   
-    const { user_id: userId } = useSelector((state: RootState) => state.auth)
 
+    // Obtener la URL base de la API según el entorno
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
+
+    const dispatch = useDispatch();
+
+    const { user_id: userId } = useSelector((state: RootState) => state.auth)
 
     const [desiredWeight, setDesiredWeight] = useState<number>(0);
     const [desiredFatPercentage, setDesiredFatPercentage] = useState<number>(0);
@@ -23,7 +28,7 @@ const GoalForm = () => {
         const fetchGoalId = async () => {
             if (userId) {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/users/goal/${userId}`);
+                    const response = await axios.get(`${apiUrl}/api/users/goal/${userId}`);   // `http://localhost:4000/api/users/goal/${userId}`
                     setGoalId(response.data.goalId);
                 } catch (error) {
                     console.error('Error fetching goalId:', error);
@@ -50,7 +55,7 @@ const GoalForm = () => {
 
         // Al volver a iniciar un objetivo físico automáticamente se borran todas las actividades del anterior objetivo físico, manteniendo el objetivo Principal ejem(losWeight)
         try {
-            await axios.delete(`http://localhost:4000/api/users/deleteActivities/${userId}`)
+            await axios.delete(`${apiUrl}/api/users/deleteActivities/${userId}`)   // `http://localhost:4000/api/users/deleteActivities/${userId}`
 
             console.log('Activities delete successfully')
             // alert('Activities delete successfully!');
@@ -67,7 +72,7 @@ const GoalForm = () => {
 
         //  Usar Promise.all para ejecutar múltiples solicitudes al mismo tiempo
         try {
-            await axios.post('http://localhost:4000/api/users/physicalgoals', {
+            await axios.post(`${apiUrl}/api/users/physicalgoals`, {    // 'http://localhost:4000/api/users/physicalgoals'
                 userId, //usuario Logeado
                 goalId, // Enviamos el ID del objetivo aquí
                 desiredWeight,
@@ -76,13 +81,13 @@ const GoalForm = () => {
             });
 
             dispatch(setPhysicalGoals({
-    
-                    desiredWeight, 
-                    desiredFatPercentage,
-                    estimatedTargetTime
-                
+
+                desiredWeight,
+                desiredFatPercentage,
+                estimatedTargetTime
+
             }))
-            
+
 
             // Reset form after submission
             setDesiredWeight(0);
@@ -96,9 +101,9 @@ const GoalForm = () => {
                 text: 'Meta registrada exitosamente!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
-                background: '#333', 
-                color: '#fff', 
-                padding: '2em', 
+                background: '#333',
+                color: '#fff',
+                padding: '2em',
                 backdrop: 'rgba(0, 0, 0, 0.7)',
                 confirmButtonColor: '#FFA500',
             });
@@ -111,9 +116,9 @@ const GoalForm = () => {
                 text: 'Falló al registrar la meta. Asegúrate de estar conectado.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar',
-                background: '#333', 
-                color: '#fff', 
-                padding: '2em', 
+                background: '#333',
+                color: '#fff',
+                padding: '2em',
                 backdrop: 'rgba(0, 0, 0, 0.7)',
             });
         }
