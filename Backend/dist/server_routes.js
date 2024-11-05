@@ -39,7 +39,7 @@ router.delete('/deleteActivities/:userId', deleteActivities);
 // * Ruta para editar los datos del usuario
 router.put('/updateDataUser/:user_id', updateDataUser);
 // * Ruta para obtener los datos de ejercicios de la api (COnsumo Api WGER)
-router.get('/getExercises', getExercisesApi);
+// router.get('/getExercises', getExercisesApi);
 // * Ruta para obtener los datos de ejercicios de la api 2 (ExerciseDB API)
-router.get('/getExercises_2', getExercisesApi2);
+// router.get('/getExercises_2', getExercisesApi2);
 export default router;
