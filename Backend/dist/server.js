@@ -11,17 +11,22 @@ const __dirname = path.dirname(__filename);
 connectDB();
 const app = express();
 const PORT = process.env.PORT || 4000;
+// Middleware para registrar las solicitudes
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
 // Configurar CORS para permitir solicitudes desde el cliente local y el frontend en Vercel
 const allowedOrigins = [
     'http://localhost:4000', // Backend local
     'http://localhost:5173', // Frontend local (Vite)
     'http://localhost:4173', // npm run preview
-    'https://healt-fitness-pro.vercel.app',
-    'https://healt-fitness-bvc4gn3l9-davids-projects-5a52dd2e.vercel.app', // URL del frontend en Vercel 
+    'https://healt-fitness-pro.vercel.app', // Frontend de Vercel en producción
+    'https://healt-fitness-bvc4gn3l9-davids-projects-5a52dd2e.vercel.app', // Vercel (versión de despliegue temporal)
     'https://healt-fitness-no1hbjose-davids-projects-5a52dd2e.vercel.app',
     'https://healt-fitness-foveagz29-davids-projects-5a52dd2e.vercel.app'
 ];
-// Configuración de CORS
+// Configuración de CORS para permitir preflight y todas las rutas/métodos
 app.use(cors({
     origin: function (origin, callback) {
         // Permitir solicitudes sin origen (ej. Postman) o si está en la lista de orígenes permitidos
@@ -33,11 +38,19 @@ app.use(cors({
             callback(new Error('Not allowed by CORS'));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Asegúrate de incluir OPTIONS para preflight requests
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Incluye OPTIONS para preflight
     allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
     credentials: true // Si estás usando cookies o encabezados como Authorization
 }));
-app.use(express.json()); // Para que Express pueda interpretar JSON 
+// Respuesta a las solicitudes preflight
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(','));
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.sendStatus(200);
+});
+// Middleware para interpretar JSON
+app.use(express.json());
 // Rutas
 app.use('/api/users', server_routes);
 // Servir imágenes subidas de forma estática
