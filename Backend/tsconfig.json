@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2016",                         
-    "module": "ESNext",                     
-    "rootDir": "./src",                    
-    "outDir": "./dist",   
-    "moduleResolution": "node",                 
-    "strict": true,                        
-    "esModuleInterop": true,               
-    "skipLibCheck": true,                  
-    "forceConsistentCasingInFileNames": true 
+    "target": "ES2016",                               
+    "module": "ESNext",                               /* Usa ES Modules en lugar de CommonJS */
+    "moduleResolution": "node",                       /* Usa la resolución de módulos de Node.js */
+    "esModuleInterop": true,                          /* Facilita la interoperabilidad entre módulos ES y CommonJS */
+    "forceConsistentCasingInFileNames": true,         /* Asegura que los nombres de archivo sean consistentes en los imports */
+    "strict": true,                                   /* Habilita las opciones de verificación de tipos estrictas */
+    "skipLibCheck": true,                             /* Omite la comprobación de tipos en archivos de definición de biblioteca */
+    "outDir": "./dist",                               /* Especifica la carpeta de salida para los archivos compilados */
+    "rootDir": "./src",                               /* Especifica la carpeta raíz de los archivos fuente */
+    "types": ["node"]                                 /* Incluye las definiciones de tipo para Node.js */
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src"],                                 /* Incluye la carpeta de código fuente */
+  "exclude": ["node_modules"]                         /* Excluye la carpeta node_modules */
 }
