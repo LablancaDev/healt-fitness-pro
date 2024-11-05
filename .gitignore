@@ -16,3 +16,4 @@
 
 # ignorar node modules ya que tiene múltiples archivos y carpetas IMPORTANTE
 node_modules/
+.vercel

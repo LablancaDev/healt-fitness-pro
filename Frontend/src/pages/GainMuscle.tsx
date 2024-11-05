@@ -30,7 +30,7 @@ import benchPress from '../assets/videos/Stability-Ball-Decline-Push-Up-unscreen
 import pullUp from '../assets/videos/squadFixed.gif';
 
 import workoutVideo from '../assets/videos/How To Machine Assisted Pull Up.mp4';
-import axios from 'axios'; 
+// import axios from 'axios'; 
 
 // Definición de tipos para los datos
 interface Workout {
@@ -44,18 +44,18 @@ interface Routine {
   routine: string;
 }
 
-interface Exercise {
-  id: number;
-  name: string;
-  description: string;
-  category: string;
-  image: string;
-}
+// interface Exercise {
+//   id: number;
+//   name: string;
+//   description: string; 
+//   category: string;
+//   image: string;
+// }
 
 
 function GainMuscle() {
 
-  const [exercises, setExercises] = useState<Exercise[]>([]);
+  // const [exercises, setExercises] = useState<Exercise[]>([]);
 
   // Estado para mostrar el plan de la dieta
   const [showMealPlan, setShowMealPlan] = useState<boolean>(false);
@@ -139,22 +139,22 @@ function GainMuscle() {
   };
 
   // Enpoint para obtener los datos de la api desde el servidor
-  const handleGetDataApi = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/api/users/getExercises')
+  // const handleGetDataApi = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:4000/api/users/getExercises')
 
-      console.log('datos obtenidos correctamente')
+  //     console.log('datos obtenidos correctamente')
 
 
-      setExercises(response.data.results)
+  //     setExercises(response.data.results)
 
-      console.log(exercises);
+  //     console.log(exercises);
 
-    } catch (error) {
+  //   } catch (error) {
 
-      console.log('error al obtener los datos de la api', error)
-    }
-  }
+  //     console.log('error al obtener los datos de la api', error)
+  //   }
+  // }
 
   return (
     <div
@@ -376,10 +376,10 @@ function GainMuscle() {
         <hr />
 
             {/* PETICIÓN API 1 */}
-            <button onClick={handleGetDataApi} className='btn btn-lg btn-dark border-warning my-4 w-75 text-warning'>Show more exercises</button>
+            {/* <button onClick={handleGetDataApi} className='btn btn-lg btn-dark border-warning my-4 w-75 text-warning'>Show more exercises</button> */}
         <div className='row'>
 
-          {exercises.map((exercise) => (
+          {/* {exercises.map((exercise) => (
             <div key={exercise.id} className="col-md-3 my-4 p-3 rounded card h-100" style={{ backgroundColor: 'rgba(0,0,0,0.1)', color: '#fff' }}>
               <h3 className="text-warning">{exercise.name}</h3>
               <p><strong>Description:</strong> {exercise.description || 'No description available.'}</p>
@@ -388,7 +388,7 @@ function GainMuscle() {
                 <img src={exercise.image} alt={exercise.name} style={{ width: '100%', borderRadius: '10px' }} />
               )}
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

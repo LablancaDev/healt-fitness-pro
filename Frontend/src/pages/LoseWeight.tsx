@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import bike from '../assets/imgs/bike.jpg';
 import diet from '../assets/imgs/diet.jpg';
-import axios from 'axios';
+// import axios from 'axios';
 
 
 import JumpSquats from '../assets/videos/How-To-Do-Jump-Squats-Benefits-unscreen.gif';
@@ -98,19 +98,19 @@ function LoseWeight() {
   };
 
 
-  const handleGetDataApi = async () => {
-    try {
+  // const handleGetDataApi = async () => {
+  //   try {
 
-      const response = await axios.get('http://localhost:4000/api/users/getExercises_2')
+  //     const response = await axios.get('http://localhost:4000/api/users/getExercises_2')
 
-      // setAllExercises(response.data.data.exercises)
+  //     // setAllExercises(response.data.data.exercises)
 
-      console.log(response.data.data.exercises)
+  //     console.log(response.data.data.exercises)
 
-    } catch (error) {
-      console.log('error al obtener los datos de la api', error)
-    }
-  }
+  //   } catch (error) {
+  //     console.log('error al obtener los datos de la api', error)
+  //   }
+  // }
 
 
   return (
@@ -335,7 +335,7 @@ function LoseWeight() {
         </div>
 
         PETICIÓN API 2
-          <button onClick={handleGetDataApi} className='btn btn-lg btn-dark border-warning my-4 w-75 text-warning m-auto'>Show more exercises</button>
+          {/* <button onClick={handleGetDataApi} className='btn btn-lg btn-dark border-warning my-4 w-75 text-warning m-auto'>Show more exercises</button> */}
         <div className='row'>  
           <div className='col'>
             {/* {allExercises.map((exercise) => (       

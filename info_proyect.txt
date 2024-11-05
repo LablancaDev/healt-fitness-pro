@@ -253,3 +253,15 @@
 
 
 
+-DESPLEGAR A PRODUCCION:
+
+PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro> vercel
+Vercel CLI 37.12.1
+? Set up and deploy “~\Desktop\Proyectos personales con React\healtFitnessPro”? yes
+? Which scope do you want to deploy to? David's projects
+? Found project “davids-projects-5a52dd2e/healt-fitness-pro”. Link to it? yes
+🔗  Linked to davids-projects-5a52dd2e/healt-fitness-pro (created .vercel and added it to .gitignore)
+🔍  Inspect: https://vercel.com/davids-projects-5a52dd2e/healt-fitness-pro/2BnKVTWJEZvowu91QQQ4Sx6yFzCM [5s]
+✅  Preview: https://healt-fitness-6j8agvgp0-davids-projects-5a52dd2e.vercel.app [5s]
+Error: No more than 12 Serverless Functions can be added to a Deployment on the Hobby plan. Create a team (Pro plan) to deploy more.
+PS C:\Users\David\Desktop\Proyectos personales con React\healtFitnessPro> 
