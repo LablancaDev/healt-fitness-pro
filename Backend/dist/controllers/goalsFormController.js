@@ -132,24 +132,24 @@ export const getGoalByUserId = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.status(500).json({ message: 'Failed to retrieve goal' });
     }
 });
-export const deleteActivities = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.params; // Obtiene el userId de los parámetros de la solicitud
-    console.log('ide del usuario', userId);
-    try {
-        // Encuentra el objetivo del usuario y actualiza las actividades para eliminarlas
-        const goal = yield Goal.findOneAndUpdate({ user_id: userId }, // Busca el objetivo del usuario
-        { $set: { activities: [] } }, // Vacía el array de actividades
-        { new: true } // Devuelve el documento actualizado
-        );
-        // Verifica si el objetivo del usuario existe
-        if (!goal) {
-            res.status(404).json({ message: 'Goal not found for this user.' });
-            return;
-        }
-        res.status(200).json({ message: 'Activities deleted successfully.' });
-    }
-    catch (error) {
-        console.error('Error deleting activities:', error);
-        res.status(500).json({ message: 'Failed to delete activities.', error });
-    }
-});
+// export const deleteActivities = async (req: Request, res: Response): Promise<void> => {
+//     const { userId } = req.params;  // Obtiene el userId de los parámetros de la solicitud
+//     console.log('ide del usuario',userId)
+//     try {
+//         // Encuentra el objetivo del usuario y actualiza las actividades para eliminarlas
+//         const goal = await Goal.findOneAndUpdate(
+//             { user_id: userId },  // Busca el objetivo del usuario
+//             { $set: { activities: [] } },  // Vacía el array de actividades
+//             { new: true }  // Devuelve el documento actualizado
+//         );
+//         // Verifica si el objetivo del usuario existe
+//         if (!goal) {
+//             res.status(404).json({ message: 'Goal not found for this user.' });
+//             return;
+//         }
+//         res.status(200).json({ message: 'Activities deleted successfully.' });
+//     } catch (error) {
+//         console.error('Error deleting activities:', error);
+//         res.status(500).json({ message: 'Failed to delete activities.', error });
+//     }
+// };
