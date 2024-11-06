@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import server_routes from './server_routes.js';
 import connectDB from './config/config.js';
+import dotenv from 'dotenv';
 
 // Simulación de __dirname en ES Modules
 const __filename = fileURLToPath(import.meta.url);

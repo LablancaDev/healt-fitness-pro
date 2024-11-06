@@ -14,6 +14,11 @@ const Login = () => {
         ? import.meta.env.VITE_APP_API_URL_PRODUCTION
         : import.meta.env.VITE_APP_API_URL_LOCAL;
 
+        console.log(import.meta.env.MODE); // OK: imprime "development" en entorno local
+        console.log('API URL Local:', import.meta.env.VITE_APP_API_URL_LOCAL);
+        console.log('API URL Production:', import.meta.env.VITE_APP_API_URL_PRODUCTION);
+        console.log('API URL Final:', apiUrl);
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
