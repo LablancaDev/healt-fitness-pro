@@ -10,9 +10,6 @@ import dotenv from 'dotenv';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Cargar variables de entorno
-dotenv.config();
-
 // Conectar a MongoDB
 connectDB();
 
@@ -21,7 +18,7 @@ const PORT = process.env.PORT || 4000;
 
 // Middleware para registrar las solicitudes
 app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);  
     next();
 });
 
@@ -30,38 +27,43 @@ const allowedOrigins = [
     'http://localhost:4000',          // Backend local
     'http://localhost:5173',          // Frontend local (Vite)
     'http://localhost:4173',          // npm run preview
-    'https://healt-fitness-pro.vercel.app',   // Frontend en Vercel en producción
-    /\.vercel\.app$/                  // Todos los subdominios de Vercel (despliegues temporales)
+    'https://healt-fitness-pro.vercel.app',   // Frontend de Vercel en producción
+    'https://healt-fitness-jpagug9ze-davids-projects-5a52dd2e.vercel.app', // Vercel (versión de despliegue temporal)  
+    /\.vercel\.app$/ 
 ];
 
-// Configuración de CORS
-app.use(cors({
+// Configuración de CORS para permitir preflight y todas las rutas/métodos
+app.use(cors({  
     origin: function (origin, callback) {
         // Permitir solicitudes sin origen (ej. Postman) o si está en la lista de orígenes permitidos
-        if (!origin || allowedOrigins.some((allowedOrigin) =>
-            typeof allowedOrigin === 'string'
-                ? allowedOrigin === origin
-                : allowedOrigin.test(origin)
-        )) {
-            callback(null, origin); // Responde con el origen permitido
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, origin);
         } else {
             console.error(`CORS error: Origin not allowed: ${origin}`);
-            callback(new Error('Not allowed by CORS'));
+            callback(new Error('Not allowed by CORS'));  
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Métodos HTTP permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Incluye OPTIONS para preflight
     allowedHeaders: ['Content-Type', 'Authorization'],    // Encabezados permitidos
-    credentials: true                                     // Si estás usando cookies o tokens
+    credentials: true                                     // Si estás usando cookies o encabezados como Authorization
 }));
+
+// Respuesta a las solicitudes preflight
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', allowedOrigins.join(','));
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.sendStatus(200);
+});
 
 // Middleware para interpretar JSON
 app.use(express.json());
 
-// Rutas de la API
+// Rutas
 app.use('/api/users', server_routes);
 
 // Servir imágenes subidas de forma estática
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));  
 
 // Iniciar el servidor
 app.listen(PORT, () => {
