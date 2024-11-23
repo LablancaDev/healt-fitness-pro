@@ -4,9 +4,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import server_routes from './server_routes.js';
 import connectDB from './config/config.js';
+import dotenv from 'dotenv';
 // Simulación de __dirname en ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// Cargar variables de entorno
+dotenv.config();
 // Conectar a MongoDB
 connectDB();
 const app = express();
@@ -21,35 +24,30 @@ const allowedOrigins = [
     'http://localhost:4000', // Backend local
     'http://localhost:5173', // Frontend local (Vite)
     'http://localhost:4173', // npm run preview
-    'https://healt-fitness-pro.vercel.app', // Frontend de Vercel en producción
-    'https://healt-fitness-jpagug9ze-davids-projects-5a52dd2e.vercel.app', // Vercel (versión de despliegue temporal)
+    'https://healt-fitness-pro.vercel.app', // Frontend en Vercel en producción
+    /\.vercel\.app$/ // Todos los subdominios de Vercel (despliegues temporales)
 ];
-// Configuración de CORS para permitir preflight y todas las rutas/métodos
+// Configuración de CORS
 app.use(cors({
     origin: function (origin, callback) {
         // Permitir solicitudes sin origen (ej. Postman) o si está en la lista de orígenes permitidos
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
+        if (!origin || allowedOrigins.some((allowedOrigin) => typeof allowedOrigin === 'string'
+            ? allowedOrigin === origin
+            : allowedOrigin.test(origin))) {
+            callback(null, origin); // Responde con el origen permitido
         }
         else {
             console.error(`CORS error: Origin not allowed: ${origin}`);
             callback(new Error('Not allowed by CORS'));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Incluye OPTIONS para preflight
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Métodos HTTP permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
-    credentials: true // Si estás usando cookies o encabezados como Authorization
+    credentials: true // Si estás usando cookies o tokens
 }));
-// Respuesta a las solicitudes preflight
-app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Origin', allowedOrigins.join(','));
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.sendStatus(200);
-});
 // Middleware para interpretar JSON
 app.use(express.json());
-// Rutas
+// Rutas de la API
 app.use('/api/users', server_routes);
 // Servir imágenes subidas de forma estática
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
