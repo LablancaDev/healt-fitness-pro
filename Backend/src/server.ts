@@ -30,16 +30,22 @@ const allowedOrigins = [
     'http://localhost:4000',          // Backend local
     'http://localhost:5173',          // Frontend local (Vite)
     'http://localhost:4173',          // Preview local
-    process.env.FRONTEND_URL           // URL del frontend en Render
+    process.env.VITE_APP_API_URL_PRODUCTION  // URL del frontend en producción (desde el archivo .env)
 ].filter(Boolean); // 🔹 Filtra valores undefined
 
 app.use(cors({
-    origin: '*', // Permite todos los orígenes (solo para pruebas, NO en producción)
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.error(`CORS error: Origin not allowed: ${origin}`);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
-
 
 // Middleware para interpretar JSON
 app.use(express.json());
