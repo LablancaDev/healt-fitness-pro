@@ -27,10 +27,9 @@ app.use((req, res, next) => {
 
 // Configurar CORS para Render y entorno local
 const allowedOrigins = [
-    'http://localhost:4000',          // Backend local
-    'http://localhost:5173',          // Frontend local (Vite)
-    'http://localhost:4173',          // Preview local
-    process.env.VITE_APP_API_URL_PRODUCTION  // URL del frontend en producción (desde el archivo .env)
+    'https://frontend-healt-fitness-pro.onrender.com',  // Frontend en producción
+    'http://localhost:5173',                            // Frontend local para desarrollo (si usas Vite)
+    process.env.FRONTEND_URL                            // URL del frontend configurado en las variables de entorno
 ].filter(Boolean); // 🔹 Filtra valores undefined
 
 app.use(cors({
