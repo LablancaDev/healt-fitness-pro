@@ -56,6 +56,11 @@ app.use('/api/users', server_routes);
 // Servir imágenes subidas de forma estática
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// ruta para manejar /
+app.get('/', (req, res) => {
+    res.send('API is running...');
+});
+
 // Iniciar el servidor en Render
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
