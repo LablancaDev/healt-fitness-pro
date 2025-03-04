@@ -25,17 +25,9 @@ const allowedOrigins = [
     'http://localhost:5173', // Frontend local (Vite)
     'http://localhost:4173', // Preview local
     process.env.FRONTEND_URL // URL del frontend en Render
-];
+].filter(Boolean); // 🔹 Filtra valores undefined
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        }
-        else {
-            console.error(`CORS error: Origin not allowed: ${origin}`);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: '*', // Permite todos los orígenes (solo para pruebas, NO en producción)
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
