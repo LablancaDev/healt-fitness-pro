@@ -63,7 +63,10 @@ export const registerNewUser = async (req: Request, res: Response): Promise<void
 
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
+
+        // Limpiar espacios y convertir a minúsculas para evitar problemas de coincidencias
+        email = email.trim().toLowerCase();
 
         console.log('Recibiendo los datos para login - Email:', email, 'Password:', password);
 
