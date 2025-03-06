@@ -65,44 +65,54 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email, password } = req.body;
 
-        console.log('Email y password para el login', email, password)
+        console.log('Recibiendo los datos para login - Email:', email, 'Password:', password);
 
         // Búsqueda del usuario por email
-        const user = await User.findOne({ email })
+        const user = await User.findOne({ email });
 
+        // Verifica si el usuario no existe
         if (!user) {
-            res.status(401).json({ message: 'Email o contraseña incorrectos' })
+            console.log('Usuario no encontrado con el email:', email);
+            res.status(401).json({ message: 'Email o contraseña incorrectos' });
             return; // Detener ejecución
         }
 
-        // Validación de la contraseña
+        console.log('Usuario encontrado:', user.email);
+
+        // Validación de la contraseña (sin cifrado por el momento)
         if (user.password !== password) {
-            // El email es correcto, pero la contraseña es incorrecta
+            console.log('Contraseña incorrecta para el usuario:', email);
             res.status(401).json({ message: 'Contraseña incorrecta' });
             return; // Detener ejecución
         }
 
-        // Validación del password
-        if (user.password === password) {
-            res.status(200).json({
-                message: 'Login exitoso',
-                id: user._id,
-                userName: user.userName,
-                age: user.age,
-                weight: user.weight,
-                height: user.height,
-                email: user.email,
-                gender: user.gender,
-                profile_image: user.profile_image
-            })
-            return
-        }
+        console.log('Contraseña válida para el usuario:', email);
 
-    } catch (error) {
-        console.error('Error al logear el usuario')
-        res.status(500).json({ message: 'Error durante el login' });
+        // Si las credenciales son correctas, enviar respuesta positiva
+        res.status(200).json({
+            message: 'Login exitoso',
+            id: user._id,
+            userName: user.userName,
+            age: user.age,
+            weight: user.weight,
+            height: user.height,
+            email: user.email,
+            gender: user.gender,
+            profile_image: user.profile_image
+        });
+
+    } catch (error: unknown) {
+        // Verificación de tipo para 'error'
+        if (error instanceof Error) {
+            console.error('Error al procesar el login:', error.message);
+            res.status(500).json({ message: 'Error durante el login', error: error.message });
+        } else {
+            console.error('Error desconocido:', error);
+            res.status(500).json({ message: 'Error desconocido durante el login' });
+        }
     }
-}
+};
+
 
 
 
