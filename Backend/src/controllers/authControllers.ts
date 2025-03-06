@@ -63,7 +63,7 @@ export const registerNewUser = async (req: Request, res: Response): Promise<void
 
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        let { email, password } = req.body;
+        let { email, password } = req.body; //declaro como let para poder editar email
 
         // Limpiar espacios y convertir a minúsculas para evitar problemas de coincidencias
         email = email.trim().toLowerCase();

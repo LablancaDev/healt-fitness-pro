@@ -57,7 +57,7 @@ export const registerNewUser = (req, res) => __awaiter(void 0, void 0, void 0, f
 });
 export const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { email, password } = req.body;
+        let { email, password } = req.body; //declaro como let para poder editar email
         // Limpiar espacios y convertir a minúsculas para evitar problemas de coincidencias
         email = email.trim().toLowerCase();
         console.log('Recibiendo los datos para login - Email:', email, 'Password:', password);

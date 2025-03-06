@@ -152,25 +152,17 @@ const Login = () => {
 
 
     const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-    
-        const userDataLogin = { email, password };
-    
-        // Log: Mostrar los datos que se envían al backend
-        console.log('Enviando datos de login:', userDataLogin);
-    
+        e.preventDefault()
+
+        // setMessageLogin(true)
+
+        const userDataLogin = { email, password }
         try {
-            // Enviamos la solicitud POST al backend
-            const response = await axios.post(`${apiUrl}/api/users/login`, userDataLogin);
-            
-            // Log: Verificar la URL de la API y los datos de login que se están enviando
-            console.log('Ruta Frontend de pruebas:', `${apiUrl}/api/users/login`);
-            console.log('Datos enviados al backend:', userDataLogin);
-            console.log('Respuesta del backend:', response);
-    
-            // Si el login es exitoso
+            const response = await axios.post(`${apiUrl}/api/users/login`, userDataLogin) // ruta local modo desarrollo: 'http://localhost:4000/api/users/login'
+
+            // alert(response.data.message)
             Swal.fire({
-                title: 'Perfecto!',
+                title: 'Perfecto!',  
                 text: 'Login exitoso!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
@@ -180,14 +172,12 @@ const Login = () => {
                 backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
                 confirmButtonColor: '#FFA500',
             });
-    
-            // Se extraen los datos de la respuesta
+
+            // Se extraen los datos de la respuesta del objeto de la respuesta con destructuración
             const { id, userName, age, weight, height, email, gender, profile_image } = response.data;
-    
-            // Log: Mostrar los datos recuperados del backend después de un login exitoso
-            console.log("Datos recuperados después del Login:", { id, userName, age, weight, height, email, gender, profile_image });
-    
-            // Despachar los datos del usuario a Redux
+
+            console.log("Datos recuperados despúes del Login:", id, userName, age, weight, height, email, gender, profile_image)
+
             dispatch(setUser({
                 user_id: id,
                 userName: userName,
@@ -198,15 +188,18 @@ const Login = () => {
                 userGender: gender,
                 userProfileImage: profile_image
             }));
-    
-            // Navegar a la página de inicio después de login exitoso
+
+            // setTimeout(() => {
+            //     setMessageLogin(false)
+            //     navigate("/home");
+            // }, 3000);
+
             navigate("/home");
-    
+
+
         } catch (error) {
-            // Log: Imprimir el error si algo falla durante el login
             console.log('Error durante el login:', error);
-    
-            // Mostrar el error mediante un mensaje de Swal
+            // alert('Email o contraseña incorrectos');
             Swal.fire({
                 title: 'Error',
                 text: 'Email o contraseña incorrectos.',
@@ -218,8 +211,7 @@ const Login = () => {
                 backdrop: 'rgba(0, 0, 0, 0.7)',
             });
         }
-    };
-    
+    }
 
 
     return (
