@@ -26,26 +26,13 @@ app.use((req, res, next) => {
 });
 
 // Configurar CORS para Render y entorno local
-const allowedOrigins = [
-    'https://frontend-healt-fitness-pro.onrender.com',  // Frontend en producción
-    'https://healt-fitness-pro.onrender.com',
-    'http://localhost:5173',                            // Frontend local para desarrollo (si usas Vite)
-    process.env.FRONTEND_URL                            // URL del frontend configurado en las variables de entorno
-].filter(Boolean); // 🔹 Filtra valores undefined
-
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.error(`CORS error: Origin not allowed: ${origin}`);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
+
 
 // Middleware para interpretar JSON
 app.use(express.json());
