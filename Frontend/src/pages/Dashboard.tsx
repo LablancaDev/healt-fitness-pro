@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
     const { activity, physicalGoals } = useSelector((state: RootState) => state.goals);
     const [userData, setUserData] = useState<any>(null); // Agregamos el estado para almacenar los datos del usuario
     const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);   
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getDataUser = async () => {
@@ -70,7 +70,9 @@ const Dashboard: React.FC = () => {
     if (loading) {
         return <div className='text-center text-warning messageLoadingData'>Cargando los datos...</div>;
     }
-
+    if (!userData) {
+        return <div className='text-center text-warning messageLoadingData'>No hay datos registrados del usuario...</div>;
+    }
     if (error) {
         return <div className="text-danger text-center messageLoadingData">{error}</div>;
     }
