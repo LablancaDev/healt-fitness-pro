@@ -10,6 +10,11 @@ import { logout } from '../redux/authSlice'
 
 const NavBar = () => {
 
+    // Obtener la URL base de la API según el entorno que puede ser local o produccion
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
+
     const { userName, userProfileImage } = useSelector((state: RootState) => state.auth)
 
     const dispatch = useDispatch()
@@ -81,7 +86,7 @@ const NavBar = () => {
                     {userName && userProfileImage && (
                         <div className='d-flex align-items-center gap-4'>
                             <div className='text-light'>{userName}</div>
-                            <img className='profileImage' src={`http://localhost:4000/uploads/${userProfileImage}`} alt="profileImage" />
+                            <img className='profileImage' src={`${apiUrl}/uploads/${userProfileImage}`} alt="profileImage" />
                         </div>
                     )}
                 </div>
