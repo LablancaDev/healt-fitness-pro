@@ -68,11 +68,11 @@ const Dashboard: React.FC = () => {
 
 
     if (loading) {
-        return <div className='text-center text-warning'>Cargando los datos...</div>;
+        return <div className='text-center text-warning messageLoadingData'>Cargando los datos...</div>;
     }
 
     if (error) {
-        return <div className="text-danger text-center">{error}</div>;
+        return <div className="text-danger text-center messageLoadingData">{error}</div>;
     }
 
 
@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
                     <div className="col-md-8">
                         <div className=''>
                             {/* Componente de la gráfica */}
-                            <div className="mt-4 border rounded p-4 graph">
+                            <div className="mt-4 border rounded py-5 graph">
                                 {/* Aseguramos que userData esté disponible antes de renderizar WeightChart */}
                                 {userData && userData.activities && (
                                     <WeightChart activities={userData.activities} />

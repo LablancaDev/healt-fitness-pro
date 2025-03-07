@@ -9,19 +9,19 @@ import { useDispatch } from 'react-redux';
 import { deleteActivity } from '../../redux/goalsSlice';
 import Swal from 'sweetalert2';
 
-function Results() { 
+function Results() {
 
-     // Obtener la URL base de la API según el entorno que puede ser local o produccion
-     const apiUrl = import.meta.env.MODE === 'production'
-     ? import.meta.env.VITE_APP_API_URL_PRODUCTION
-     : import.meta.env.VITE_APP_API_URL_LOCAL;
+    // Obtener la URL base de la API según el entorno que puede ser local o produccion
+    const apiUrl = import.meta.env.MODE === 'production'
+        ? import.meta.env.VITE_APP_API_URL_PRODUCTION
+        : import.meta.env.VITE_APP_API_URL_LOCAL;
 
     const dispatch = useDispatch()
 
     const { user_id } = useSelector((state: RootState) => state.auth);
     const { activity } = useSelector((state: RootState) => state.goals); // Obtener la actividad del estado global
 
-    console.log('datos de login:', user_id);  
+    console.log('datos de login:', user_id);
 
     const [userData, setUserData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
@@ -119,37 +119,37 @@ function Results() {
             showCancelButton: true,
             confirmButtonText: 'Eliminar',
             cancelButtonText: 'Cancelar',
-            background: '#333', 
-            color: '#fff', 
-            padding: '2em', 
-            backdrop: 'rgba(0, 0, 0, 0.7)', 
-            confirmButtonColor: '#FFA500', 
-            cancelButtonColor: '#d33', 
+            background: '#333',
+            color: '#fff',
+            padding: '2em',
+            backdrop: 'rgba(0, 0, 0, 0.7)',
+            confirmButtonColor: '#FFA500',
+            cancelButtonColor: '#d33',
         });
-    
+
         if (isConfirmed) {
             try {
                 await axios.delete(`${apiUrl}/api/users/deleteActivities/${user_id}`); // `http://localhost:4000/api/users/deleteActivities/${user_id}` 
-    
+
                 // Limpiar el estado global
                 dispatch(deleteActivity());
-    
+
                 console.log('Actividades eliminadas exitosamente');
                 Swal.fire({
                     title: 'Perfecto!',
                     text: '¡Actividades eliminadas exitosamente!',
                     icon: 'success',
                     confirmButtonText: 'Aceptar',
-                    background: '#333', 
-                    color: '#fff', 
-                    padding: '2em', 
-                    backdrop: 'rgba(0, 0, 0, 0.7)', 
+                    background: '#333',
+                    color: '#fff',
+                    padding: '2em',
+                    backdrop: 'rgba(0, 0, 0, 0.7)',
                     confirmButtonColor: '#FFA500',
                 });
-    
+
                 // Forzar una recarga para actualizar completamente el estado visual de la página
                 window.location.reload();
-    
+
             } catch (error) {
                 console.error('Error al eliminar actividades:', error);
                 Swal.fire({
@@ -167,7 +167,7 @@ function Results() {
             console.log('Eliminación de actividades cancelada');
         }
     }
-    
+
 
     return (
         <div className='card bg-transparent border py-4'>
@@ -188,7 +188,7 @@ function Results() {
 
                 <div className="mt-4 p-3 rounded border goals-container">
                     <h4 className="text-center">Your Goals:</h4>
-                    <ul className="list-unstyled text-center rounded w-50 m-auto goals p-3">
+                    <ul className="list-unstyled text-center rounded m-auto goals p-3">
                         <li className='fs-4'>⚖️ Desired Weight: <span className='text-warning'>{userData.desired_weight?.toFixed(3)} kg</span></li>
                         <li className='fs-4'>🎯 Desired fat percentage: <span className='text-warning'>{userData.desired_fat_percentage} %</span></li>
                         <li className='fs-4'>⏱️ Duration time: <span className='text-warning'>{userData.estimated_time} days</span></li>
@@ -231,9 +231,6 @@ function Results() {
             <div className='m-auto'>
                 <button onClick={deleteActivities} className='btn btn-lg btn-danger my-2'>Delete all activities <i className="bi bi-trash3"></i></button>
             </div>
-            <h5 className='text-light'>
-                Realizar cálculo y mostrar mensaje al usuario según el objetivo establecido. Si está mejorando ¡felicidades!, si está empeorando, ¡tienes que mejorar!
-            </h5>
         </div>
     );
 }
