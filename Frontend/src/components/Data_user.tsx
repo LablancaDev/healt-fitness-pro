@@ -22,7 +22,7 @@ function Data_user() {
 
     // Almacena los datos editables del usuario mientras el formulario está en modo edición
     const [editableData, setEditableData] = useState({
-        userName: userName || '',  
+        userName: userName || '',
         userAge: userAge || 0,
         userHeight: userHeight || 0,
         userWeight: userWeight || 0,
@@ -52,7 +52,7 @@ function Data_user() {
                 }));
 
                 // Realiza una solicitud PUT a la API del servidor para actualizar los datos del usuario
-                const response = await axios.put(`${apiUrl}/api/users/updateDataUser/${user_id}`, editableData);  
+                const response = await axios.put(`${apiUrl}/api/users/updateDataUser/${user_id}`, editableData);
                 // ruta a servidor local: `http://localhost:4000/api/users/updateDataUser/${user_id}`
 
 
@@ -79,7 +79,7 @@ function Data_user() {
         <div className="card p-4 card-dataUser m-auto">
             <h4 className="text-center text-light">Data User</h4>
             <div className='d-flex justify-content-between align-items-center p-3'>
-                <img className="profileImage2" src={`http://localhost:4000/uploads/${userProfileImage}`} alt="Profile" />
+                <img className="profileImage2" src={`${apiUrl}/uploads/${userProfileImage}`} alt="Profile" />   {/*src={`http://localhost:4000/uploads/${userProfileImage}`}*/}
                 <img className="bodyHuman" src={userGender === 'female' ? bodyWoman : bodyMan} alt="Body" />
             </div>
             <div className=''>
