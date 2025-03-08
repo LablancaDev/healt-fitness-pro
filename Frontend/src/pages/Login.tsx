@@ -14,10 +14,10 @@ const Login = () => {
         ? import.meta.env.VITE_APP_API_URL_PRODUCTION
         : import.meta.env.VITE_APP_API_URL_LOCAL;
 
-        console.log(import.meta.env.MODE); // OK: imprime "development" en entorno local
-        console.log('API URL Local:', import.meta.env.VITE_APP_API_URL_LOCAL);
-        console.log('API URL Production:', import.meta.env.VITE_APP_API_URL_PRODUCTION);
-        console.log('API URL Final:', apiUrl);
+    console.log(import.meta.env.MODE); // OK: imprime "development" en entorno local
+    console.log('API URL Local:', import.meta.env.VITE_APP_API_URL_LOCAL);
+    console.log('API URL Production:', import.meta.env.VITE_APP_API_URL_PRODUCTION);
+    console.log('API URL Final:', apiUrl);
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -73,7 +73,7 @@ const Login = () => {
 
         // Para enviar los datos del usuario registrado al server hay que crear un objeto FormData que permita enviar archivos y datos en un solo POST request
         const dataUser = new FormData()
-        dataUser.append('userName', userName)  
+        dataUser.append('userName', userName)
         dataUser.append('age', age)
         dataUser.append('weight', weight)
         dataUser.append('height', height)
@@ -88,7 +88,7 @@ const Login = () => {
             console.error("No se ha seleccionado ninguna imagen.");
             return; // Sal de la función si no hay imagen
         }
-    
+
         try {
             await axios.post(`${apiUrl}/api/users/register`, dataUser, { // ruta local modo desarrollo: 'http://localhost:4000/api/users/register'
                 headers: {
@@ -162,7 +162,7 @@ const Login = () => {
 
             // alert(response.data.message)
             Swal.fire({
-                title: 'Perfecto!',  
+                title: 'Perfecto!',
                 text: 'Login exitoso!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
@@ -225,13 +225,13 @@ const Login = () => {
             justifyContent: 'center',
             alignItems: 'center'
         }}>
-            <div className="row w-50 m-auto">
-                <div className="col card my-5 p-4 card-login">
+            <div className="row w-100 m-auto">
+                <div className="col-xl-4 col-md-6 card my-5 p-4 card-login m-auto">
                     <h2 className="text-center">{changeLoginRegister ? 'Sign Up' : 'Log In'}</h2>
                     <form action="" onSubmit={changeLoginRegister ? handleRegister : handleLogin}>
-                        {changeLoginRegister && (
+                        {changeLoginRegister && (  
                             <div>
-                                <div className="w-50 m-auto my-4">
+                                <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="gender">Gender:</label>
                                     <select className="form-control" id="gender" onChange={handleSelectGender} >
                                         <option value="" disabled selected>Select your gender</option> {/* Placeholder */}
@@ -240,45 +240,45 @@ const Login = () => {
                                         <option value="other">Other</option> {/* También puedes añadir una opción adicional */}
                                     </select>
                                 </div>
-                                <div className="w-50 m-auto my-4">
+                                <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="name">Name:</label>
-                                    <input className="form-control" type="text" id="name" required onChange={handleInputName} />
+                                    <input className="form-control" type="text" id="name" placeholder="Enter your name" required onChange={handleInputName} />
                                 </div>
-                                <div className="w-50 m-auto my-4">
+                                <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="age">Age:</label>
-                                    <input className="form-control" type="number" id="age" required onChange={handleInputAge} />
+                                    <input className="form-control" type="number" id="age" placeholder="Enter your age" required onChange={handleInputAge} />
                                 </div>
-                                <div className="w-50 m-auto my-4">
+                                <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="weight">Weight:</label>
-                                    <input className="form-control" type="number" id="weight" required onChange={handleInputWeight} />
+                                    <input className="form-control" type="number" id="weight" placeholder="Enter your whight(kg)" required onChange={handleInputWeight} />
                                 </div>
-                                <div className="w-50 m-auto my-4">
+                                <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="height">Height:</label>
-                                    <input className="form-control" type="number" id="height" required onChange={handleInputHeight} />
+                                    <input className="form-control" type="number" id="height" placeholder="Enter your height" required onChange={handleInputHeight} />
                                 </div>
-                                <div className="w-50 m-auto my-4">
+                                <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="height">Profile Image:</label>
                                     <input className="form-control" type="file" id="height" accept="image/*" onChange={handleInputImage} />
                                 </div>
 
                             </div>
                         )}
-                        <div className="w-50 m-auto mb-4">
+                        <div className="w-75 m-auto mb-4">
                             <label className="form-label" htmlFor="email">Email:</label>
-                            <input className="form-control" type="email" id="email" required onChange={handleInputEmail} />
+                            <input className="form-control" type="email" id="email" placeholder="Enter your email (example@mail.com)" required onChange={handleInputEmail} />
                         </div>
-                        <div className="w-50 m-auto mb-4">
+                        <div className="w-75 m-auto mb-4">
                             <label className="form-label" htmlFor="password">Password:</label>
-                            <input className="form-control" type="password" id="password" required onChange={handleInputPassword} />
+                            <input className="form-control" type="password" id="password" placeholder="Enter password (min. 6 characters)" required onChange={handleInputPassword} />
                         </div>
                         {changeLoginRegister ? (
                             <div className="d-flex flex-column">
-                                <button onClick={handleRegister} type="submit" className="btn btn-primary w-25 m-auto my-4">Sign Up</button>
+                                <button onClick={handleRegister} type="submit" className="btn btn-primary  m-auto my-4">Sign Up</button>
                                 <a onClick={() => setChangeLoginRegister(false)} className="text-center"> Already have an account! </a>
                             </div>
                         ) : (
                             <div className="d-flex flex-column">
-                                <button onClick={handleLogin} type="submit" className="btn btn-success w-25 m-auto my-4">Log In</button>
+                                <button onClick={handleLogin} type="submit" className="btn btn-success  m-auto my-4">Log In</button>
                                 <a onClick={() => setChangeLoginRegister(true)} className="text-center"> Create Acount! </a>
                             </div>
                         )}
