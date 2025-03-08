@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import User from "../models/User.js";
+import bcrypt from "bcrypt";
 export const registerNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // console.log('Datos recibidos:', req.body); // datos recibidos 
     var _a;
@@ -30,6 +31,9 @@ export const registerNewUser = (req, res) => __awaiter(void 0, void 0, void 0, f
             res.status(400).json({ message: "La contraseña debe tener al menos 6 caracteres" });
             return;
         }
+        // **Hashear la contraseña antes de almacenarla**
+        const saltRounds = 10;
+        const hashedPassword = yield bcrypt.hash(password, saltRounds);
         // Crear un nuevo usuario con los datos recibidos
         // Se pasan los datos (name, email, password, profile_image) al constructor del modelo con los datos que vienen de la solicitud, creando una instancia de User.
         const newUser = new User({
@@ -38,7 +42,7 @@ export const registerNewUser = (req, res) => __awaiter(void 0, void 0, void 0, f
             weight,
             height,
             email,
-            password,
+            password: hashedPassword, // Guardamos la contraseña encriptada en el backend
             gender,
             profile_image
         });
@@ -70,11 +74,12 @@ export const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
             return; // Detener ejecución
         }
         console.log('Usuario encontrado:', user.email);
-        // Validación de la contraseña (sin cifrado por el momento)
-        if (user.password !== password) {
-            console.log('Contraseña incorrecta para el usuario:', email);
-            res.status(401).json({ message: 'Contraseña incorrecta' });
-            return; // Detener ejecución
+        // **Comparar la contraseña ingresada con la almacenada (hasheada)**
+        const isPasswordValid = yield bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            console.log('Contraseña incorrecta');
+            res.status(401).json({ message: 'Email o contraseña incorrectos' });
+            return;
         }
         console.log('Contraseña válida para el usuario:', email);
         // Si las credenciales son correctas, enviar respuesta positiva

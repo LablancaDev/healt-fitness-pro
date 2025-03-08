@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User.js";
-
+import bcrypt from "bcrypt";
 
 export const registerNewUser = async (req: Request, res: Response): Promise<void> => {
 
@@ -32,6 +32,10 @@ export const registerNewUser = async (req: Request, res: Response): Promise<void
             return;
         }
 
+        // **Hashear la contraseña antes de almacenarla**
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         // Crear un nuevo usuario con los datos recibidos
         // Se pasan los datos (name, email, password, profile_image) al constructor del modelo con los datos que vienen de la solicitud, creando una instancia de User.
         const newUser = new User({
@@ -40,7 +44,7 @@ export const registerNewUser = async (req: Request, res: Response): Promise<void
             weight,
             height,
             email,
-            password,
+            password: hashedPassword, // Guardamos la contraseña encriptada en el backend
             gender,
             profile_image
         })
@@ -82,11 +86,13 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 
         console.log('Usuario encontrado:', user.email);
 
-        // Validación de la contraseña (sin cifrado por el momento)
-        if (user.password !== password) {
-            console.log('Contraseña incorrecta para el usuario:', email);
-            res.status(401).json({ message: 'Contraseña incorrecta' });
-            return; // Detener ejecución
+        // **Comparar la contraseña ingresada con la almacenada (hasheada)**
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            console.log('Contraseña incorrecta');
+            res.status(401).json({ message: 'Email o contraseña incorrectos' });
+            return;
         }
 
         console.log('Contraseña válida para el usuario:', email);
@@ -138,7 +144,7 @@ export const updateDataUser = async (req: Request, res: Response): Promise<void>
 
         // Actualizar los datos del usuario
         if (userName !== undefined) user.userName = userName;
-        if (userAge !== undefined) user.age = userAge;  
+        if (userAge !== undefined) user.age = userAge;
         if (userHeight !== undefined) user.height = userHeight;
         if (userWeight !== undefined) user.weight = userWeight;
         if (userEmail !== undefined) user.email = userEmail;
