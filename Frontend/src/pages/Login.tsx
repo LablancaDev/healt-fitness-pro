@@ -124,7 +124,7 @@ const Login = () => {
                 // alert(`Error: ${error.response.data.message}`);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Falló en el registro. Asegúrate de estar conectado.',
+                    text: error.response?.data?.message || 'Error inesperado. Intenta nuevamente.',
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
                     background: '#333', // Fondo oscuro
