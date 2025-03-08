@@ -78,16 +78,20 @@ const CalorieChart: React.FC<CalorieChartProps> = ({ results }) => {
     return (
         <div className="container-fluid calorie-chart py-5">
             <h3 className="text-center">Your Results</h3>
-            <div className='d-flex justify-content-center m-auto'>
-                <div className="mt-4 w-50">
-                    <h5 className="text-center">Daily Caloric Needs</h5>
-                    <Bar data={barData} />
-                </div>
-                <div className="mt-4">
-                    <h5 className="text-center">Macronutrient Distribution</h5>
-                    <Doughnut data={doughnutData} />
+            <div className="row justify-content-center">
+                <div className="col-12 d-flex flex-column flex-md-row align-items-center justify-content-center gap-4 ">
+                    <div className="mt-4 w-100 w-md-50" style={{ maxWidth: "500px" }}>
+                        <h5 className="text-center">Daily Caloric Needs</h5>
+                        <Bar data={barData} />
+                    </div>
+                    <div className="mt-4 w-100 w-md-50" style={{ maxWidth: "400px" }}>
+                        <h5 className="text-center">Macronutrient Distribution</h5>
+                        <Doughnut data={doughnutData} />
+                    </div>
                 </div>
             </div>
+
+
 
             {/* Mostrar el mensaje correspondiente según el objetivo */}
             <h3 className="text-center mt-5 text-warning">{getGoalMessage(results.goal)}</h3>
