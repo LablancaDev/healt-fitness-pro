@@ -7,7 +7,7 @@
 
 **Health & Fitness Pro** es una aplicación web para la monitorización del estado físico de los usuarios. Este repositorio contiene el **backend**, desarrollado con **Node.js** y **Express**, que gestiona la autenticación, almacenamiento de datos y comunicación con la base de datos **MongoDB Atlas**.
 
-🚀 **Estado del proyecto:** 80% completado. Pendientes mejoras en la seguridad, cifrado de contraseñas con bcrypt y optimización de rendimiento.
+🚀 **Estado del proyecto:** 80% completado. Pendientes mejoras en la seguridad y optimización de rendimiento.
 
 🔗 **Frontend desplegado:** [https://frontend-healt-fitness-pro.onrender.com/]
 
@@ -68,11 +68,11 @@ El backend se encuentra listo para recibir solicitudes de la interfaz frontend, 
 
 ## 🛡️ Seguridad y Middleware
 
-✅ **Autenticación con JWT**: Protege las rutas privadas.  
 ✅ **Uso de variables de entorno** con `.env` para ocultar datos sensibles.  
 ✅ **CORS habilitado** para permitir solicitudes desde el frontend.  
 ✅ **Logs con Morgan** para monitorear solicitudes HTTP.  
 ✅ **Validación de datos con Express Validator**.
+✅ **Cifrado de contraseñas con bcrypt** 
 ✅ **Render habilita HTTPS automáticamente** para todas las aplicaciones desplegadas, asegurando que las comunicaciones 
      entre el cliente y el servidor estén cifradas y protegidas sin necesidad de configuraciones manuales de certificados SSL.
 
@@ -100,9 +100,10 @@ El backend se encuentra listo para recibir solicitudes de la interfaz frontend, 
 
 
 
-## 📈 Mejoras futuras
-- 🔒 **Cifrado de contraseñas con bcrypt** (pendiente de implementación).  
+## 📈 Mejoras futuras  
+- 🔒 **Autenticación con JWT**: Para proteger las rutas privadas. 
 - 🛡️ **Refuerzo de seguridad en las rutas protegidas**.  
+- 🔑 **Limite de intentos en el login para evitar ataques de fuerza bruta**
 - ⚡ **Optimización de consultas a MongoDB para mejorar el rendimiento**.  
 - 📂 **Implementación de almacenamiento en la nube (ej. Cloudinary) para imágenes**.  
 
