@@ -5,6 +5,9 @@ import { setUser } from "../redux/authSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+
 
 
 const Login = () => {
@@ -18,6 +21,8 @@ const Login = () => {
     console.log('API URL Local:', import.meta.env.VITE_APP_API_URL_LOCAL);
     console.log('API URL Production:', import.meta.env.VITE_APP_API_URL_PRODUCTION);
     console.log('API URL Final:', apiUrl);
+
+    const { user_id } = useSelector((state: RootState) => state.auth)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -103,8 +108,8 @@ const Login = () => {
                 confirmButtonText: 'Aceptar',
                 background: '#333',
                 color: '#fff',
-                padding: '2em', 
-                backdrop: 'rgba(0, 0, 0, 0.7)', 
+                padding: '2em',
+                backdrop: 'rgba(0, 0, 0, 0.7)',
                 confirmButtonColor: '#FFA500',
             });
 
@@ -128,11 +133,11 @@ const Login = () => {
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
                     background: '#333',
-                    color: '#fff', 
-                    padding: '2em', 
-                    backdrop: 'rgba(0, 0, 0, 0.7)', 
+                    color: '#fff',
+                    padding: '2em',
+                    backdrop: 'rgba(0, 0, 0, 0.7)',
                 });
-            } else {            
+            } else {
                 console.error('Error durante el registro:', error);
                 // alert('Error inesperado. Intenta nuevamente.');
                 Swal.fire({
@@ -140,10 +145,10 @@ const Login = () => {
                     text: 'Error inesperado. Intenta nuevamente..',
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
-                    background: '#333', 
-                    color: '#fff', 
-                    padding: '2em', 
-                    backdrop: 'rgba(0, 0, 0, 0.7)', 
+                    background: '#333',
+                    color: '#fff',
+                    padding: '2em',
+                    backdrop: 'rgba(0, 0, 0, 0.7)',
                 });
             }
 
@@ -157,6 +162,21 @@ const Login = () => {
         // setMessageLogin(true)
 
         const userDataLogin = { email, password }
+
+        if (user_id) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Ya hay una sesión iniciada, cierrela antes de inciar una nueva!',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                background: '#333',
+                color: '#fff',
+                padding: '2em',
+                backdrop: 'rgba(0, 0, 0, 0.7)',
+            });
+            return;
+        }
+
         try {
             const response = await axios.post(`${apiUrl}/api/users/login`, userDataLogin) // ruta local modo desarrollo: 'http://localhost:4000/api/users/login'
 
@@ -166,10 +186,10 @@ const Login = () => {
                 text: 'Login exitoso!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
-                background: '#333', 
+                background: '#333',
                 color: '#fff',
-                padding: '2em', 
-                backdrop: 'rgba(0, 0, 0, 0.7)', 
+                padding: '2em',
+                backdrop: 'rgba(0, 0, 0, 0.7)',
                 confirmButtonColor: '#FFA500',
             });
 
@@ -228,15 +248,15 @@ const Login = () => {
                 <div className="col-xl-4 col-md-6 card my-5 p-4 card-login m-auto">
                     <h2 className="text-center">{changeLoginRegister ? 'Sign Up' : 'Log In'}</h2>
                     <form action="" onSubmit={changeLoginRegister ? handleRegister : handleLogin}>
-                        {changeLoginRegister && (  
+                        {changeLoginRegister && (
                             <div>
                                 <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="gender">Gender:</label>
                                     <select className="form-control" id="gender" onChange={handleSelectGender} >
-                                        <option value="" disabled selected>Select your gender</option> 
+                                        <option value="" disabled selected>Select your gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
-                                        <option value="other">Other</option> 
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                                 <div className="w-75 m-auto my-4">
