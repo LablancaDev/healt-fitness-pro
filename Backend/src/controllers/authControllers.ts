@@ -11,7 +11,7 @@ export const registerNewUser = async (req: Request, res: Response): Promise<void
         // Se extraen los datos del cuerpo de la solicitud
         const { userName, age, weight, height, email, password, gender } = req.body;
 
-        // También se extrae el nombre del archivo de la imágen, que es el archivo subido a través de Multer (un middleware de Node.js para manejar archivos).
+        // También se extrae el nombre del archivo de la imágen, que es el archivo subido a través de Multer (middleware de Node.js para manejar archivos).
         const profile_image = req.file?.filename;
 
         console.log('Datos a insertar:', { userName, age, weight, height, email, password, gender, profile_image });
@@ -77,7 +77,6 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
         // Búsqueda del usuario por email
         const user = await User.findOne({ email });
 
-        // Verifica si el usuario no existe
         if (!user) {
             console.log('Usuario no encontrado con el email:', email);
             res.status(401).json({ message: 'Email o contraseña incorrectos' });
@@ -111,7 +110,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
         });
 
     } catch (error: unknown) {
-        // Verificación de tipo para 'error'
+       
         if (error instanceof Error) {
             console.error('Error al procesar el login:', error.message);
             res.status(500).json({ message: 'Error durante el login', error: error.message });
@@ -127,14 +126,13 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 
 
 export const updateDataUser = async (req: Request, res: Response): Promise<void> => {
-    const { user_id } = req.params; // Obtener el ID del usuario desde los parámetros de la ruta
-    const { userName, userAge, userHeight, userWeight, userEmail, userGender } = req.body; // Obtener los datos del cuerpo de la solicitud
+    const { user_id } = req.params; 
+    const { userName, userAge, userHeight, userWeight, userEmail, userGender } = req.body; 
 
-    // Si usas multer o algún middleware para manejar archivos, asegúrate de que esté configurado
     const profileImage = req.file ? req.file.filename : null; // Obtener el nombre del archivo de la imagen si se subió
 
     try {
-        // Buscar el usuario por ID
+     
         const user = await User.findById(user_id);
 
         if (!user) {

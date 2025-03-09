@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Confetti from "react-confetti"; // Importa el componente de confeti
+import Confetti from "react-confetti"; 
 import imgBackHome from "../assets/imgs/gymBackHome.png";
 
 const Home: React.FC = () => {
@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     const [confetti, setConfetti] = useState(false); // Estado para controlar el confeti
 
     const handleGetStarted = () => {
-        setConfetti(true); // Inicia el confeti
+        setConfetti(true); 
         setTimeout(() => {
             setFadeOut(true);
             navigate("/fitnessgoal");

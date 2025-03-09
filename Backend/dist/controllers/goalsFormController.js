@@ -15,13 +15,13 @@ export const phisicalGoals = (req, res) => __awaiter(void 0, void 0, void 0, fun
         // Verificar que se haya enviado todo
         if (!userId || !goalId || desiredWeight <= 0 || desiredFatPercentage <= 0 || estimatedTargetTime <= 0) {
             res.status(400).json({ message: 'Invalid data' });
-            return; // Detener la ejecución de la función aquí
+            return;
         }
         // Buscar el objetivo por su ID y asegurarse de que pertenece al usuario autenticado (userId)
         const goal = yield Goal.findOne({ _id: goalId, user_id: userId });
         if (!goal) {
             res.status(404).json({ message: 'Goal not found or does not belong to the user' });
-            return; // Detener la ejecución de la función aquí
+            return;
         }
         // Actualizar el objetivo con los nuevos datos
         goal.desired_weight = desiredWeight;
@@ -43,7 +43,6 @@ export const activityRegister = (req, res) => __awaiter(void 0, void 0, void 0, 
     const { userId, goalId, activityDate, activityType, duration, caloriesBurned, caloriesIngested, todayWeight } = req.body;
     console.log('Activity register:', userId, goalId, activityDate, activityType, duration, caloriesBurned, caloriesIngested, todayWeight);
     try {
-        // Verificar que se haya enviado el userId y goalId
         if (!userId || !goalId) {
             res.status(400).json({ message: 'User ID and Goal ID are required.' });
             return;
@@ -61,9 +60,9 @@ export const activityRegister = (req, res) => __awaiter(void 0, void 0, void 0, 
         if (existingActivity) {
             // Actualizar la actividad existente
             existingActivity.activity_type = activityType;
-            existingActivity.duration += duration; // Sumar duración
-            existingActivity.calories_burned += caloriesBurned; // Sumar calorías quemadas
-            existingActivity.calories_ingested += caloriesIngested; // Sumar calorías ingeridas
+            existingActivity.duration += duration;
+            existingActivity.calories_burned += caloriesBurned;
+            existingActivity.calories_ingested += caloriesIngested;
             existingActivity.weight = todayWeight;
         }
         else {
@@ -90,9 +89,8 @@ export const activityRegister = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 });
 export const getDataUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.query; // Obtener solo el userId
+    const { userId } = req.query;
     try {
-        // Verificar que se haya enviado el userId
         if (!userId) {
             res.status(400).json({ message: 'User ID is required.' });
             return;
@@ -141,7 +139,6 @@ export const deleteActivities = (req, res) => __awaiter(void 0, void 0, void 0, 
         { $set: { activities: [] } }, // Vacía el array de actividades
         { new: true } // Devuelve el documento actualizado
         );
-        // Verifica si el objetivo del usuario existe
         if (!goal) {
             res.status(404).json({ message: 'Goal not found for this user.' });
             return;

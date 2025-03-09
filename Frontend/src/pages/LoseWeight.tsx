@@ -11,7 +11,6 @@ import squadFixed from '../assets/videos/squadFixed.gif';
 
 import workoutVideo from '../assets/videos/workoutVideo.mp4';
 
-// Definición de tipos para los datos
 interface Workout {
   src: string;
   label: string;

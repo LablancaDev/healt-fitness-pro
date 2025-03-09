@@ -12,12 +12,10 @@ export const fetchDataApi = async () => {
 
     try {
 
-        // Verificar si la respuesta fue exitosa        
         if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
         }
 
-        // Extraer y retornar la data JSON de la respuesta
         const data = await response.json();
 
         console.log('Data:', data)

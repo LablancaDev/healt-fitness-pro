@@ -14,7 +14,7 @@ const Login = () => {
         ? import.meta.env.VITE_APP_API_URL_PRODUCTION
         : import.meta.env.VITE_APP_API_URL_LOCAL;
 
-    console.log(import.meta.env.MODE); // OK: imprime "development" en entorno local
+    console.log(import.meta.env.MODE);
     console.log('API URL Local:', import.meta.env.VITE_APP_API_URL_LOCAL);
     console.log('API URL Production:', import.meta.env.VITE_APP_API_URL_PRODUCTION);
     console.log('API URL Final:', apiUrl);
@@ -86,7 +86,7 @@ const Login = () => {
             dataUser.append('profile_image', image);
         } else {
             console.error("No se ha seleccionado ninguna imagen.");
-            return; // Sal de la función si no hay imagen
+            return; // Sal de la función si no hay imagen 
         }
 
         try {
@@ -101,10 +101,10 @@ const Login = () => {
                 text: 'Registro correcto!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
-                background: '#333', // Fondo oscuro
-                color: '#fff', // Texto blanco
-                padding: '2em', // Espaciado interno
-                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                background: '#333',
+                color: '#fff',
+                padding: '2em', 
+                backdrop: 'rgba(0, 0, 0, 0.7)', 
                 confirmButtonColor: '#FFA500',
             });
 
@@ -127,12 +127,12 @@ const Login = () => {
                     text: error.response?.data?.message || 'Error inesperado. Intenta nuevamente.',
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
-                    background: '#333', // Fondo oscuro
-                    color: '#fff', // Texto blanco
-                    padding: '2em', // Espaciado interno
-                    backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                    background: '#333',
+                    color: '#fff', 
+                    padding: '2em', 
+                    backdrop: 'rgba(0, 0, 0, 0.7)', 
                 });
-            } else {
+            } else {            
                 console.error('Error durante el registro:', error);
                 // alert('Error inesperado. Intenta nuevamente.');
                 Swal.fire({
@@ -140,10 +140,10 @@ const Login = () => {
                     text: 'Error inesperado. Intenta nuevamente..',
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
-                    background: '#333', // Fondo oscuro
-                    color: '#fff', // Texto blanco
-                    padding: '2em', // Espaciado interno
-                    backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                    background: '#333', 
+                    color: '#fff', 
+                    padding: '2em', 
+                    backdrop: 'rgba(0, 0, 0, 0.7)', 
                 });
             }
 
@@ -166,17 +166,16 @@ const Login = () => {
                 text: 'Login exitoso!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
-                background: '#333', // Fondo oscuro
-                color: '#fff', // Texto blanco
-                padding: '2em', // Espaciado interno
-                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                background: '#333', 
+                color: '#fff',
+                padding: '2em', 
+                backdrop: 'rgba(0, 0, 0, 0.7)', 
                 confirmButtonColor: '#FFA500',
             });
 
             // Se extraen los datos de la respuesta del objeto de la respuesta con destructuración
             const { id, userName, age, weight, height, email, gender, profile_image } = response.data;
 
-            console.log("Datos recuperados despúes del Login:", id, userName, age, weight, height, email, gender, profile_image)
 
             dispatch(setUser({
                 user_id: id,
@@ -234,10 +233,10 @@ const Login = () => {
                                 <div className="w-75 m-auto my-4">
                                     <label className="form-label" htmlFor="gender">Gender:</label>
                                     <select className="form-control" id="gender" onChange={handleSelectGender} >
-                                        <option value="" disabled selected>Select your gender</option> {/* Placeholder */}
+                                        <option value="" disabled selected>Select your gender</option> 
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
-                                        <option value="other">Other</option> {/* También puedes añadir una opción adicional */}
+                                        <option value="other">Other</option> 
                                     </select>
                                 </div>
                                 <div className="w-75 m-auto my-4">

@@ -17,11 +17,9 @@ export const fetchDataApi = () => __awaiter(void 0, void 0, void 0, function* ()
         }
     });
     try {
-        // Verificar si la respuesta fue exitosa        
         if (!response.ok) {
             throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
         }
-        // Extraer y retornar la data JSON de la respuesta
         const data = yield response.json();
         console.log('Data:', data);
         return data; // Retornamos la data para que pueda ser enviada por el controlador

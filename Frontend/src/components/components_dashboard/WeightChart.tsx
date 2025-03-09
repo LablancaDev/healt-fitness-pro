@@ -21,16 +21,16 @@ const WeightChart: React.FC<WeightChartProps> = ({ activities }) => {
                 label: 'Weight (kg)', 
                 data: activities.map(activity => activity.weight), 
                 fill: true,
-                borderColor: '#4CAF50', // Verde suave para la línea
-                backgroundColor: 'rgba(76, 175, 80, 0.2)', // Fondo verde translúcido bajo la línea
-                pointBackgroundColor: '#FFFFFF', // Fondo blanco en los puntos
-                pointBorderColor: '#4CAF50', // Borde verde en los puntos
-                pointHoverBackgroundColor: '#4CAF50', // Color de fondo del punto al hacer hover
-                pointHoverBorderColor: '#FFFFFF', // Borde del punto al hacer hover
+                borderColor: '#4CAF50', 
+                backgroundColor: 'rgba(76, 175, 80, 0.2)', 
+                pointBackgroundColor: '#FFFFFF', 
+                pointBorderColor: '#4CAF50', 
+                pointHoverBackgroundColor: '#4CAF50', 
+                pointHoverBorderColor: '#FFFFFF', 
                 borderWidth: 3,
-                pointRadius: 5, // Tamaño de los puntos
-                tension: 0.4, // Curvatura de la línea para un efecto suave
-                shadowOffsetX: 0, // Sombra para el efecto 3D
+                pointRadius: 5, 
+                tension: 0.4, 
+                shadowOffsetX: 0, 
                 shadowOffsetY: 4,
                 shadowBlur: 10,
                 shadowColor: 'rgba(0, 0, 0, 0.3)',
@@ -46,16 +46,16 @@ const WeightChart: React.FC<WeightChartProps> = ({ activities }) => {
             legend: {
                 display: true,
                 labels: {
-                    color: '#FFFFFF', // Color de la leyenda
+                    color: '#FFFFFF', 
                     font: {
                         size: 14,
                     }
                 }
             },
             tooltip: {
-                backgroundColor: 'rgba(76, 175, 80, 0.9)', // Color de fondo del tooltip
-                titleColor: '#FFFFFF', // Color del título en el tooltip
-                bodyColor: '#FFFFFF', // Color del cuerpo del tooltip
+                backgroundColor: 'rgba(76, 175, 80, 0.9)', 
+                titleColor: '#FFFFFF', 
+                bodyColor: '#FFFFFF', 
                 bodyFont: {
                     size: 14,
                 },
@@ -68,32 +68,32 @@ const WeightChart: React.FC<WeightChartProps> = ({ activities }) => {
                 title: {
                     display: true,
                     text: 'Date',
-                    color: '#FFFFFF', // Color del título del eje X
+                    color: '#FFFFFF', 
                     font: {
                         size: 16,
                     },
                 },
                 ticks: {
-                    color: '#FFFFFF', // Color de las etiquetas del eje X
+                    color: '#FFFFFF', 
                 },
                 grid: {
-                    display: false, // Eliminamos las líneas del grid para un look más limpio
+                    display: false, 
                 },
             },
             y: {
                 title: {
                     display: true,
                     text: 'Weight (kg)',
-                    color: '#FFFFFF', // Color del título del eje Y
+                    color: '#FFFFFF', 
                     font: {
                         size: 16,
                     },
                 },
                 ticks: {
-                    color: '#FFFFFF', // Color de las etiquetas del eje Y
+                    color: '#FFFFFF', 
                 },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)', // Líneas del grid muy suaves
+                    color: 'rgba(255, 255, 255, 0.1)', 
                 },
                 beginAtZero: false
             }

@@ -23,7 +23,7 @@ export const initialGoal = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const user = yield User.findById(user_id);
         if (!user) {
             res.status(404).json({ message: 'Usuario no encontrado' });
-            return; // Si el usuario no existe, se detiene la ejecución
+            return;
         }
         // Crear un nuevo objetivo en la colección Goal con el objetivo inicial
         const newGoal = new Goal({
@@ -32,15 +32,13 @@ export const initialGoal = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
         // Guardar el nuevo registro de objetivo en la base de datos
         yield newGoal.save();
-        // Imprimir el ID del nuevo objetivo
         console.log('ID del objetivo:', newGoal._id);
         // Enviar el ID del objetivo recién creado como respuesta
         res.status(200).json({ message: '¡Objetivo guardado exitosamente!', goalId: newGoal._id });
     }
     catch (error) {
-        // Manejar errores de forma segura
         const errorMessage = error.message || 'Ocurrió un error desconocido';
-        console.error('Error:', errorMessage); // Imprimir error para depuración
+        console.error('Error:', errorMessage);
         res.status(500).json({ message: 'Error al guardar el objetivo inicial', error: errorMessage });
     }
 });

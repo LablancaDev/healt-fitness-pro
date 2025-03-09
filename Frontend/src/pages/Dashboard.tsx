@@ -5,7 +5,7 @@ import ActivityForm from '../components/components_dashboard/ActivityForm';
 import GoalForm from '../components/components_dashboard/GoalForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import axios from 'axios'; // Para realizar la llamada API
+import axios from 'axios'; 
 import Results from '../components/components_dashboard/Results';
 import WeightChart from '../components/components_dashboard/WeightChart';
 import { Link } from 'react-router-dom';
@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
 
                 if (result.data.goals.length > 0) {
                     const userGoal = result.data.goals[0];
-                    setUserData(userGoal); // Guardamos los datos del usuario en el estado
+                    setUserData(userGoal); 
                 } else {
                     setUserData(null);
                 }
@@ -90,7 +90,7 @@ const Dashboard: React.FC = () => {
             {/* Capa oscura detrás del contenido */}
             <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark" style={{
                 opacity: 0.75,
-                zIndex: 1, // Z-index bajo, para que esté detrás del contenido
+                zIndex: 1, // Z-index bajo, para que esté detrás del contenido 
             }}></div>
 
             {/* Contenido del dashboard */}

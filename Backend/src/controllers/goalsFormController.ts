@@ -10,7 +10,7 @@ export const phisicalGoals = async (req: Request, res: Response): Promise<void> 
         // Verificar que se haya enviado todo
         if (!userId || !goalId || desiredWeight <= 0 || desiredFatPercentage <= 0 || estimatedTargetTime <= 0) {
             res.status(400).json({ message: 'Invalid data' });
-            return; // Detener la ejecución de la función aquí
+            return; 
         }
 
         // Buscar el objetivo por su ID y asegurarse de que pertenece al usuario autenticado (userId)
@@ -18,7 +18,7 @@ export const phisicalGoals = async (req: Request, res: Response): Promise<void> 
 
         if (!goal) {
             res.status(404).json({ message: 'Goal not found or does not belong to the user' });
-            return; // Detener la ejecución de la función aquí
+            return; 
         }
 
         // Actualizar el objetivo con los nuevos datos
@@ -55,7 +55,7 @@ export const activityRegister = async (req: Request, res: Response): Promise<voi
     console.log('Activity register:', userId, goalId, activityDate, activityType, duration, caloriesBurned, caloriesIngested, todayWeight);
 
     try {
-        // Verificar que se haya enviado el userId y goalId
+
         if (!userId || !goalId) {
             res.status(400).json({ message: 'User ID and Goal ID are required.' });
             return;
@@ -80,9 +80,9 @@ export const activityRegister = async (req: Request, res: Response): Promise<voi
         if (existingActivity) {
             // Actualizar la actividad existente
             existingActivity.activity_type = activityType;
-            existingActivity.duration += duration;  // Sumar duración
-            existingActivity.calories_burned += caloriesBurned;  // Sumar calorías quemadas
-            existingActivity.calories_ingested += caloriesIngested;  // Sumar calorías ingeridas
+            existingActivity.duration += duration; 
+            existingActivity.calories_burned += caloriesBurned;  
+            existingActivity.calories_ingested += caloriesIngested;  
             existingActivity.weight = todayWeight
         } else {
             // Si no existe, agregar una nueva actividad
@@ -116,10 +116,10 @@ export const activityRegister = async (req: Request, res: Response): Promise<voi
 
 
 export const getDataUser = async (req: Request, res: Response): Promise<void> => {
-    const { userId } = req.query; // Obtener solo el userId
+    const { userId } = req.query; 
 
     try {
-        // Verificar que se haya enviado el userId
+
         if (!userId) {
             res.status(400).json({ message: 'User ID is required.' });
             return;
@@ -182,7 +182,6 @@ export const deleteActivities = async (req: Request, res: Response): Promise<voi
             { new: true }  // Devuelve el documento actualizado
         );
 
-        // Verifica si el objetivo del usuario existe
         if (!goal) {
             res.status(404).json({ message: 'Goal not found for this user.' });
             return;

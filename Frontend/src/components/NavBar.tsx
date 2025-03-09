@@ -69,7 +69,7 @@ const NavBar = () => {
                             <a className="nav-link dropdown-toggle navMenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i className="bi bi-person-lock"></i> My count
                             </a>
-                            <ul className="dropdown-menu dropdown-menu-end mt-3"> {/* Alinea el menú a la derecha */}
+                            <ul className="dropdown-menu dropdown-menu-end mt-3"> 
                                 <Link to={"/login"}>
                                     <li><a className="dropdown-item" href="#">Log In</a></li>
                                 </Link>

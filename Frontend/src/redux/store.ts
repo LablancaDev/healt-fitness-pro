@@ -6,11 +6,11 @@ import goalsSlice from "./goalsSlice";
 
 // Configuración de persistencia
 const persistConfig = {
-    key: "root", // La clave que se usará para almacenar el estado
-    storage,     // El almacenamiento que se usará (localStorage en este caso)
+    key: "root", 
+    storage,    
 };
 
-// Crea un reducer persistente para auth, para seguir con la sesión iniciada aunque recargue la página
+// Creo un reducer persistente para auth, para seguir con la sesión iniciada aunque recargue la página
 const persistedAuthReducer = persistReducer(persistConfig, authSlice);
 
 const store = configureStore({
@@ -20,10 +20,10 @@ const store = configureStore({
     },
 });
 
-// Crea el persistor
+
 const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { store, persistor }; // Exporta el store y el persistor
+export { store, persistor }; 

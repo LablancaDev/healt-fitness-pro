@@ -80,9 +80,7 @@ li {
 
 .fade-out {
   opacity: 0;
-  /* Desvanecer a 0 */
   transition: opacity 2s ease;
-  /* Controlar la duración y el estilo de la transición */
 }
 
 /* dashboard */

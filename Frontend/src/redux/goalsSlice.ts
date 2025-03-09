@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 /* Para almacenar los datos de los formularios en el estado global de Redux utilizando createSlice de @reduxjs/toolkit, se crea un estado global 
 para almacenar tanto el goalId como los datos de los formularios GoalForm, ActivityForm y ProgressForm.*/
 
-// Definimos la interfaz del estado
 interface GoalsState {
     goalId: string | null;
     userId: string | null;
@@ -13,7 +12,7 @@ interface GoalsState {
         estimatedTargetTime: number;
     };
     activity: {
-        activityDate: string; // Cambiado de Date a string
+        activityDate: string; 
         activityType: string;
         duration: number;
         caloriesBurned: number;
@@ -22,7 +21,6 @@ interface GoalsState {
     };
 }
 
-// Estado inicial
 const initialState: GoalsState = {
     goalId: null,
     userId: null,
@@ -32,7 +30,7 @@ const initialState: GoalsState = {
         estimatedTargetTime: 0,
     },
     activity: {
-        activityDate: '', // Inicializado como una cadena vacía
+        activityDate: '', 
         activityType: '',
         duration: 0,
         caloriesBurned: 0,
@@ -53,7 +51,7 @@ const goalsSlice = createSlice({
             state.physicalGoals = action.payload;
         },
         setActivity: (state, action: PayloadAction<{ activityDate: string; activityType: string; duration: number; caloriesBurned: number; caloriesIngested: number; weight: number }>) => {
-            state.activity = action.payload; // Asegúrate de incluir activityDate aquí
+            state.activity = action.payload; 
         },
         deleteActivity: (state) => {
             state.activity.activityDate = ""
@@ -73,7 +71,6 @@ const goalsSlice = createSlice({
     },
 });
 
-// Exportación de las acciones y el reductor
 export const { setGoalId, setPhysicalGoals, setActivity, resetGoalId, resetUserId, deleteActivity } = goalsSlice.actions;
 export default goalsSlice.reducer;
 

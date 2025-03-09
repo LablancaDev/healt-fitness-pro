@@ -138,7 +138,7 @@ function GainMuscle() {
     ],
   };
 
-  // Enpoint para obtener los datos de la api desde el servidor
+  // Endpoint para obtener los datos de la api desde el servidor
   // const handleGetDataApi = async () => {
   //   try {
   //     const response = await axios.get('http://localhost:4000/api/users/getExercises')

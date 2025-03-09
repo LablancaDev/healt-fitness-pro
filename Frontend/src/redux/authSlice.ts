@@ -53,15 +53,14 @@ const authSlice = createSlice({
             state.isAuthenticated = false
         },
         updateUser: (state, action: PayloadAction<Partial<Omit<AuthState, 'user_id' | 'isAuthenticated'>>>) => { //updateUser acepta un Partial<AuthState>, que permite actualizar solo algunas propiedades, excluyendo user_id y isAuthenticated, que son importantes para la lógica del estado de autenticación.
-            // Aquí puedes asegurarte de que estás actualizando solo los campos que no son necesarios para identificar al usuario.
-            Object.assign(state, action.payload);
+        
+            Object.assign(state, action.payload); 
         } 
     }   
 })
 
 
-// Exportar las acciones
+
 export const { setUser, logout, updateUser } = authSlice.actions;
 
-// Exportar el reducer
 export default authSlice.reducer;

@@ -20,7 +20,7 @@ const GoalSchema = new Schema({
     },
     estimated_time: {
         type: Number,
-        default: null, // En semanas o meses
+        default: null,
     },
     activities: [
         {

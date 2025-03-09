@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 const allowedOrigins = [
     'https://frontend-healt-fitness-pro.onrender.com', // Frontend en producción
     'https://healt-fitness-pro.onrender.com',
-    'http://localhost:5173', // Frontend local para desarrollo (si usas Vite)
+    'http://localhost:5173', // Frontend local para desarrollo 
     process.env.FRONTEND_URL // URL del frontend configurado en las variables de entorno
 ].filter(Boolean); // 🔹 Filtra valores undefined
 app.use(cors({

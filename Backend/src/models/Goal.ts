@@ -7,7 +7,7 @@ interface IActivity {
   duration: number;
   calories_burned: number;
   calories_ingested: number;
-  weight: number; // Añadir campo de peso opcional
+  weight: number; 
 }
 
 // Definir una interfaz para el modelo de Goal
@@ -42,7 +42,7 @@ const GoalSchema: Schema = new Schema({
   },
   estimated_time: {
     type: Number,
-    default: null,  // En semanas o meses
+    default: null,  
   },
   activities: [  // Array de subdocumentos para las actividades
     {
@@ -66,7 +66,7 @@ const GoalSchema: Schema = new Schema({
         type: Number,
         required: true,
       },
-      weight: {  // Añadir el campo de peso a las actividades
+      weight: {  
         type: Number,
         default: null,
       }

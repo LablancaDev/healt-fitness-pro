@@ -39,15 +39,15 @@ function FitnessGoal() {
                 text: 'Objetivo principal registrado exitosamente!',
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
-                background: '#333', // Fondo oscuro
-                color: '#fff', // Texto blanco
-                padding: '2em', // Espaciado interno
-                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                background: '#333', 
+                color: '#fff', 
+                padding: '2em', 
+                backdrop: 'rgba(0, 0, 0, 0.7)', 
                 confirmButtonColor: '#FFA500',
             });
 
             if (response.status === 200) {
-                // Aquí puedes obtener el goalId de la respuesta
+                // obtener el goalId de la respuesta
                 const goalId = response.data.goalId;
                 console.log('ID del objetivo guardado:', goalId);
 
@@ -66,10 +66,10 @@ function FitnessGoal() {
                 text: 'Falló al registrar el objetivo principal. Asegúrate de estar conectado.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar',
-                background: '#333', // Fondo oscuro
-                color: '#fff', // Texto blanco
-                padding: '2em', // Espaciado interno
-                backdrop: 'rgba(0, 0, 0, 0.7)', // Fondo del backdrop
+                background: '#333',
+                color: '#fff', 
+                padding: '2em', 
+                backdrop: 'rgba(0, 0, 0, 0.7)', 
             });
         }
     }
